@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "springythings:springy"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "springythings:springy"
+      }
+    ]
+  }
+}

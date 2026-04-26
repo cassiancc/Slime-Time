@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "springythings",
+	"version": "${version}",
+	"name": "Springy Things",
+	"description": "Springs and things related to springs, featuring a backport of the Bounciness attribute.",
+	"authors": [
+		"cassiancc"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/springy-things",
+		"sources": "https://github.com/cassiancc/springy-things",
+		"issues": "https://github.com/cassiancc/springy-things/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/springythings/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"cc.cassian.springs.SpringyThings"
+		],
+		"fabric-datagen": [
+			"cc.cassian.springs.client.data.SpringyDataGenerator"
+		]
+	},
+	"mixins": [
+		"springythings.mixins.json"
+	],
+	"accessWidener": "springythings.classtweaker",
+	"depends": {
+		"fabricloader": ">=0.18.2",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

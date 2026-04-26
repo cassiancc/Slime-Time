@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:honey_block",
+    {
+      "id": "#minecraft:suppresses_bounce",
+      "required": false
+    }
+  ]
+}
