@@ -1,6 +1,8 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.entity.SlimeballEntity;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,9 +25,8 @@ public abstract class ItemMixin {
 
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
 	private void init(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-		var item = (Item) (Object) this;
-		if (item.getDefaultInstance().is(Items.SLIME_BALL)) {
-			ItemStack itemStack = player.getItemInHand(hand);
+		ItemStack itemStack = player.getItemInHand(hand);
+		if (SlimeTime.CONFIG.throwableSlimeballs && itemStack.is(SlimeItemTags.THROWABLE_SLIME_BALLS)) {
 			level.playSound(
 					null,
 					player.getX(),
@@ -40,7 +41,7 @@ public abstract class ItemMixin {
 				Projectile.spawnProjectileFromRotation(SlimeballEntity::new, serverLevel, itemStack, player, 0.0F, 1.5F, 1.0F);
 			}
 
-			player.awardStat(Stats.ITEM_USED.get(item));
+			player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 			itemStack.consume(1, player);
 			cir.setReturnValue(InteractionResult.SUCCESS);
 		}

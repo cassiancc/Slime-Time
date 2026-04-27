@@ -1,5 +1,6 @@
 package cc.cassian.slime.entity;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import net.minecraft.core.Direction;
@@ -67,6 +68,10 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 						SoundEvents.BUBBLE_POP, SoundSource.NEUTRAL,
 						this.getBounce() * .7f, this.getBounce() * 1.5f
 				);
+			}
+		} else {
+			if (SlimeTime.CONFIG.slimeballParticles && random.nextBoolean() && tickCount > 1) {
+				level().addParticle(getParticle(), getX(), getY(), getZ(), 0.0, 0.0, 0.0);
 			}
 		}
 		if (this.getDeltaMovement().equals(Vec3.ZERO)) {

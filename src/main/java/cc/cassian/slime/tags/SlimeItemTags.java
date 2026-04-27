@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 
 public class SlimeItemTags {
 	public static final TagKey<Item> SLIME_BALLS = getTagKey("c","slime_balls");
+	public static final TagKey<Item> THROWABLE_SLIME_BALLS = getTagKey("throwable_slime_balls");
 
 	private static TagKey<Item> getTagKey(String id) {
 		return getTagKey(SlimeTime.MOD_ID, id);

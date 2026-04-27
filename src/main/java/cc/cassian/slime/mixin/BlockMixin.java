@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BlockMixin implements SlimeBlock {
 	@Inject(at = @At("HEAD"), method = "updateEntityMovementAfterFallOn", cancellable = true)
 	private void init(CallbackInfo info, @Local(argsOnly = true) Entity entity) {
-		if (!entity.isSuppressingBounce() && !SlimeTime.CONFIG.advancedVerticalBounciness) {
+		if (!entity.isSuppressingBounce() && !SlimeTime.CONFIG.verticalBounciness) {
 			this.springs$bounceUp(entity);
 			info.cancel();
 		}
