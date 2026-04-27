@@ -3,16 +3,17 @@ package cc.cassian.springs;
 import cc.cassian.springs.registry.SpringyAttributes;
 import cc.cassian.springs.registry.SpringyGameEvents;
 import cc.cassian.springs.registry.SpringyItems;
-import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.loader.api.FabricLoader;
+import dev.yumi.mc.core.api.ModContainer;
+import dev.yumi.mc.core.api.YumiMods;
+import dev.yumi.mc.core.api.entrypoint.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SpringyThings implements ModInitializer {
 	public static final String MOD_ID = "springythings";
-	public static final ModConfig CONFIG = ModConfig.createToml(FabricLoader.getInstance().getConfigDir(), "", MOD_ID, ModConfig.class);
+	public static final ModConfig CONFIG = ModConfig.createToml(YumiMods.get().getConfigDirectory(), "", MOD_ID, ModConfig.class);
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
@@ -24,12 +25,12 @@ public class SpringyThings implements ModInitializer {
 	}
 
 	@Override
-	public void onInitialize() {
+	public void onInitialize(ModContainer mod) {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("Spring the world!");
 		SpringyAttributes.touch();
 		SpringyItems.touch();
 		SpringyGameEvents.touch();

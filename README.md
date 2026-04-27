@@ -17,7 +17,7 @@ Springy Things is a client and server mod for Fabric 26.1. Its dependencies are 
 ## FAQ
 
 - Will this mod be ported to other versions/loaders?
-    - My focus is exclusively on 26.1 Fabric at this time.
+    - My focus is exclusively on 26.1 at this time.
 
 ## License
 [![Code license (MIT)](https://img.shields.io/badge/code%20license-MIT-green.svg?style=flat-square)](https://github.com/cassiancc/springy-things)

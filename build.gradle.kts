@@ -6,7 +6,7 @@ plugins {
 
 }
 
-version = "${property("mod_version")}+${property("minecraft_version")}-fabric"
+version = "${property("mod_version")}+${property("minecraft_version")}"
 group = providers.gradleProperty("maven_group").get()
 
 repositories {
@@ -51,6 +51,15 @@ repositories {
             includeGroupAndSubgroups("cc.cassian")
         }
     }
+    maven {
+        name = "NeoForge"
+        url = uri("https://maven.neoforged.net/releases/")
+        content {
+            includeGroupAndSubgroups("net.neoforged")
+            includeGroupAndSubgroups("cpw.mods")
+            includeGroupAndSubgroups("net.minecraftforge")
+        }
+    }
 }
 
 
@@ -73,7 +82,13 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
-
+    // NeoForge
+    compileOnly ("net.neoforged:neoforge:${property("neoforge_version")}:universal")
+    compileOnly("net.neoforged.fancymodloader:loader:${property("neoforge_loader_version")}")
+    // Yumi MC Commons
+    api("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
+    include("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
+    implementation("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
     // Mod Menu
     compileOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
     localRuntime("maven.modrinth:modmenu:${property("modmenu_version")}")
@@ -97,11 +112,20 @@ dependencies {
 }
 
 tasks.processResources {
-	inputs.property("version", version)
+    fun prop(name: String) = project.property(name) as String
 
-	filesMatching("fabric.mod.json") {
-		expand("version" to version)
-	}
+    val props = HashMap<String, String>().apply {
+        this["mod_version"] = prop("mod_version") + "+" + prop("minecraft_version")
+        this["mod_name"] = prop("mod_name")
+        this["mod_license"] = prop("mod_license")
+        this["mod_id"] = prop("mod_id")
+        this["mod_description"] = prop("mod_description")
+
+    }
+
+    filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml")) {
+        expand(props)
+    }
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -150,9 +174,10 @@ publishMods {
     // one of BETA, ALPHA, STABLE
     type = STABLE
     displayName = "${property("mod_name")} ${property("mod_version")} for ${property("minecraft_version")} Fabric"
-    version = "${property("mod_version")}+${property("minecraft_version")}-fabric"
+    version = "${property("mod_version")}+${property("minecraft_version")}"
     changelog = provider { rootProject.file("CHANGELOG-LATEST.md").readText() }
     modLoaders.add("fabric")
+    modLoaders.add("neoforge")
 
 
     modrinth {
