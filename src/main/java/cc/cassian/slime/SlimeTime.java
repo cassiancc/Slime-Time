@@ -1,6 +1,7 @@
 package cc.cassian.slime;
 
 import cc.cassian.slime.registry.SlimeAttributes;
+import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.registry.SlimeGameEvents;
 import cc.cassian.slime.registry.SlimeItems;
 
@@ -25,6 +26,7 @@ public class SlimeTime implements ModInitializer {
 		LOGGER.info("Slime the world!");
 		SlimeAttributes.touch();
 		SlimeItems.touch();
+		SlimeEntityTypes.touch();
 		SlimeGameEvents.touch();
 	}
 }

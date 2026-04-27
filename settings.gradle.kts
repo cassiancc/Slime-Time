@@ -15,4 +15,4 @@ pluginManagement {
 }
 
 // Should match your modid
-rootProject.name = "springworks"
+rootProject.name = "slime-time"

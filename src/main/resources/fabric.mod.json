@@ -19,6 +19,9 @@
 		"yumi:init": [
 			"cc.cassian.slime.SlimeTime"
 		],
+		"yumi:client_init": [
+			"cc.cassian.slime.client.SlimeTimeClient"
+		],
 		"main": [
 			"cc.cassian.slime.platform.FabricEntrypoint"
 		],

@@ -30,5 +30,8 @@ config = "slime_time.mixins.json"
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
 
-[modproperties.springythings."yumi:entrypoints"."yumi:init"]
+[modproperties.slime_time."yumi:entrypoints"."yumi:init"]
 value = "cc.cassian.slime.SlimeTime"
+
+[modproperties.slime_time."yumi:entrypoints"."yumi:client_init"]
+value = "cc.cassian.slime.client.SlimeTimeClient"
