@@ -1,4 +1,6 @@
 {
   "attribute.name.bounciness": "Bounciness",
-  "item.slime_time.slime_boots": "Slime Boots"
+  "item.slime_time.slime_boots": "Slime Boots",
+  "item.slime_time.slime_bucket": "Bucket of Slime",
+  "item.slime_time.magma_cube_bucket": "Bucket of Magma Cube"
 }

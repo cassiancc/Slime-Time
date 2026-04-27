@@ -9,6 +9,11 @@ Bounce around with Slime Boots - featuring a backport of the Bounciness attribut
 
 Slime Time is a client and server mod for 26.1. Its dependencies are listed below.
 
+## Features
+- Slime Boots, which allow players wearing them to bounce around.
+- Buckets of Slime and Buckets of Magma Cubes.
+- A backport of the `bounciness` attribute from Minecraft 26.2.
+
 ### Dependencies
 - [Fabric API](https://modrinth.com/mod/fabric-api) is required.
 - [McQoy](https://modrinth.com/mod/mcqoy) is recommended to configure the mod.

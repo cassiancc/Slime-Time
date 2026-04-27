@@ -6,7 +6,8 @@
     "BlockMixin",
     "EntityMixin",
     "ItemMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "SlimeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
