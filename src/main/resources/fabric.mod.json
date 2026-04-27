@@ -8,28 +8,28 @@
 		"cassiancc"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/project/springy-things",
-		"sources": "https://github.com/cassiancc/springy-things",
-		"issues": "https://github.com/cassiancc/springy-things/issues"
+		"homepage": "https://modrinth.com/project/slime-time",
+		"sources": "https://github.com/cassiancc/slime-time",
+		"issues": "https://github.com/cassiancc/slime-time/issues"
 	},
 	"license": "MIT",
-	"icon": "assets/springythings/icon.png",
+	"icon": "assets/slime_time/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"yumi:init": [
-			"cc.cassian.springs.SpringyThings"
+			"cc.cassian.slime.SlimeTime"
 		],
 		"main": [
-			"cc.cassian.springs.platform.FabricEntrypoint"
+			"cc.cassian.slime.platform.FabricEntrypoint"
 		],
 		"fabric-datagen": [
-			"cc.cassian.springs.client.data.SpringyDataGenerator"
+			"cc.cassian.slime.client.data.SlimeDataGenerator"
 		]
 	},
 	"mixins": [
-		"springythings.mixins.json"
+		"slime_time.mixins.json"
 	],
-	"accessWidener": "springythings.classtweaker",
+	"accessWidener": "slime_time.classtweaker",
 	"depends": {
 		"fabricloader": ">=0.18.2",
 		"minecraft": "~26.1",

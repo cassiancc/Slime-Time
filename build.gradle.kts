@@ -64,13 +64,13 @@ repositories {
 
 
 loom {
-    accessWidenerPath = file("src/main/resources/springythings.classtweaker")
+    accessWidenerPath = file("src/main/resources/slime_time.classtweaker")
 }
 
 fabricApi {
     configureDataGeneration({
         client = true
-        modId = "springythings"
+        modId = "slime_time"
     })
 }
 
@@ -143,7 +143,8 @@ java {
 }
 
 tasks.jar {
-	inputs.property("projectName", project.name)
+    val projectName = project.name
+    inputs.property("projectName", projectName)
 
 	from("LICENSE") {
 		rename { "${it}_${project.name}" }

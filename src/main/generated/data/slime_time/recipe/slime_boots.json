@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "l": "#c:slime_balls",
+    "s": "minecraft:slime_block"
+  },
+  "pattern": [
+    "l l",
+    "s s"
+  ],
+  "result": {
+    "id": "slime_time:slime_boots"
+  }
+}

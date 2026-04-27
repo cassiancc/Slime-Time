@@ -1,0 +1,4 @@
+classTweaker v2 official
+transitive-inject-interface net/minecraft/world/level/block/Block cc/cassian/slime/api/SlimeBlock
+transitive-inject-interface net/minecraft/world/entity/Entity cc/cassian/slime/api/SlimeEntity
+transitive-inject-interface net/minecraft/world/entity/LivingEntity cc/cassian/slime/api/SlimeEntity
