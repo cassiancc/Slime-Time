@@ -30,7 +30,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SlimeballEntity extends ThrowableItemProjectile {
 	private static final EntityDataAccessor<Float> BOUNCE = SynchedEntityData.defineId(SlimeballEntity.class, EntityDataSerializers.FLOAT);
 

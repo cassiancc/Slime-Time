@@ -9,9 +9,11 @@ import dev.yumi.mc.core.api.ModContainer;
 import dev.yumi.mc.core.api.YumiMods;
 import dev.yumi.mc.core.api.entrypoint.ModInitializer;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@NullMarked
 public class SlimeTime implements ModInitializer {
 	public static final String MOD_ID = "slime_time";
 	public static final ModConfig CONFIG = ModConfig.createToml(YumiMods.get().getConfigDirectory(), "", MOD_ID, ModConfig.class);

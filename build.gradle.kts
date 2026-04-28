@@ -174,7 +174,7 @@ publishMods {
 
     // one of BETA, ALPHA, STABLE
     type = STABLE
-    displayName = "${property("mod_name")} ${property("mod_version")} for ${property("minecraft_version")} Fabric"
+    displayName = "${property("mod_name")} ${property("mod_version")} for ${property("minecraft_version")}"
     version = "${property("mod_version")}+${property("minecraft_version")}"
     changelog = provider { rootProject.file("CHANGELOG-LATEST.md").readText() }
     modLoaders.add("fabric")
@@ -184,7 +184,7 @@ publishMods {
     modrinth {
         projectId = property("modrinth_id") as String
         accessToken = env.MODRINTH_API_KEY.orNull()
-        minecraftVersions.add(property("minecraft_version").toString())
+        minecraftVersions.addAll(listOf("26.1", "26.1.1", "26.1.2"))
         requires("fabric-api")
         optional("mcqoy")
         optional("rrv")

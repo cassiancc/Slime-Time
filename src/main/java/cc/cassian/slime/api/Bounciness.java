@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -42,6 +43,11 @@ public class Bounciness {
 
 			movementAfterBounce = movementAfterBounce.with(Direction.Axis.Y, (gravityCompensation - currentMovement.y) * restitution);
 		}
+
+		if (movementAfterBounce.y < 0.4 && restitution > 0.0) {
+			movementAfterBounce = new Vec3(movementAfterBounce.x, 0.0, movementAfterBounce.z);
+		}
+
 
 		if (bounced) {
 			entity.gameEvent(SlimeGameEvents.BOUNCE);

@@ -5,7 +5,9 @@ import dev.yumi.mc.core.api.ModContainer;
 import dev.yumi.mc.core.api.entrypoint.client.ClientModInitializer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SlimeTimeClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient(ModContainer modContainer) {
