@@ -27,6 +27,9 @@
 		],
 		"fabric-datagen": [
 			"cc.cassian.slime.client.data.SlimeDataGenerator"
+		],
+		"rrv_client": [
+			"cc.cassian.slime.platform.RrvEntrypoint"
 		]
 	},
 	"mixins": [

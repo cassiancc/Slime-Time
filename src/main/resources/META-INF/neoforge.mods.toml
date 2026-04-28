@@ -1,6 +1,6 @@
 issueTrackerURL="https://github.com/cassiancc/Slime-Time/issues"
 displayURL="https://modrinth.com/project/slime-time/"
-logoFile= "/assets/slime_time/icon.png"
+logoFile= "assets/slime_time/icon.png"
 authors="cassiancc"
 license="${mod_license}"
 
@@ -9,6 +9,7 @@ modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
 description="${mod_description}"
+rrv_client="cc.cassian.slime.platform.RrvEntrypoint"
 
 [[dependencies.slime_time]]
 modId="neoforge"
