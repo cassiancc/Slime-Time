@@ -26,7 +26,6 @@ public class SlimeItems {
 	public static final Item SLIME_BOOTS = register("slime_boots", Item::new, new Item.Properties().humanoidArmor(SlimeMaterials.SLIME, ArmorType.BOOTS).durability(128)
 			.attributes(ItemAttributeModifiers.builder()
 					.add(SlimeAttributes.BOUNCINESS, new AttributeModifier(SlimeTime.of("spring_boots"), 1f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
-					.add(Attributes.SAFE_FALL_DISTANCE, new AttributeModifier(SlimeTime.of("spring_boots"), 2f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
 					.build()));
 
 	public static final Item SLIME_BUCKET = register("slime_bucket", (p) -> new SlimeBucketItem(EntityType.SLIME, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY));
