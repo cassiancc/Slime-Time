@@ -1,6 +1,9 @@
 {
   "attribute.name.bounciness": "Bounciness",
   "item.slime_time.slime_boots": "Slime Boots",
+  "lore.slime_time.slime_boots": "An armour piece that allows the player to bounce around.",
   "item.slime_time.slime_bucket": "Bucket of Slime",
-  "item.slime_time.magma_cube_bucket": "Bucket of Magma Cube"
+  "lore.slime_time.slime_bucket": "A bucket with a Slime inside.",
+  "item.slime_time.magma_cube_bucket": "Bucket of Magma Cube",
+  "lore.slime_time.magma_cube_bucket": "A bucket with a Magma Cube inside. Can be fed to Frogs for Froglights."
 }
