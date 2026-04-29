@@ -21,5 +21,6 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		valueLookupBuilder(ItemTags.FOOT_ARMOR).add(SlimeItems.SLIME_BOOTS);
 		valueLookupBuilder(SlimeItemTags.THROWABLE_SLIME_BALLS).add(Items.SLIME_BALL);
 		valueLookupBuilder(ConventionalItemTags.BUCKETS).add(SlimeItems.SLIME_BUCKET).add(SlimeItems.MAGMA_CUBE_BUCKET);
+		valueLookupBuilder(ItemTags.FROG_FOOD).add(SlimeItems.SLIME_BUCKET);
 	}
 }

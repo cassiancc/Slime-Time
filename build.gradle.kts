@@ -108,6 +108,10 @@ dependencies {
     localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("rrv_version")}") {
         isTransitive = false
     }
+    localRuntime("cc.cassian.item-descriptions:item-descriptions-fabric:${property("item_descriptions_version")}") {
+        exclude(group = "mcp.mobius.waila")
+        exclude(group = "lol.bai")
+    }
 	
 }
 
