@@ -11,7 +11,8 @@ Slime Time is a client and server mod for 26.1. Its dependencies are listed belo
 
 ## Features
 - **Slime Boots**, which allow players wearing them to bounce around.
-- **Buckets of Slime** and **Buckets of Magma Cubes**. Buckets of Magma Cubes can be fed to Frogs to recieve Froglights.
+- **Buckets of Slime**, which can be used to breed Frogs.
+- **Buckets of Magma Cubes**, which can be fed to Frogs to recieve Froglights.
 - Throwing a Slime Ball at an entity will inflict it with **Slime Time**, a new effect that causes afflicted targets to bounce around.
 - A backport of the `bounciness` attribute from Minecraft 26.2.
 
@@ -23,7 +24,7 @@ Slime Time is a client and server mod for 26.1. Its dependencies are listed belo
 ## FAQ
 
 - Will this mod be ported to other versions/loaders?
-    - My focus is exclusively on 26.1 at this time.
+  - My focus is exclusively on 26.1 at this time.
 
 ## License
 [![Code license (MIT)](https://img.shields.io/badge/code%20license-MIT-green.svg?style=flat-square)](https://github.com/cassiancc/slime-time)
