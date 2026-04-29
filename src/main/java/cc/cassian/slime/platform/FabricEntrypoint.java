@@ -13,7 +13,7 @@ public class FabricEntrypoint implements ModInitializer {
 	public void onInitialize() {
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(event -> {
 			event.insertAfter(Items.TURTLE_HELMET, SlimeItems.SLIME_BOOTS);
-			if (SlimeTime.CONFIG.addSlimeBallToCombatTab)
+			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
 				event.insertAfter(Items.SNOWBALL, Items.SLIME_BALL);
 		});
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {

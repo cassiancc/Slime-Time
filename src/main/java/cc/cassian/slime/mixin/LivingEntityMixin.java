@@ -36,7 +36,7 @@ public abstract class LivingEntityMixin implements SlimeEntity {
 		cir.setReturnValue(cir.getReturnValue().add(SlimeAttributes.BOUNCINESS));
 	}
 
-	@Inject(method = "travelInWater", at = @At(value = "RETURN"), cancellable = true)
+	@Inject(method = "travelInWater", at = @At(value = "RETURN"))
 	private void removeSlimeTime(Vec3 input, double baseGravity, boolean isFalling, double oldY, CallbackInfo ci) {
 		if (this.isAffectedByPotions() && this.hasEffect(SlimeEffects.SLIME_TIME)) {
 			this.removeEffect(SlimeEffects.SLIME_TIME);

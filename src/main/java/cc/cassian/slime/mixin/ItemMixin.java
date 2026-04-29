@@ -26,7 +26,7 @@ public abstract class ItemMixin {
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
 	private void init(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		if (SlimeTime.CONFIG.throwableSlimeballs && itemStack.is(SlimeItemTags.THROWABLE_SLIME_BALLS)) {
+		if (SlimeTime.CONFIG.slimeTime.throwableSlimeballs && itemStack.is(SlimeItemTags.THROWABLE_SLIME_BALLS)) {
 			level.playSound(
 					null,
 					player.getX(),

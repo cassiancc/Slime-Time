@@ -16,7 +16,7 @@ public class NeoForgeEntrypoint {
 	public static void modifyTabs(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
 			event.insertAfter(Items.TURTLE_HELMET.getDefaultInstance(), SlimeItems.SLIME_BOOTS.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-			if (SlimeTime.CONFIG.addSlimeBallToCombatTab)
+			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
 				event.insertAfter(Items.SNOWBALL.getDefaultInstance(), Items.SLIME_BALL.getDefaultInstance(),  CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
 		else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {

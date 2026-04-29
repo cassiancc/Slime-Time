@@ -75,7 +75,7 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 				this.discard();
 			}
 		} else {
-			if (SlimeTime.CONFIG.slimeballParticles && random.nextBoolean() && tickCount > 1) {
+			if (SlimeTime.CONFIG.client.slimeballParticles && random.nextBoolean() && tickCount > 1) {
 				level().addParticle(getParticle(), getX(), getY(), getZ(), 0.0, 0.0, 0.0);
 			}
 		}
