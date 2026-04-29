@@ -25,17 +25,17 @@ import net.minecraft.world.level.material.Fluids;
 
 import java.util.function.Function;
 
-public class SlimeItems {
-	public static final Item SLIME_BOOTS = register("slime_boots", Item::new, new Item.Properties().humanoidArmor(SlimeMaterials.SLIME, ArmorType.BOOTS).durability(128)
+public interface SlimeItems {
+	Item SLIME_BOOTS = register("slime_boots", Item::new, new Item.Properties().humanoidArmor(SlimeMaterials.SLIME, ArmorType.BOOTS).durability(128)
 			.attributes(ItemAttributeModifiers.builder()
 					.add(SlimeAttributes.BOUNCINESS, new AttributeModifier(SlimeTime.of("spring_boots"), 1f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
 					.build()));
 
-	public static final Item SLIME_BUCKET = register("slime_bucket", (p) -> new SlimeBucketItem(EntityType.SLIME, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
-	public static final Item MAGMA_CUBE_BUCKET = register("magma_cube_bucket", (p) -> new SlimeBucketItem(EntityType.MAGMA_CUBE, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
+	Item SLIME_BUCKET = register("slime_bucket", (p) -> new SlimeBucketItem(EntityType.SLIME, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
+	Item MAGMA_CUBE_BUCKET = register("magma_cube_bucket", (p) -> new SlimeBucketItem(EntityType.MAGMA_CUBE, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
 
 
-	public static <T extends Item> T register(ResourceKey<Item> itemKey, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+	static <T extends Item> T register(ResourceKey<Item> itemKey, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
 		// Create the item instance.
 		T item = itemFactory.apply(settings.setId(itemKey));
 
@@ -45,13 +45,13 @@ public class SlimeItems {
 		return item;
 	}
 
-	public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+	static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
 		// Create the item key.
 		ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, SlimeTime.of(name));
 		return register(itemKey, itemFactory, settings);
 	}
 
-	public static void touch() {
+	static void touch() {
 
 	}
 }

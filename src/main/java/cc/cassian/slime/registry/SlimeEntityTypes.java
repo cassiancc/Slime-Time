@@ -10,8 +10,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
-public class SlimeEntityTypes {
-	public static final EntityType<SlimeballEntity> SLIMEBALL = register(
+public interface SlimeEntityTypes {
+	EntityType<SlimeballEntity> SLIMEBALL = register(
 			"slimeball", EntityType.Builder.<SlimeballEntity>of(SlimeballEntity::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
 	);
 
@@ -27,7 +27,7 @@ public class SlimeEntityTypes {
 		return register(key(id), builder);
 	}
 
-	public static void touch() {
+	static void touch() {
 
 	}
 }

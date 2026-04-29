@@ -26,10 +26,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Mob.class)
-public abstract class SlimeMixin {
+public abstract class MobMixin {
 
 	@Inject(at = @At("TAIL"), method = "mobInteract", cancellable = true)
-	private void init(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+	private void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		var mob = (Mob) (Object) this;
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (mob instanceof Slime slime) {

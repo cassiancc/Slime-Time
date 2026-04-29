@@ -25,13 +25,13 @@ import net.minecraft.world.item.equipment.ArmorType;
 import java.util.function.Function;
 
 public class SlimeEffects {
-	public static final Holder<MobEffect> SLIME_TIME = register(
+	public static Holder<MobEffect> SLIME_TIME = register(
 			"slime_time",
 			new SlimeMobEffect(MobEffectCategory.BENEFICIAL, 10092451)
 					.addAttributeModifier(SlimeAttributes.BOUNCINESS, SlimeTime.of("effect.slime_time"), 1.0, AttributeModifier.Operation.ADD_VALUE)
 	);
 
-	public static class SlimeMobEffect extends MobEffect {
+	private static class SlimeMobEffect extends MobEffect {
 		protected SlimeMobEffect(MobEffectCategory category, int color) {
 			super(category, color, ParticleTypes.ITEM_SLIME);
 		}

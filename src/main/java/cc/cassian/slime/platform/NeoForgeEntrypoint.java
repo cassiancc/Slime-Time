@@ -1,5 +1,6 @@
 package cc.cassian.slime.platform;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.registry.SlimeItems;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -15,6 +16,8 @@ public class NeoForgeEntrypoint {
 	public static void modifyTabs(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
 			event.insertAfter(Items.TURTLE_HELMET.getDefaultInstance(), SlimeItems.SLIME_BOOTS.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+			if (SlimeTime.CONFIG.addSlimeBallToCombatTab)
+				event.insertAfter(Items.SNOWBALL.getDefaultInstance(), Items.SLIME_BALL.getDefaultInstance(),  CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
 		else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
 			event.insertAfter(Items.TADPOLE_BUCKET.getDefaultInstance(), SlimeItems.SLIME_BUCKET.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

@@ -17,4 +17,6 @@ public class ModConfig extends WrappedConfig {
 
 	@Comment("Whether thrown slimeballs should emit particles")
 	public boolean slimeballParticles = true;
+
+	public boolean addSlimeBallToCombatTab = true;
 }

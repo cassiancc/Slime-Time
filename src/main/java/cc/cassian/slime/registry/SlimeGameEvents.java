@@ -6,8 +6,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class SlimeGameEvents {
-	public static final Holder.Reference<GameEvent> BOUNCE = register("bounce");
+public interface SlimeGameEvents {
+	Holder.Reference<GameEvent> BOUNCE = register("bounce");
 
 	private static Holder.Reference<GameEvent> register(final String name) {
 		return register(name, 16);
@@ -17,7 +17,7 @@ public class SlimeGameEvents {
 		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, SlimeTime.of(name), new GameEvent(notificationRadius));
 	}
 
-	public static void touch() {
+	static void touch() {
 
 	}
 }

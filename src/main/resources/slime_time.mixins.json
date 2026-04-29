@@ -9,7 +9,7 @@
     "ItemMixin",
     "LivingEntityMixin",
     "PistonMovingBlockEntityMixin",
-    "SlimeMixin"
+    "MobMixin"
   ],
   "injectors": {
     "defaultRequire": 1

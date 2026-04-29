@@ -72,6 +72,7 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 						SoundEvents.BUBBLE_POP, SoundSource.NEUTRAL,
 						this.getBounce() * .7f, this.getBounce() * 1.5f
 				);
+				this.discard();
 			}
 		} else {
 			if (SlimeTime.CONFIG.slimeballParticles && random.nextBoolean() && tickCount > 1) {
@@ -99,6 +100,7 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 
 	@Override
 	protected void onHitBlock(BlockHitResult blockHitResult) {
+		super.onHitBlock(blockHitResult);
 		this.bounce(blockHitResult);
 	}
 
