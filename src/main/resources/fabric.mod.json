@@ -41,5 +41,8 @@
 		"minecraft": "~26.1",
 		"java": ">=25",
 		"fabric-api": "*"
+	},
+	"breaks": {
+		"rrv": "<8.0.0"
 	}
 }

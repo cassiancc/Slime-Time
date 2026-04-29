@@ -3,15 +3,16 @@
 <a href='https://modrinth.com/mod/springy-things/versions?l=fabric'><img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"></a>
 <a href='https://modfest.net/26'><img alt="Made for ModFest: 26" height="56" src="https://raw.githubusercontent.com/cassiancc/Cassians-Badges/refs/heads/main/cozy/ModFest-26.svg"></a>
 
-Bounce around with Slime Boots - featuring a backport of the Bounciness attribute.
+Bounce around with Slime Boots, throwable Slime Balls, Slime Buckets, and more - powered by a backport of the Bounciness attribute.
 
 ## Installation
 
 Slime Time is a client and server mod for 26.1. Its dependencies are listed below.
 
 ## Features
-- Slime Boots, which allow players wearing them to bounce around.
-- Buckets of Slime and Buckets of Magma Cubes. Buckets of Magma Cubes can be fed to Frogs to recieve Froglights.
+- **Slime Boots**, which allow players wearing them to bounce around.
+- **Buckets of Slime** and **Buckets of Magma Cubes**. Buckets of Magma Cubes can be fed to Frogs to recieve Froglights.
+- Throwing a Slime Ball at an entity will inflict it with **Slime Time**, a new effect that causes afflicted targets to bounce around.
 - A backport of the `bounciness` attribute from Minecraft 26.2.
 
 ### Dependencies

@@ -1,6 +1,7 @@
 package cc.cassian.slime.entity;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeEffects;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import net.minecraft.core.Direction;
@@ -14,6 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -85,7 +87,13 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 	protected void onHitEntity(EntityHitResult entityHitResult) {
 		super.onHitEntity(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (entity instanceof Player || entity instanceof SlimeballEntity) return;
+		if (entity instanceof LivingEntity livingEntity) {
+			if (livingEntity.isAffectedByPotions()) {
+				livingEntity.addEffect(new MobEffectInstance(SlimeEffects.SLIME_TIME, 200));
+			}
+			this.discard();
+		}
+		if (entity instanceof SlimeballEntity) return;
 		this.setDeltaMovement(Vec3.ZERO);
 	}
 

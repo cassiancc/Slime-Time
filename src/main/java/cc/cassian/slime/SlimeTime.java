@@ -1,9 +1,6 @@
 package cc.cassian.slime;
 
-import cc.cassian.slime.registry.SlimeAttributes;
-import cc.cassian.slime.registry.SlimeEntityTypes;
-import cc.cassian.slime.registry.SlimeGameEvents;
-import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.*;
 
 import dev.yumi.mc.core.api.ModContainer;
 import dev.yumi.mc.core.api.YumiMods;
@@ -39,5 +36,6 @@ public class SlimeTime implements ModInitializer {
 		SlimeItems.touch();
 		SlimeEntityTypes.touch();
 		SlimeGameEvents.touch();
+		SlimeEffects.touch();
 	}
 }
