@@ -27,7 +27,7 @@ public class Bounciness {
 		boolean bounced = restitution > 0.0 && (xCollision || zCollision);
 		if (entity.verticalCollision) {
 			if (entity.verticalCollisionBelow) {
-				restitution = !(-currentMovement.y < getGravity(entity)) && !entity.isSuppressingBounce() && !effectState.is(SlimeBlockTags.SUPPRESSES_BOUNCE)
+				restitution = !(-currentMovement.y < getGravity(entity)) && !entity.isInWater() && !entity.isSuppressingBounce() && !effectState.is(SlimeBlockTags.SUPPRESSES_BOUNCE)
 						? Math.max(restitution, getBlockBounciness(entity, effectState.getBlock()))
 						: 0.0;
 			}
