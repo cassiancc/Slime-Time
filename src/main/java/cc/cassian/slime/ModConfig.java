@@ -32,8 +32,10 @@ public class ModConfig extends WrappedConfig {
 
 	public SlimeSling slimeSling = new SlimeSling();
 	public static class SlimeSling implements WrappedConfig.Section {
+		@Comment("How much force to add to the Slime Sling.")
 		public float horizontalForceMultiplier = 1.5f;
 
+		@Comment("How much force to add to the Slime Sling.")
 		public float verticalForceMultiplier = 1f;
 	}
 }

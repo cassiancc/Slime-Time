@@ -11,6 +11,7 @@ Slime Time is a client and server mod for 26.1. Its dependencies are listed belo
 
 ## Features
 - **Slime Boots**, which allow players wearing them to bounce around.
+- **Slime Slings**, a tool used to launch players in the opposite direction they were facing.
 - **Buckets of Slime**, which can be used to breed Frogs.
 - **Buckets of Magma Cubes**, which can be fed to Frogs to recieve Froglights.
 - Throwing a Slime Ball at an entity will inflict it with **Slime Time**, a new effect that causes afflicted targets to bounce around.

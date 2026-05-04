@@ -34,12 +34,13 @@ public class SlimeSlingItem extends Item {
 				return false;
 			} else {
 				if (level instanceof ServerLevel) {
-					Direction direction = player.getNearestViewDirection();
-					Vec3 launch = player.getDeltaMovement().with(direction.getAxis(), direction.getAxisDirection().opposite().getStep() * pow * SlimeTime.CONFIG.slimeSling.horizontalForceMultiplier);
-					launch = launch.with(Direction.Axis.Y, pow * SlimeTime.CONFIG.slimeSling.verticalForceMultiplier);
+					Vec3 view = player.getViewVector(0);
+					float horizontalForceMultiplier = SlimeTime.CONFIG.slimeSling.horizontalForceMultiplier;
+					var launch = new Vec3(-view.x* horizontalForceMultiplier, pow * SlimeTime.CONFIG.slimeSling.verticalForceMultiplier, -view.z* horizontalForceMultiplier);
 					player.setDeltaMovement(launch);
 					player.hurtMarked = true;
 				}
+				itemStack.hurtAndBreak(1, entity, entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof SlimeSlingItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
 
 				level.playSound(
 						null,
