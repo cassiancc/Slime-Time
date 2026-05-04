@@ -27,6 +27,8 @@ import java.util.function.Function;
 
 public interface SlimeSoundEvents {
 	SoundEvent SLIME_SLING_FLING = register("slime_time.slime_sling.fling");
+	SoundEvent SLIME_SLING_SNAP = register("slime_time.slime_sling.snap");
+	SoundEvent SLIMY_BOUNCE = register("slime_time.slimy_bounce");
 
 	private static SoundEvent register(final String id) {
 		return register(SlimeTime.of(id));

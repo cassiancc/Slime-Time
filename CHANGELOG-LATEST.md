@@ -1,2 +1,5 @@
 ### Added
-- Slime Slings, a tool used to launch players in the opposite direction they were facing.
+- Sound effects for slime boot bouncing.
+
+### Fixed
+- Slime Slings can no longer be used in the air.

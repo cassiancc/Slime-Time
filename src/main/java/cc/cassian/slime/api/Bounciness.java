@@ -1,12 +1,15 @@
 package cc.cassian.slime.api;
 
+import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeSoundEvents;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import cc.cassian.slime.registry.SlimeGameEvents;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -49,11 +52,26 @@ public class Bounciness {
 		}
 
 
-		if (bounced) {
+		if (bounced && restitution > 0.1) {
 			entity.gameEvent(SlimeGameEvents.BOUNCE);
+			if (SlimeTime.CONFIG.client.slimyBounceSound && entity instanceof LivingEntity livingEntity) {
+				for (EquipmentSlot value : EquipmentSlot.values()) {
+					if (livingEntity.getItemBySlot(value).is(SlimeItemTags.SLIMY_ARMOR)) {
+						playBounceSound(livingEntity);
+					}
+				}
+			}
 		}
 
 		entity.setDeltaMovement(movementAfterBounce);
+	}
+
+	public static void playBounceSound(LivingEntity livingEntity) {
+		livingEntity.playSound(
+				SlimeSoundEvents.SLIMY_BOUNCE,
+				1.0F,
+				1.0F / (livingEntity.getRandom().nextFloat() * 0.4F + 1.2F) * 0.5F
+		);
 	}
 
 	private static double getGravity(Entity entity) {

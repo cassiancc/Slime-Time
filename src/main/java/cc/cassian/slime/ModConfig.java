@@ -2,8 +2,6 @@ package cc.cassian.slime;
 
 import folk.sisby.kaleido.api.WrappedConfig;
 import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Comment;
-import folk.sisby.kaleido.lib.quiltconfig.api.annotations.DisplayName;
-import folk.sisby.kaleido.lib.quiltconfig.api.values.ValueList;
 
 public class ModConfig extends WrappedConfig {
 	public SlimeTime slimeTime = new SlimeTime();
@@ -17,6 +15,8 @@ public class ModConfig extends WrappedConfig {
 	public static class Client implements WrappedConfig.Section {
 		@Comment("Whether thrown slimeballs should emit particles")
 		public boolean slimeballParticles = true;
+		@Comment("Whether to play a sound when an entity with Slime Boots bounces.")
+		public boolean slimyBounceSound = true;;
 	}
 
 	public Bounciness bounciness = new Bounciness();
@@ -36,6 +36,6 @@ public class ModConfig extends WrappedConfig {
 		public float horizontalForceMultiplier = 1.5f;
 
 		@Comment("How much force to add to the Slime Sling.")
-		public float verticalForceMultiplier = 1f;
+		public float verticalForceMultiplier = 1.2f;
 	}
 }

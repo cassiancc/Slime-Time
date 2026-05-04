@@ -4,5 +4,21 @@
       "random/bow"
     ],
     "subtitle": "slime_time.slime_sling.fling.subtitles"
+  },
+  "slime_time.slime_sling.snap": {
+    "sounds": [
+      "entity/leashknot/break"
+    ],
+    "subtitle": "slime_time.slime_sling.snap.subtitles"
+  },
+  "slime_time.slimy_bounce": {
+    "sounds": [
+      "mob/slime/small1",
+      "mob/slime/small2",
+      "mob/slime/small3",
+      "mob/slime/small4",
+      "mob/slime/small5"
+    ],
+    "subtitle": "slime_time.slimy_bounce.subtitles"
   }
 }

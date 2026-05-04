@@ -1,6 +1,7 @@
 package cc.cassian.slime.item;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeGameEvents;
 import cc.cassian.slime.registry.SlimeSoundEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -29,6 +30,19 @@ public class SlimeSlingItem extends Item {
 		if (!(entity instanceof Player player)) {
 			return false;
 		} else {
+			if (!player.onGround()) {
+				level.playSound(
+						null,
+						player.getX(),
+						player.getY(),
+						player.getZ(),
+						SlimeSoundEvents.SLIME_SLING_SNAP,
+						SoundSource.PLAYERS,
+						1.0F,
+						1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) * 0.5F
+				);
+				return false;
+			}
 			int timeHeld = this.getUseDuration(itemStack, entity) - remainingTime;
 			float pow = getPowerForTime(timeHeld);
 			if (pow < 0.1) {
@@ -42,6 +56,8 @@ public class SlimeSlingItem extends Item {
 					player.hurtMarked = true;
 				}
 				itemStack.hurtAndBreak(1, entity, entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof SlimeSlingItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
+
+				entity.gameEvent(SlimeGameEvents.BOUNCE);
 
 				level.playSound(
 						null,

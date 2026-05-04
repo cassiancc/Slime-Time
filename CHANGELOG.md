@@ -1,3 +1,8 @@
+## [1.1.0]
+
+### Added
+- Slime Slings, a tool used to launch players in the opposite direction they were facing.
+
 ## [1.0.3]
 
 ### Changed
