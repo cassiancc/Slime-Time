@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "l": "#c:slime_balls"
+  },
+  "pattern": [
+    "l l",
+    "lll"
+  ],
+  "result": {
+    "id": "slime_time:slime_sling"
+  }
+}

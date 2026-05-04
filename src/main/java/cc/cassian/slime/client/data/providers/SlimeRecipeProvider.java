@@ -30,12 +30,19 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 						.define('s', Items.SLIME_BLOCK)
 						.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
 						.save(output);
+
+				shaped(RecipeCategory.MISC, SlimeItems.SLIME_SLING, 1)
+						.pattern("l l")
+						.pattern("lll")
+						.define('l', ConventionalItemTags.SLIME_BALLS)
+						.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
+						.save(output);
 			}
 		};
 	}
 
 	@Override
 	public String getName() {
-		return "Springy Things Recipes";
+		return "Slime Time Recipes";
 	}
 }

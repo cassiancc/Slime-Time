@@ -2,6 +2,8 @@ package cc.cassian.slime.registry;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.item.SlimeBucketItem;
+import cc.cassian.slime.item.SlimeSlingItem;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,6 +35,7 @@ public interface SlimeItems {
 
 	Item SLIME_BUCKET = register("slime_bucket", (p) -> new SlimeBucketItem(EntityType.SLIME, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
 	Item MAGMA_CUBE_BUCKET = register("magma_cube_bucket", (p) -> new SlimeBucketItem(EntityType.MAGMA_CUBE, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET).component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(Items.BUCKET))));
+	Item SLIME_SLING = register("slime_sling", SlimeSlingItem::new, new Item.Properties().durability(128).repairable(SlimeItemTags.SLIME_BALLS).stacksTo(1));
 
 
 	static <T extends Item> T register(ResourceKey<Item> itemKey, Function<Item.Properties, T> itemFactory, Item.Properties settings) {

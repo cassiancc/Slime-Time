@@ -6,6 +6,8 @@
   "lore.slime_time.slime_bucket": "A bucket with a Slime inside. Can be fed to Frogs to breed them.",
   "item.slime_time.magma_cube_bucket": "Bucket of Magma Cube",
   "lore.slime_time.magma_cube_bucket": "A bucket with a Magma Cube inside. Can be fed to Frogs for Froglights.",
+  "item.slime_time.slime_sling": "Slime Sling",
+  "lore.slime_time.slime_sling": "Launches its user far off into the horizon.",
   "effect.slime_time.slime_time": "Slime Time",
   "effect.slime_time.slime_time.description": "An effect that causes you to bounce around."
 }

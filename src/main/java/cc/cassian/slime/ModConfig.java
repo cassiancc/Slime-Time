@@ -29,4 +29,11 @@ public class ModConfig extends WrappedConfig {
 		@Comment("Note that this replaces large parts of collision code, so mod conflicts may emerge.")
 		public boolean verticalBounciness = true;
 	}
+
+	public SlimeSling slimeSling = new SlimeSling();
+	public static class SlimeSling implements WrappedConfig.Section {
+		public float horizontalForceMultiplier = 1.5f;
+
+		public float verticalForceMultiplier = 1f;
+	}
 }

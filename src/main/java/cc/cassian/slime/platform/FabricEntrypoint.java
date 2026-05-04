@@ -19,6 +19,7 @@ public class FabricEntrypoint implements ModInitializer {
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
 			event.insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
+			event.insertBefore(Items.SADDLE, SlimeItems.SLIME_SLING);
 		});
 	}
 }

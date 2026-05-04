@@ -22,6 +22,7 @@ public class NeoForgeEntrypoint {
 		else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
 			event.insertAfter(Items.TADPOLE_BUCKET.getDefaultInstance(), SlimeItems.SLIME_BUCKET.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.insertBefore(Items.SADDLE.getDefaultInstance(), SlimeItems.SLIME_SLING.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
 	}
 }

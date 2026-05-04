@@ -1,3 +1,11 @@
+## [1.0.3]
+
+### Changed
+- Bouncing in shallow water is no longer possible.
+
+### Fixed
+- Item Descriptions support
+
 ## [1.0.2]
 
 ### Added
