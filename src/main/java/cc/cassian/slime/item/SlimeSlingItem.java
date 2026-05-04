@@ -1,6 +1,7 @@
 package cc.cassian.slime.item;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeSoundEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -47,7 +48,7 @@ public class SlimeSlingItem extends Item {
 						player.getX(),
 						player.getY(),
 						player.getZ(),
-						SoundEvents.ARROW_SHOOT,
+						SlimeSoundEvents.SLIME_SLING_FLING,
 						SoundSource.PLAYERS,
 						1.0F,
 						1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + pow * 0.5F

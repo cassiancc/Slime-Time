@@ -37,5 +37,6 @@ public class SlimeTime implements ModInitializer {
 		SlimeEntityTypes.touch();
 		SlimeGameEvents.touch();
 		SlimeEffects.touch();
+		SlimeSoundEvents.touch();
 	}
 }
