@@ -1,6 +1,12 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "slime_time:item/slime_boots"
+    "model": "slime_time:item/slime_boots",
+    "tints": [
+      {
+        "type": "minecraft:dye",
+        "default": -7274619
+      }
+    ]
   }
 }

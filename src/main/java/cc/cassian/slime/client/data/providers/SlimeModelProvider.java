@@ -22,7 +22,7 @@ public class SlimeModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(ItemModelGenerators itemModelGenerators) {
-		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BOOTS, ModelTemplates.FLAT_ITEM);
+		itemModelGenerators.generateDyedItem(SlimeItems.SLIME_BOOTS, -7274619);
 		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BUCKET, ModelTemplates.FLAT_ITEM);
 		itemModelGenerators.generateFlatItem(SlimeItems.MAGMA_CUBE_BUCKET, ModelTemplates.FLAT_ITEM);
 		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_SLING, ModelTemplates.FLAT_HANDHELD_ITEM);

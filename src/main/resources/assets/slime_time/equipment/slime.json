@@ -2,11 +2,17 @@
   "layers": {
     "humanoid": [
       {
+        "dyeable": {
+          "color_when_undyed": -7274619
+        },
         "texture": "slime_time:slime"
       }
     ],
     "humanoid_baby": [
       {
+        "dyeable": {
+          "color_when_undyed": -7274619
+        },
         "texture": "slime_time:slime"
       }
     ]
