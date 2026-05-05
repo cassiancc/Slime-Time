@@ -59,6 +59,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
 					.save(output);
 			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
+			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");
 		}
 
 		public void dyedItem(final Item target, final String group) {
