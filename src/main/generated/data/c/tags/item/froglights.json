@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:ochre_froglight",
+    "minecraft:pearlescent_froglight",
+    "minecraft:verdant_froglight",
+    {
+      "id": "instantfeedback:cerulean_froglight",
+      "required": false
+    }
+  ]
+}

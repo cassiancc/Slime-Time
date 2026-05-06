@@ -12,5 +12,12 @@
   "slime_time.slime_sling.snap.subtitles": "Slime Sling snaps",
   "slime_time.slimy_bounce.subtitles": "Entity bounces",
   "effect.slime_time.slime_time": "Slime Time",
-  "effect.slime_time.slime_time.description": "An effect that causes you to bounce around."
+  "effect.slime_time.slime_time.description": "An effect that causes you to bounce around.",
+  "tag.item.c.froglights": "Froglights",
+  "tag.item.slime_time.throwable_slime_balls": "Throwable Slime Balls",
+  "tag.item.slime_time.slimy_armor": "Throwable Slime Balls",
+  "tag.slime_time.slimy_armor.description": "Armor that makes slimy sounds when you bounce.",
+  "tag.slime_time.throwable_slime_balls.description": "Slime Balls that can be thrown.",
+  "tag.c.froglights.description": "A bright light source produced when a Frog eats a Magma Cube."
+
 }

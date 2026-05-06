@@ -1,5 +1,3 @@
 ### Added
-- Sound effects for slime boot bouncing.
-
-### Fixed
-- Slime Slings can no longer be used in the air.
+- Conventional tag for Froglights.
+- Translations and descriptions for the mod's tags.
