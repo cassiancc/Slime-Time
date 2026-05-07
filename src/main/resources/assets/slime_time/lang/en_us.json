@@ -18,6 +18,8 @@
   "tag.item.slime_time.slimy_armor": "Throwable Slime Balls",
   "tag.slime_time.slimy_armor.description": "Armor that makes slimy sounds when you bounce.",
   "tag.slime_time.throwable_slime_balls.description": "Slime Balls that can be thrown.",
-  "tag.c.froglights.description": "A bright light source produced when a Frog eats a Magma Cube."
-
+  "tag.c.froglights.description": "A bright light source produced when a Frog eats a Magma Cube.",
+  "component.slime_sling.horizontal_force": " Horizontal Force: x%s",
+  "component.slime_sling.vertical_force": " Vertical Force: x%s",
+  "slime_time.modifiers.used": "When Used:"
 }

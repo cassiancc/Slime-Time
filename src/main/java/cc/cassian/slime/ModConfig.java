@@ -16,7 +16,7 @@ public class ModConfig extends WrappedConfig {
 		@Comment("Whether thrown slimeballs should emit particles")
 		public boolean slimeballParticles = true;
 		@Comment("Whether to play a sound when an entity with Slime Boots bounces.")
-		public boolean slimyBounceSound = true;;
+		public boolean slimyBounceSound = true;
 	}
 
 	public Bounciness bounciness = new Bounciness();
@@ -28,14 +28,5 @@ public class ModConfig extends WrappedConfig {
 		@Comment("Whether to allow bouncing vertically, based on 26.2+ bounciness logic.")
 		@Comment("Note that this replaces large parts of collision code, so mod conflicts may emerge.")
 		public boolean verticalBounciness = true;
-	}
-
-	public SlimeSling slimeSling = new SlimeSling();
-	public static class SlimeSling implements WrappedConfig.Section {
-		@Comment("How much force to add to the Slime Sling.")
-		public float horizontalForceMultiplier = 1.5f;
-
-		@Comment("How much force to add to the Slime Sling.")
-		public float verticalForceMultiplier = 1.2f;
 	}
 }

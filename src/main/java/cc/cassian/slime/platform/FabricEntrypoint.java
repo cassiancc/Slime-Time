@@ -1,9 +1,11 @@
 package cc.cassian.slime.platform;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 
@@ -21,5 +23,6 @@ public class FabricEntrypoint implements ModInitializer {
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
 			event.insertBefore(Items.SADDLE, SlimeItems.SLIME_SLING);
 		});
+		ItemComponentTooltipProviderRegistry.addFirst(SlimeDataComponents.FORCE_MULTIPLIER);
 	}
 }

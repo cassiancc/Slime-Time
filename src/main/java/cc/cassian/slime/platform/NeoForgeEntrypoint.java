@@ -1,6 +1,7 @@
 package cc.cassian.slime.platform;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -8,6 +9,9 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+
+import java.util.Objects;
 
 @EventBusSubscriber()
 public class NeoForgeEntrypoint {
@@ -25,4 +29,12 @@ public class NeoForgeEntrypoint {
 			event.insertBefore(Items.SADDLE.getDefaultInstance(), SlimeItems.SLIME_SLING.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		}
 	}
+
+	@SubscribeEvent
+	public static void registerTooltip(ItemTooltipEvent event) {
+		if (event.getItemStack().has(SlimeDataComponents.FORCE_MULTIPLIER)) {
+			Objects.requireNonNull(event.getItemStack().get(SlimeDataComponents.FORCE_MULTIPLIER)).addToTooltip(event.getContext(), (component)->event.getToolTip().add(component), event.getFlags(), event.getItemStack().getComponents());
+		}
+	}
+
 }
