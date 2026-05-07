@@ -16,6 +16,10 @@ import net.minecraft.world.phys.Vec3;
 
 public class Bounciness {
 	public static void restituteMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
+		entity.setDeltaMovement(getMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement));
+	}
+
+	public static Vec3 getMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
 		double restitution = entity.isSuppressingBounce() ? 0.0 : entity.slime$getEntityBounciness();
 		Vec3 currentMovement = entity.getDeltaMovement();
 		Vec3 movementAfterBounce = currentMovement;
@@ -63,7 +67,7 @@ public class Bounciness {
 			}
 		}
 
-		entity.setDeltaMovement(movementAfterBounce);
+		return movementAfterBounce;
 	}
 
 	public static void playBounceSound(LivingEntity livingEntity) {
