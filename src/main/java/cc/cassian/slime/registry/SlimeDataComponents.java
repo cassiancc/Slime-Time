@@ -9,7 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import java.util.function.UnaryOperator;
 
 public class SlimeDataComponents {
-    public static final DataComponentType<ForceMultiplier> FORCE_MULTIPLIER = registerComponentType("size",
+    public static final DataComponentType<ForceMultiplier> FORCE_MULTIPLIER = registerComponentType("force",
             (builder) -> builder.persistent(ForceMultiplier.CODEC).networkSynchronized(ForceMultiplier.STREAM_CODEC));
 
     public static <T> DataComponentType<T> registerComponentType(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
