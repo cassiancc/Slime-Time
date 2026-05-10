@@ -1,2 +1,5 @@
+### Added
+- English (Upside Down) translation.
+
 ### Fixed
-- Typo in new data component.
+- Tag translation

@@ -1,3 +1,8 @@
+## [1.1.4]
+
+### Fixed
+- Typo in new data component.
+
 ## [1.1.3]
 
 ### Added
