@@ -3,7 +3,6 @@ package cc.cassian.slime.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -36,7 +35,7 @@ public record ForceMultiplier(float horizontalForce, float verticalForce) implem
     public static final ForceMultiplier DEFAULT = new ForceMultiplier(1.5f, 1.2f);
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
         consumer.accept(Component.empty());
         consumer.accept(Component.translatable("slime_time.modifiers.used").withStyle(ChatFormatting.GRAY));
         consumer.accept(Component.translatable("component.slime_sling.horizontal_force", horizontalForce).withStyle(ChatFormatting.DARK_GREEN));

@@ -20,7 +20,7 @@ public class Bounciness {
 	}
 
 	public static Vec3 getMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
-		double restitution = entity.isSuppressingBounce() ? 0.0 : entity.slime$getEntityBounciness();
+		double restitution = entity.isSuppressingBounce() ? 0.0 : ((SlimeEntity) entity).slime$getEntityBounciness();
 		Vec3 currentMovement = entity.getDeltaMovement();
 		Vec3 movementAfterBounce = currentMovement;
 		if (xCollision) {
@@ -87,7 +87,7 @@ public class Bounciness {
 	}
 
 	private static double getBlockBounciness(Entity entity, final Block onBlock) {
-		float blockBounciness = onBlock.slime$getBounceRestitution();
+		float blockBounciness = ((SlimeBlock) onBlock).slime$getBounceRestitution();
 		if (!(entity instanceof LivingEntity)) {
 			blockBounciness *= 0.8F;
 		}

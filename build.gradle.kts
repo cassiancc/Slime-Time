@@ -1,5 +1,5 @@
 plugins {
-	id("net.fabricmc.fabric-loom")
+	id("net.fabricmc.fabric-loom-remap")
 	`maven-publish`
     id("me.modmuss50.mod-publish-plugin") version "0.8.+"
     id("co.uzzu.dotenv.gradle") version "4.0.0"
@@ -60,11 +60,28 @@ repositories {
             includeGroupAndSubgroups("net.minecraftforge")
         }
     }
-}
-
-
-loom {
-    accessWidenerPath = file("src/main/resources/slime_time.classtweaker")
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Parchment Mappings"
+                url = uri("https://maven.parchmentmc.org")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("org.parchmentmc")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Gegy"
+                url = uri("https://maven.gegy.dev/releases/")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("dev.lambdaurora")
+        }
+    }
 }
 
 fabricApi {
@@ -77,41 +94,32 @@ fabricApi {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft("com.mojang:minecraft:${providers.gradleProperty("minecraft_version").get()}")
-	
-	implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
+	 mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${property("deps.parchment")}@zip")
+        mappings("dev.lambdaurora:yalmm-mojbackward:${property("minecraft_version")}+build.${property("deps.mojbackward")}")
+    })
+
+	modImplementation("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
-    // NeoForge
-    compileOnly ("net.neoforged:neoforge:${property("neoforge_version")}:universal")
-    compileOnly("net.neoforged.fancymodloader:loader:${property("neoforge_loader_version")}")
-    // Yumi MC Commons
-    api("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
-    include("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
-    implementation("dev.yumi.mc.core:yumi-mc-foundation:${property("yumi_version")}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
     // Mod Menu
-    compileOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
-    localRuntime("maven.modrinth:modmenu:${property("modmenu_version")}")
+    modCompileOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
+    modLocalRuntime("maven.modrinth:modmenu:${property("modmenu_version")}")
 
     // Configs
     implementation("folk.sisby:kaleido-config:${property("kaleido_version")}")
     include("folk.sisby:kaleido-config:${property("kaleido_version")}")
 
     // McQoy
-    implementation("dev.isxander:yet-another-config-lib:${property("yacl_version")}")
-    implementation("maven.modrinth:mcqoy:${property("mcqoy_version")}")
+    modImplementation("dev.isxander:yet-another-config-lib:${property("yacl_version")}-fabric")
+    modImplementation("maven.modrinth:mcqoy:${property("mcqoy_version")}")
 
     // RRV
-	compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("rrv_version")}") {
-        isTransitive = false
-    }
-    localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("rrv_version")}") {
-        isTransitive = false
-    }
-    localRuntime("cc.cassian.item-descriptions:item-descriptions-fabric:${property("item_descriptions_version")}") {
-        exclude(group = "mcp.mobius.waila")
-        exclude(group = "lol.bai")
-    }
+    modCompileOnly("maven.modrinth:emi:${property("deps.emi")}+${property("minecraft_version")}+fabric")
+    modImplementation("maven.modrinth:emi:${property("deps.emi")}+${property("minecraft_version")}+fabric")
+    implementation("org.jspecify:jspecify:1.0.0")
 	
 }
 
@@ -133,7 +141,7 @@ tasks.processResources {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-	options.release = 25
+	options.release = 21
 }
 
 java {
@@ -142,8 +150,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 tasks.jar {
@@ -182,16 +190,15 @@ publishMods {
     version = "${property("mod_version")}+${property("minecraft_version")}"
     changelog = provider { rootProject.file("CHANGELOG-LATEST.md").readText() }
     modLoaders.add("fabric")
-    modLoaders.add("neoforge")
 
 
     modrinth {
         projectId = property("modrinth_id") as String
         accessToken = env.MODRINTH_API_KEY.orNull()
-        minecraftVersions.addAll(listOf("26.1", "26.1.1", "26.1.2"))
+        minecraftVersions.addAll(listOf("1.21.1"))
         requires("fabric-api")
         optional("mcqoy")
-        optional("rrv")
+        optional("emi")
     }
 
     /*

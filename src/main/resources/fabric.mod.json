@@ -16,33 +16,26 @@
 	"icon": "assets/slime_time/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"yumi:init": [
+		"main": [
 			"cc.cassian.slime.SlimeTime"
 		],
-		"yumi:client_init": [
+		"client": [
 			"cc.cassian.slime.client.SlimeTimeClient"
-		],
-		"main": [
-			"cc.cassian.slime.platform.FabricEntrypoint"
 		],
 		"fabric-datagen": [
 			"cc.cassian.slime.client.data.SlimeDataGenerator"
 		],
-		"rrv_client": [
-			"cc.cassian.slime.platform.RrvEntrypoint"
+		"emi": [
+			"cc.cassian.slime.platform.EmiEntrypoint"
 		]
 	},
 	"mixins": [
 		"slime_time.mixins.json"
 	],
-	"accessWidener": "slime_time.classtweaker",
 	"depends": {
-		"fabricloader": ">=0.19.0",
-		"minecraft": "~26.1",
-		"java": ">=25",
+		"fabricloader": ">=0.16.0",
+		"minecraft": "1.21.1",
+		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"breaks": {
-		"rrv": "<8.0.0"
 	}
 }

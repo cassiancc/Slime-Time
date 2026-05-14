@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "l": "#c:slime_balls"
+    "l": {
+      "tag": "c:slime_balls"
+    }
   },
   "pattern": [
     "l l",
     "lll"
   ],
   "result": {
+    "count": 1,
     "id": "slime_time:slime_sling"
   }
 }
