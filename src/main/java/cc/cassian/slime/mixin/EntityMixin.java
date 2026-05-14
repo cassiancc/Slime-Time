@@ -5,6 +5,8 @@ import cc.cassian.slime.api.SlimeEntity;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
@@ -22,18 +24,31 @@ import static cc.cassian.slime.SlimeTime.CONFIG;
 public abstract class EntityMixin implements SlimeEntity {
 
 	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateEntityAfterFallOn(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/entity/Entity;)V"), method = "move")
-	private void vertical(Block instance, BlockGetter level, Entity entity, Operation<Void> original, @Local(name = "blockState") BlockState effectState, @Local(name = "bl") boolean xCollision, @Local(name = "bl2") boolean zCollision, @Local(name = "vec3") Vec3 movement) {
+	private void vertical(Block instance, BlockGetter level, Entity entity, Operation<Void> original, MoverType type, Vec3 pos, @Local BlockState effectState, @Share("movement") LocalRef<Vec3> arg) {
+		Vec3 movement = arg.get();
+		boolean xCollision = !Mth.equal(pos.x, movement.x);
+		boolean zCollision = !Mth.equal(pos.z, movement.z);
 		if (CONFIG.bounciness.verticalBounciness)
 			Bounciness.restituteMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
 		else original.call(instance, level, entity);
 	}
 
 	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V"), method = "move")
-	private void horizontal(Entity entity, double xd, double yd, double zd, Operation<Void> original, @Local(name = "blockState") BlockState effectState, @Local(name = "bl") boolean xCollision, @Local(name = "bl2") boolean zCollision, @Local(name = "vec3") Vec3 movement) {
+	private void horizontal(Entity entity, double xd, double yd, double zd, Operation<Void> original, MoverType type, Vec3 pos, @Local BlockState effectState, @Share("movement") LocalRef<Vec3> arg) {
 		if (CONFIG.bounciness.horizontalBounciness) {
+			Vec3 movement = arg.get();
+			boolean xCollision = !Mth.equal(pos.x, movement.x);
+			boolean zCollision = !Mth.equal(pos.z, movement.z);
 			var bounceFactor = Bounciness.getMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
             original.call(entity, bounceFactor.x, bounceFactor.y, bounceFactor.z);
         } else original.call(entity, xd, yd, zd);
+	}
+
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"), method = "move")
+	private Vec3 shareCollide(Entity instance, Vec3 vec, Operation<Vec3> original, @Share("movement") LocalRef<Vec3> arg) {
+		var o = original.call(instance, vec);
+		arg.set(o);
+		return o;
 	}
 
 	@Override

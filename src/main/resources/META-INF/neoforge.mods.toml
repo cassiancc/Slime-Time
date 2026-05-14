@@ -1,3 +1,6 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+
 issueTrackerURL="https://github.com/cassiancc/Slime-Time/issues"
 displayURL="https://modrinth.com/project/slime-time/"
 logoFile= "assets/slime_time/icon.png"
@@ -21,7 +24,7 @@ side="BOTH"
 [[dependencies.slime_time]]
 modId="minecraft"
 type="required"
-versionRange="[1.21.1)"
+versionRange="[1.21.1]"
 ordering="NONE"
 side="BOTH"
 

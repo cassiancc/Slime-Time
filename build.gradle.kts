@@ -190,13 +190,14 @@ publishMods {
     version = "${property("mod_version")}+${property("minecraft_version")}"
     changelog = provider { rootProject.file("CHANGELOG-LATEST.md").readText() }
     modLoaders.add("fabric")
-
+    modLoaders.add("neoforge")
 
     modrinth {
         projectId = property("modrinth_id") as String
         accessToken = env.MODRINTH_API_KEY.orNull()
         minecraftVersions.addAll(listOf("1.21.1"))
         requires("fabric-api")
+        optional("connector")
         optional("mcqoy")
         optional("emi")
     }
