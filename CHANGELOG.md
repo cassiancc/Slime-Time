@@ -1,3 +1,11 @@
+## [1.1.5]
+
+### Added
+- English (Upside Down) translation.
+
+### Fixed
+- Tag translation
+
 ## [1.1.4]
 
 ### Fixed
