@@ -3,6 +3,7 @@ package cc.cassian.slime.mixin;
 import cc.cassian.slime.api.SlimeEntity;
 import cc.cassian.slime.registry.SlimeAttributes;
 import cc.cassian.slime.registry.SlimeEffects;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +18,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements SlimeEntity {
@@ -38,9 +38,10 @@ public abstract class LivingEntityMixin extends Entity implements SlimeEntity {
 	@Shadow
 	public abstract boolean removeEffect(Holder<MobEffect> effect);
 
-	@Inject(method = "createLivingAttributes", at = @At(value = "RETURN"), cancellable = true)
-	private static void addBouncinessAttribute(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
-		cir.setReturnValue(cir.getReturnValue().add(SlimeAttributes.BOUNCINESS));
+	@ModifyReturnValue(method = "createLivingAttributes", at = @At(value = "RETURN"))
+	private static AttributeSupplier.Builder addBouncinessAttribute(AttributeSupplier.Builder builder) {
+		builder.add(SlimeAttributes.BOUNCINESS);
+		return builder;
 	}
 
 	@Inject(method = "travel", at = @At(value = "RETURN"))
