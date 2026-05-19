@@ -196,11 +196,12 @@ publishMods {
 
     
     curseforge {
-        projectId = property("publish.curseforge") as String
+        projectId = property("curseforge_id") as String
         accessToken = env.CURSEFORGE_API_KEY.orNull()
         minecraftVersions.add(property("minecraft_version").toString())
         requires("fabric-api")
+        requires("sinytra-connector")
         optional("mcqoy")
-        optional("rrv")
+        optional("emi")
     }
 }
