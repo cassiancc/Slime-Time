@@ -202,6 +202,6 @@ publishMods {
         requires("fabric-api")
         requires("sinytra-connector")
         optional("mcqoy")
-        optional("emi")
+        optional("rrv")
     }
 }
