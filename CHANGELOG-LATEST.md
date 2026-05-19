@@ -1,3 +1,6 @@
-## Changed
-- Backported to 1.21.1. Supports NeoForge through Sinytra Connector as the game remains obfuscated on 1.21.1.
-- RRV support swapped out for EMI.
+### Changed
+- Buffed bed bounciness to match 26.2-snapshot-8.
+- Slime blocks are now tagged as bouncy blocks.
+
+### Fixed
+- Fixes compatibility with other mods that add attributes via mixins, such as Artifacts (thanks @unilock!)

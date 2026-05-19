@@ -1,8 +1,0 @@
-// 1.21.1	2026-05-13T23:53:07.139537115	Slime Time/Tags for minecraft:item
-8e2b630cc383dc7b3fc0daaba685d4c16184ca4b data/c/tags/item/buckets.json
-105727dc444ddc319293c250e6c64f197b4ba151 data/slime_time/tags/item/throwable_slime_balls.json
-b6318f85ea85d8d55f75e7fa1949550f789e7b5d data/minecraft/tags/item/frog_food.json
-a7a383a64c768a7653d283b1c282f97c524f650e data/c/tags/item/froglights.json
-a593db4beb4cec1d2b772e8c95804ffc94bb702a data/c/tags/item/tools.json
-3acc71df3a8b4fd234894d48ce7792ff19879274 data/slime_time/tags/item/slimy_armor.json
-3acc71df3a8b4fd234894d48ce7792ff19879274 data/minecraft/tags/item/foot_armor.json
