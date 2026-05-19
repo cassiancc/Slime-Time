@@ -18,7 +18,7 @@ public class SlimeBlockTagProvider extends FabricTagsProvider.BlockTagsProvider 
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		builder(SlimeBlockTags.BOUNCY);
+		valueLookupBuilder(SlimeBlockTags.BOUNCY).add(Blocks.SLIME_BLOCK);
 		valueLookupBuilder(SlimeBlockTags.SUPPRESSES_BOUNCE).add(Blocks.HONEY_BLOCK).addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.withDefaultNamespace("suppresses_bounce")));
 	}
 }
