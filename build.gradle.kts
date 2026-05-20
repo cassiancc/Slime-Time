@@ -181,7 +181,7 @@ publishing {
 }
 
 publishMods {
-    file = tasks.jar.map { it.archiveFile.get() }
+    file = tasks.remapJar.map { it.archiveFile.get() }
     additionalFiles.from(tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").map { it.archiveFile.get() })
 
     // one of BETA, ALPHA, STABLE
@@ -197,7 +197,7 @@ publishMods {
         accessToken = env.MODRINTH_API_KEY.orNull()
         minecraftVersions.addAll(listOf("1.21.1"))
         requires("fabric-api")
-        optional("connector")
+        requires("connector")
         optional("mcqoy")
         optional("emi")
     }
