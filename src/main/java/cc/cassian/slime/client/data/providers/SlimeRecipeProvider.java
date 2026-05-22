@@ -60,6 +60,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 					.save(output);
 			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
 			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");
+			dyedItem(Items.SLIME_BALL, "slime_ball");
 		}
 
 		public void dyedItem(final Item target, final String group) {

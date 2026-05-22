@@ -10,7 +10,8 @@
     "LivingEntityMixin",
     "MobMixin",
     "PistonMovingBlockEntityMixin",
-    "PistonStructureResolverMixin"
+    "PistonStructureResolverMixin",
+    "SlimeBallItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

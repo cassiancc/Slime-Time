@@ -1,0 +1,22 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:has_component",
+    "component": "minecraft:dyed_color",
+    "ignore_default": true,
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "slime_time:item/slime_ball_dyed",
+      "tints": [
+        {
+          "type": "minecraft:dye",
+          "default": -7274619
+        }
+      ]
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/slime_ball"
+    }
+  }
+}
