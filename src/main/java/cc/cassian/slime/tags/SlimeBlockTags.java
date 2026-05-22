@@ -8,8 +8,9 @@ import net.minecraft.world.level.block.Block;
 public class SlimeBlockTags {
 	public static final TagKey<Block> SUPPRESSES_BOUNCE = getTagKey("suppresses_bounce");
 	public static final TagKey<Block> BOUNCY = getTagKey("bouncy");
+	public static final TagKey<Block> SLIME_BLOCKS = getTagKey("slime_blocks");
 
-	private static TagKey<Block> getTagKey(String id) {
+    private static TagKey<Block> getTagKey(String id) {
 		return TagKey.create(Registries.BLOCK, SlimeTime.of(id));
 	}
 }

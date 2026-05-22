@@ -8,8 +8,9 @@
     "EntityMixin",
     "ItemMixin",
     "LivingEntityMixin",
+    "MobMixin",
     "PistonMovingBlockEntityMixin",
-    "MobMixin"
+    "PistonStructureResolverMixin"
   ],
   "injectors": {
     "defaultRequire": 1

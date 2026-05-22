@@ -21,5 +21,22 @@
   "tag.c.froglights.description": "A bright light source produced when a Frog eats a Magma Cube.",
   "component.slime_sling.horizontal_force": " Horizontal Force: x%s",
   "component.slime_sling.vertical_force": " Vertical Force: x%s",
-  "slime_time.modifiers.used": "When Used:"
+  "slime_time.modifiers.used": "When Used:",
+  "block.slime_time.black_slime_block": "Black Slime Block",
+  "block.slime_time.red_slime_block": "Red Slime Block",
+  "block.slime_time.white_slime_block": "White Slime Block",
+  "block.slime_time.green_slime_block": "Green Slime Block",
+  "block.slime_time.lime_slime_block": "Lime Slime Block",
+  "block.slime_time.blue_slime_block": "Blue Slime Block",
+  "block.slime_time.light_blue_slime_block": "Light Blue Slime Block",
+  "block.slime_time.magenta_slime_block": "Magenta Slime Block",
+  "block.slime_time.pink_slime_block": "Pink Slime Block",
+  "block.slime_time.orange_slime_block": "Orange Slime Block",
+  "block.slime_time.gray_slime_block": "Gray Slime Block",
+  "block.slime_time.light_gray_slime_block": "Light Gray Slime Block",
+  "block.slime_time.cyan_slime_block": "Cyan Slime Block",
+  "block.slime_time.yellow_slime_block": "Yellow Slime Block",
+  "block.slime_time.brown_slime_block": "Brown Slime Block",
+  "block.slime_time.purple_slime_block": "Purple Slime Block"
+
 }

@@ -1,0 +1,6 @@
+{
+    "parent": "slime_time:block/slime_block",
+    "textures": {
+        "texture": "slime_time:block/light_gray_slime_block"
+    }
+}

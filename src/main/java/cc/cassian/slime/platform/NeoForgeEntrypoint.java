@@ -13,6 +13,9 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.Objects;
 
+import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
+import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
+
 @EventBusSubscriber()
 public class NeoForgeEntrypoint {
 
@@ -27,6 +30,8 @@ public class NeoForgeEntrypoint {
 			event.insertAfter(Items.TADPOLE_BUCKET.getDefaultInstance(), SlimeItems.SLIME_BUCKET.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 			event.insertBefore(Items.SADDLE.getDefaultInstance(), SlimeItems.SLIME_SLING.getDefaultInstance(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+		} else if (event.getTabKey().equals(CreativeModeTabs.COLORED_BLOCKS)) {
+			event.acceptAll(asListOfStacks(SLIME_BLOCKS));
 		}
 	}
 

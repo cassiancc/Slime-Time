@@ -9,6 +9,9 @@ import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 
+import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
+import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
+
 public class FabricEntrypoint implements ModInitializer {
 
 	@Override
@@ -22,6 +25,9 @@ public class FabricEntrypoint implements ModInitializer {
 			event.insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
 			event.insertBefore(Items.SADDLE, SlimeItems.SLIME_SLING);
+		});
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
+			event.acceptAll(asListOfStacks(SLIME_BLOCKS));
 		});
 		ItemComponentTooltipProviderRegistry.addFirst(SlimeDataComponents.FORCE_MULTIPLIER);
 	}

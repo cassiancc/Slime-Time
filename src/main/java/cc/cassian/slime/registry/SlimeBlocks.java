@@ -1,0 +1,75 @@
+package cc.cassian.slime.registry;
+
+import cc.cassian.slime.SlimeTime;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+public interface SlimeBlocks {
+
+	Map<String, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
+			"slime_block",
+			SlimeBlock::new,
+			BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()
+	);
+
+	static <T extends Block> HashMap<String, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
+		LinkedHashMap<String, T> map = LinkedHashMap.newLinkedHashMap(DyeColor.values().length);
+		for (DyeColor value : DyeColor.values()) {
+			String dyedBlockName = value.getName() + "_" + name;
+			map.put(dyedBlockName, registerBlock(dyedBlockName, blockFactory, settings, true));
+		}
+		return map;
+	}
+
+	static <T extends Block> List<ItemStack> asListOfStacks(Map<String, T> blocks) {
+		return blocks.values().stream().map(b->b.asItem().getDefaultInstance()).toList();
+	}
+
+	static <T extends Block> T registerBlock(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem) {
+		// Create a registry key for the block
+		ResourceKey<Block> blockKey = keyOfBlock(name);
+		// Create the block instance
+		T block = blockFactory.apply(settings.setId(blockKey));
+
+		// Sometimes, you may not want to register an item for the block.
+		// Eg: if it's a technical block like `minecraft:moving_piston` or `minecraft:end_gateway`
+		if (shouldRegisterItem) {
+			// Items need to be registered with a different type of registry key, but the ID
+			// can be the same.
+			ResourceKey<Item> itemKey = keyOfItem(name);
+
+			BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
+			Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
+		}
+
+		return Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+	}
+
+	static ResourceKey<Block> keyOfBlock(String name) {
+		return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(SlimeTime.MOD_ID, name));
+	}
+
+	static ResourceKey<Item> keyOfItem(String name) {
+		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(SlimeTime.MOD_ID, name));
+	}
+
+	static void touch() {
+
+	}
+}

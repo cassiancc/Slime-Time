@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:slime_block"
+    "minecraft:slime_block",
+    "#slime_time:slime_blocks"
   ]
 }

@@ -34,6 +34,7 @@ public class SlimeTime implements ModInitializer {
 		LOGGER.info("Slime the world!");
 		SlimeAttributes.touch();
 		SlimeDataComponents.touch();
+		SlimeBlocks.touch();
 		SlimeItems.touch();
 		SlimeEntityTypes.touch();
 		SlimeGameEvents.touch();
