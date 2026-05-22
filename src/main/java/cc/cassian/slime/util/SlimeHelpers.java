@@ -1,7 +1,7 @@
 package cc.cassian.slime.util;
 
 import cc.cassian.slime.SlimeTime;
-import cc.cassian.slime.platform.NeoForgeEntrypoint;
+import cc.cassian.slime.platform.NeoForgeClientEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.tags.SlimeItemTags;
@@ -122,7 +122,7 @@ public class SlimeHelpers {
     public static Optional<RecipeHolder<CraftingRecipe>> getSynchronizedRecipe(Level level, CraftingInput input) {
         if (YumiMods.get().isModLoaded("fabric-api"))
             return level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
-        return NeoForgeEntrypoint.getSynchronizedRecipes(level, input);
+        return NeoForgeClientEntrypoint.getSynchronizedRecipes(level, input);
     }
 
     public static List<ItemStack> dye(ItemStack defaultInstance) {
