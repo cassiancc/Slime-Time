@@ -1,11 +1,13 @@
 package cc.cassian.slime.entity;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEffects;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -160,8 +163,10 @@ public class SlimeballEntity extends ThrowableItemProjectile {
 
 	private ParticleOptions getParticle() {
 		ItemStack item = this.getItem();
-		return item.isEmpty() ? ParticleTypes.ITEM_SLIME : new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
-	}
+        if (item.isEmpty()) return ParticleTypes.ITEM_SLIME;
+		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, item.get(SlimeDataComponents.DYED_COLOR).getTextureDiffuseColor()); //FIXME need a tinted slime particle
+        return new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
+    }
 
 	@Override
 	public void handleEntityEvent(final byte id) {

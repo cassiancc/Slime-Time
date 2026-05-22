@@ -2,14 +2,14 @@
   "model": {
     "type": "minecraft:condition",
     "property": "minecraft:has_component",
-    "component": "minecraft:dyed_color",
+    "component": "slime_time:dyed_color",
     "ignore_default": true,
     "on_true": {
       "type": "minecraft:model",
       "model": "slime_time:item/slime_sling_dyed",
       "tints": [
         {
-          "type": "minecraft:dye",
+          "type": "slime_time:dye",
           "default": -7274619
         }
       ]

@@ -3,6 +3,7 @@ package cc.cassian.slime.platform;
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -40,6 +41,7 @@ public class NeoForgeEntrypoint {
 		if (event.getItemStack().has(SlimeDataComponents.FORCE_MULTIPLIER)) {
 			Objects.requireNonNull(event.getItemStack().get(SlimeDataComponents.FORCE_MULTIPLIER)).addToTooltip(event.getContext(), (component)->event.getToolTip().add(component), event.getFlags(), event.getItemStack().getComponents());
 		}
+		SlimeHelpers.addDyeTooltip(event.getItemStack(), event.getContext(), event.getFlags(), event.getToolTip());
 	}
 
 }

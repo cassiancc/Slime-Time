@@ -1,13 +1,18 @@
 package cc.cassian.slime.client.data.providers;
 
+import cc.cassian.slime.client.SlimeDyeTintSource;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.client.color.item.Dye;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,8 +29,13 @@ public class SlimeModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(ItemModelGenerators itemModelGenerators) {
-		itemModelGenerators.generateDyedItem(SlimeItems.SLIME_BOOTS, -7274619);
+		generateDyedItem(itemModelGenerators, SlimeItems.SLIME_BOOTS, -7274619);
 		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BUCKET, ModelTemplates.FLAT_ITEM);
 		itemModelGenerators.generateFlatItem(SlimeItems.MAGMA_CUBE_BUCKET, ModelTemplates.FLAT_ITEM);
+	}
+
+	public final void generateDyedItem(ItemModelGenerators itemModelGenerators, final Item item, final int defaultColor) {
+		Identifier model = itemModelGenerators.createFlatItemModel(item, ModelTemplates.FLAT_ITEM);
+		itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.tintedModel(model, new SlimeDyeTintSource(defaultColor)));
 	}
 }

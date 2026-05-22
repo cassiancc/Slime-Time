@@ -1,5 +1,6 @@
 package cc.cassian.slime.client.data.providers;
 
+import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.registry.SlimeItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -13,7 +14,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
@@ -66,7 +66,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 		public void dyedItem(final Item target, final String group) {
 			CustomCraftingRecipeBuilder.customCrafting(
 							RecipeCategory.MISC,
-							(commonInfo, bookInfo) -> new DyeRecipe(commonInfo, bookInfo, Ingredient.of(target), this.tag(ItemTags.DYES), new ItemStackTemplate(target))
+							(commonInfo, bookInfo) -> new SlimeDyeRecipe(commonInfo, bookInfo, Ingredient.of(target), this.tag(ItemTags.DYES), new ItemStackTemplate(target))
 					)
 					.unlockedBy(getHasName(target), this.has(target))
 					.group(group)

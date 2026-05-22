@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_dye",
+  "type": "slime_time:dye",
   "category": "misc",
   "dye": "#minecraft:dyes",
   "group": "slime_sling",
