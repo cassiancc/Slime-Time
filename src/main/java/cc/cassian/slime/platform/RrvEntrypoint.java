@@ -6,21 +6,27 @@ import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
 import cc.cassian.rrv.client.recipe.ClientRecipeManager;
 import cc.cassian.rrv.common.builtin.crafting.CraftingClientRecipe;
 import cc.cassian.rrv.common.builtin.info.InfoClientRecipe;
-import cc.cassian.rrv.common.mixin.world.item.crafting.*;
+import cc.cassian.rrv.common.mixin.world.item.crafting.IngredientAccessor;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
+import cc.cassian.slime.recipe.SlimeShapedRecipe;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static cc.cassian.rrv.common.recipe.util.RrvUtil.getItemsFromIngredient;
+import static cc.cassian.slime.util.SlimeHelpers.dye;
 
 public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 
@@ -37,7 +43,46 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 		ClientRecipeManager.INSTANCE.getRecipesForType(RecipeType.CRAFTING).forEach(craftingRecipeHolder -> {
 			var id = craftingRecipeHolder.id().identifier();
 			var craftingRecipe = craftingRecipeHolder.value();
-			 if (craftingRecipe instanceof SlimeDyeRecipe recipe) {
+			if (craftingRecipe instanceof SlimeShapedRecipe shapedRecipe) {
+				HashMap<Integer, SlotContent> ingredients = new HashMap<>();
+				int i = 0;
+				for (int y = 0; y < 3; y++) {
+					for (int x = 0; x < 3; x++) {
+
+						if (x >= shapedRecipe.getWidth() || y >= shapedRecipe.getHeight()) {
+							continue;
+						}
+
+						if (shapedRecipe.getIngredients().get(i).isPresent()) {
+							Ingredient ingredient = shapedRecipe.getIngredients().get(i).get();
+							ArrayList<ItemStack> list = new ArrayList<>();
+							int index = x + y * 3;
+							Optional<TagKey<Item>> tagFromIngredient = getTagFromIngredient(ingredient);
+							if (tagFromIngredient.isPresent()) {
+								TagKey<Item> tag = tagFromIngredient.get();
+								if (tag.equals(SlimeItemTags.SLIME_BLOCKS)) {
+									ItemStack defaultInstance = Items.SLIME_BLOCK.getDefaultInstance();
+									list.addAll(dye(defaultInstance));
+									ingredients.put(index, SlotContent.of(list).bindItemTag(tag));
+								} else {
+									ingredients.put(index, SlotContent.of(tag));
+								}
+							} else {
+								getItemsFromIngredient(ingredient).forEach(item-> {
+									ItemStack defaultInstance = item.getDefaultInstance();
+									list.addAll(dye(defaultInstance));
+								});
+
+								ingredients.put(index, SlotContent.of(list));
+							}
+						}
+
+						i++;
+					}
+				}
+				recipeList.add(new CraftingClientRecipe.Builder(id, ingredients).setSize(shapedRecipe.getWidth(), shapedRecipe.getHeight()).setResult(SlotContent.of(dye(shapedRecipe.result.create()))).setDependentIndex(0).build());
+			}
+			else if (craftingRecipe instanceof SlimeDyeRecipe recipe) {
 				List<ItemStackTemplate> results = new ArrayList<>();
 				for (Item ingredient : getItemsFromIngredient(recipe.getTarget())) {
 					for (DyeColor dyeColor : DyeColor.values()) {
@@ -52,6 +97,14 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 		});
 	}
 
+	public static Optional<TagKey<Item>> getTagFromIngredient(Ingredient ingredient) {
+		var ingredientContent = ((IngredientAccessor) (Object) ingredient).getValues().unwrap();
+        if (ingredientContent.left().isPresent()) {
+			return ingredientContent.left();
+		}
+
+		return Optional.empty();
+	}
 
 	private ReliableClientRecipe getInfoRecipe(Item slimeBucket) {
 		Identifier key = BuiltInRegistries.ITEM.getKey(slimeBucket);

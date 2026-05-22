@@ -13,6 +13,8 @@ public class SlimeItemTags {
 	public static final TagKey<Item> THROWABLE_SLIME_BALLS = getTagKey("throwable_slime_balls");
 	public static final TagKey<Item> SLIMY_ARMOR = getTagKey("slimy_armor");
 	public static final TagKey<Item> FROGLIGHTS = getTagKey("c", "froglights");
+	public static final TagKey<Item> SLIME_BLOCKS = getTagKey("slime_blocks");
+	public static final TagKey<Item> DYEABLE_SLIME = getTagKey("dyeable_slime");
 
 	private static TagKey<Item> getTagKey(String id) {
 		return getTagKey(SlimeTime.MOD_ID, id);

@@ -7,12 +7,17 @@ import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
@@ -44,4 +49,19 @@ public class NeoForgeEntrypoint {
 		SlimeHelpers.addDyeTooltip(event.getItemStack(), event.getContext(), event.getFlags(), event.getToolTip());
 	}
 
+	static RecipeMap recipeMap;
+
+	@SubscribeEvent
+	public static void sendRecipes(OnDatapackSyncEvent event) {
+		event.sendRecipes(RecipeType.CRAFTING);
+	}
+
+	@SubscribeEvent
+	public static void receiveRecipes(RecipesReceivedEvent event) {
+		recipeMap = event.getRecipeMap();
+	}
+
+    public static Optional<RecipeHolder<CraftingRecipe>> getSynchronizedRecipes(Level level, CraftingInput input) {
+        return recipeMap.getRecipesFor(RecipeType.CRAFTING, input, level).findFirst();
+    }
 }

@@ -1,5 +1,6 @@
 package cc.cassian.slime.client.data.providers;
 
+import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,6 +32,8 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		valueLookupBuilder(ConventionalItemTags.TOOLS).add(SlimeItems.SLIME_SLING);
 		valueLookupBuilder(SlimeItemTags.FROGLIGHTS).add(Items.OCHRE_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, Items.VERDANT_FROGLIGHT);
 		builder(SlimeItemTags.FROGLIGHTS).addOptional(key("instantfeedback", "cerulean_froglight"));
+		valueLookupBuilder(SlimeItemTags.SLIME_BLOCKS).addAll(SlimeBlocks.SLIME_BLOCKS.values().stream().map(Block::asItem));
+		valueLookupBuilder(SlimeItemTags.DYEABLE_SLIME).add(SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, Items.SLIME_BALL);
 	}
 
 	private ResourceKey<Item> key(String namespace, String path) {

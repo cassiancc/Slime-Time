@@ -22,22 +22,22 @@ import java.util.function.Function;
 
 public interface SlimeBlocks {
 
-	Map<String, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
+	Map<DyeColor, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
 			"slime_block",
 			SlimeBlock::new,
 			BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()
 	);
 
-	static <T extends Block> HashMap<String, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
-		LinkedHashMap<String, T> map = LinkedHashMap.newLinkedHashMap(DyeColor.values().length);
+	static <T extends Block> HashMap<DyeColor, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
+		LinkedHashMap<DyeColor, T> map = LinkedHashMap.newLinkedHashMap(DyeColor.values().length);
 		for (DyeColor value : DyeColor.values()) {
 			String dyedBlockName = value.getName() + "_" + name;
-			map.put(dyedBlockName, registerBlock(dyedBlockName, blockFactory, settings, true));
+			map.put(value, registerBlock(dyedBlockName, blockFactory, settings, true));
 		}
 		return map;
 	}
 
-	static <T extends Block> List<ItemStack> asListOfStacks(Map<String, T> blocks) {
+	static <T extends Block> List<ItemStack> asListOfStacks(Map<DyeColor, T> blocks) {
 		return blocks.values().stream().map(b->b.asItem().getDefaultInstance()).toList();
 	}
 

@@ -1,8 +1,8 @@
 package cc.cassian.slime.mixin;
 
-import cc.cassian.slime.api.ModHelpers;
 import cc.cassian.slime.item.SlimeBucketItem;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -51,7 +51,7 @@ public abstract class MobMixin {
 		if (mob instanceof Frog frog) {
 			boolean magma = itemStack.is(SlimeItems.MAGMA_CUBE_BUCKET);
 			if (magma) {
-				Item froglight = ModHelpers.getFroglight(frog);
+				Item froglight = SlimeHelpers.getFroglight(frog);
 				SoundEvent sound = SoundEvents.MAGMA_CUBE_DEATH_SMALL;
 				frog.playSound(sound, 1.0F, 1.0F);
 				Vec3 pos = frog.position();

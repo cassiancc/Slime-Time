@@ -12,6 +12,10 @@ import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.DyeRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializers;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
@@ -36,6 +40,10 @@ public class FabricEntrypoint implements ModInitializer {
 		});
 		ItemComponentTooltipProviderRegistry.addFirst(SlimeDataComponents.FORCE_MULTIPLIER);
 		ItemTooltipCallback.EVENT.register(SlimeHelpers::addDyeTooltip);
-		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_DYE_RECIPE_SERIALIZER); //fixme neo
+		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_DYE_RECIPE_SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_SHAPED_RECIPE_SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(DyeRecipe.SERIALIZER);
 	}
 }

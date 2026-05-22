@@ -1,9 +1,9 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "slime_time:crafting_shaped",
   "category": "misc",
   "key": {
-    "l": "#c:slime_balls",
-    "s": "minecraft:slime_block"
+    "l": "minecraft:slime_ball",
+    "s": "#slime_time:slime_blocks"
   },
   "pattern": [
     "l l",
