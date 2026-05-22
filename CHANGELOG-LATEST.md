@@ -1,5 +1,6 @@
-### Added
-- Sound effects for slime boot bouncing.
+### Changed
+- Buffed bed bounciness to match 26.2-snapshot-8.
+- Slime blocks are now tagged as bouncy blocks.
 
 ### Fixed
-- Slime Slings can no longer be used in the air.
+- Fixes compatibility with other mods that add attributes via mixins, such as Artifacts (thanks @unilock!)

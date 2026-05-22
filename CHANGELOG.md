@@ -1,3 +1,34 @@
+## [1.1.5]
+
+### Added
+- English (Upside Down) translation.
+
+### Fixed
+- Tag translation
+
+## [1.1.4]
+
+### Fixed
+- Typo in new data component.
+
+## [1.1.3]
+
+### Added
+- Conventional tag for Froglights.
+- Translations and descriptions for the mod's tags.
+
+### Changed
+- Improved horizontal movement checks to be more mod compatible.
+- Slime Sling force multiplier is now a data component rather than a config.
+
+## [1.1.1]
+
+### Added
+- Sound effects for slime boot bouncing.
+
+### Fixed
+- Slime Slings can no longer be used in the air.
+
 ## [1.1.0]
 
 ### Added

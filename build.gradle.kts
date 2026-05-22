@@ -184,7 +184,6 @@ publishMods {
     modLoaders.add("fabric")
     modLoaders.add("neoforge")
 
-
     modrinth {
         projectId = property("modrinth_id") as String
         accessToken = env.MODRINTH_API_KEY.orNull()
@@ -194,15 +193,14 @@ publishMods {
         optional("rrv")
     }
 
-    /*
+    
     curseforge {
-        projectId = property("publish.curseforge") as String
+        projectId = property("curseforge_id") as String
         accessToken = env.CURSEFORGE_API_KEY.orNull()
         minecraftVersions.add(property("minecraft_version").toString())
         requires("fabric-api")
+        requires("sinytra-connector")
         optional("mcqoy")
         optional("rrv")
     }
-
-     */
 }

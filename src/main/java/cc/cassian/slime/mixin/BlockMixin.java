@@ -21,7 +21,7 @@ public class BlockMixin implements SlimeBlock {
 	@Override
 	public float slime$getBounceRestitution() {
 		var block = (Block) (Object) this;
-		if (block instanceof BedBlock) return 0.66f;
+		if (block instanceof BedBlock) return 0.75f;
 		else if (block instanceof net.minecraft.world.level.block.SlimeBlock) return 1f;
 		else if (block.defaultBlockState().is(SlimeBlockTags.BOUNCY)) return 1f;
 		return 0;

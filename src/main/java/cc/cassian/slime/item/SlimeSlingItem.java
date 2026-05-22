@@ -1,11 +1,10 @@
 package cc.cassian.slime.item;
 
-import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.component.ForceMultiplier;
+import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeGameEvents;
 import cc.cassian.slime.registry.SlimeSoundEvents;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -49,9 +48,9 @@ public class SlimeSlingItem extends Item {
 				return false;
 			} else {
 				if (level instanceof ServerLevel) {
+					var multiplier = itemStack.getOrDefault(SlimeDataComponents.FORCE_MULTIPLIER, ForceMultiplier.DEFAULT);
 					Vec3 view = player.getViewVector(0);
-					float horizontalForceMultiplier = SlimeTime.CONFIG.slimeSling.horizontalForceMultiplier;
-					var launch = new Vec3(-view.x* horizontalForceMultiplier, pow * SlimeTime.CONFIG.slimeSling.verticalForceMultiplier, -view.z* horizontalForceMultiplier);
+					var launch = new Vec3(-view.x* multiplier.horizontalForce(), pow * multiplier.verticalForce(), -view.z * multiplier.horizontalForce());
 					player.setDeltaMovement(launch);
 					player.hurtMarked = true;
 				}

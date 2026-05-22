@@ -27,9 +27,10 @@ public abstract class EntityMixin implements SlimeEntity {
 
 	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V"), method = "move")
 	private void horizontal(Entity entity, double xd, double yd, double zd, Operation<Void> original, @Local(name = "effectState") BlockState effectState, @Local(name = "xCollision") boolean xCollision, @Local(name = "zCollision") boolean zCollision, @Local(name = "movement") Vec3 movement) {
-		if (CONFIG.bounciness.horizontalBounciness)
-			Bounciness.restituteMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
-		else original.call(entity, xd, yd, zd);
+		if (CONFIG.bounciness.horizontalBounciness) {
+			var bounceFactor = Bounciness.getMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
+            original.call(entity, bounceFactor.x, bounceFactor.y, bounceFactor.z);
+        } else original.call(entity, xd, yd, zd);
 	}
 
 	@Override
