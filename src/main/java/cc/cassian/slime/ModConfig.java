@@ -9,7 +9,9 @@ public class ModConfig extends WrappedConfig {
 		@Comment("Whether to allow throwing slimeballs.")
 		public boolean throwableSlimeballs = true;
 		public boolean addSlimeBallToCombatTab = true;
-	}
+		@Comment("Slime Time generates dyed variants of multiple items. To avoid cluttering your creative menu, this can be disabled.")
+		public boolean addDyedVariantsToCreativeTabs = true;
+    }
 
 	public Client client = new Client();
 	public static class Client implements WrappedConfig.Section {

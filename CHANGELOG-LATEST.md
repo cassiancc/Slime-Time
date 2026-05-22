@@ -1,6 +1,8 @@
-### Changed
-- Buffed bed bounciness to match 26.2-snapshot-8.
-- Slime blocks are now tagged as bouncy blocks.
+### Added
+- Slime Balls, Slime Blocks, Slime Slings, and Slime Boots are all now dyeable!
+  - Dyed Slime Blocks do not stick to each other, allowing for more complex redstone contraptions.
+  - Dyed Slime Balls stack together, to avoid inventory bloat. Mixing slime balls will merge the two dyes.
+- Slime Blocks have been given a more fair crafting recipe that better matches Honey Blocks.
 
 ### Fixed
-- Fixes compatibility with other mods that add attributes via mixins, such as Artifacts (thanks @unilock!)
+- Feeding Mud Frogs from No Man's Land now produces the correct Froglight.

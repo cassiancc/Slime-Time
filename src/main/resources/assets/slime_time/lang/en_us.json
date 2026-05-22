@@ -14,6 +14,7 @@
   "effect.slime_time.slime_time": "Slime Time",
   "effect.slime_time.slime_time.description": "An effect that causes you to bounce around.",
   "tag.slime_time.slime_blocks": "Slime Blocks",
+  "tag.slime_time.slime_blocks.description": "A bouncy block that prevents fall damage and can be used to connect blocks pushed by Pistons.",
   "tag.item.c.froglights": "Froglights",
   "tag.item.slime_time.throwable_slime_balls": "Throwable Slime Balls",
   "tag.item.slime_time.slimy_armor": "Slimy Armor",
@@ -38,6 +39,7 @@
   "block.slime_time.cyan_slime_block": "Cyan Slime Block",
   "block.slime_time.yellow_slime_block": "Yellow Slime Block",
   "block.slime_time.brown_slime_block": "Brown Slime Block",
-  "block.slime_time.purple_slime_block": "Purple Slime Block"
+  "block.slime_time.purple_slime_block": "Purple Slime Block",
+  "slime_time.color": "%s %s"
 
 }

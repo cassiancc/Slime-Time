@@ -6,6 +6,7 @@
     "BlockMixin",
     "DispenseItemBehaviorMixin",
     "EntityMixin",
+    "FabricItemMixin",
     "ItemMixin",
     "LivingEntityMixin",
     "MobMixin",

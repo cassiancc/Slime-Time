@@ -2,13 +2,13 @@
   "type": "slime_time:crafting_shaped",
   "category": "misc",
   "key": {
-    "l": "minecraft:slime_ball"
+    "l": "minecraft:slime_block"
   },
   "pattern": [
-    "ll",
-    "ll"
+    "l"
   ],
   "result": {
-    "id": "minecraft:slime_block"
+    "id": "minecraft:slime_ball",
+    "count": 4
   }
 }

@@ -31,6 +31,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.*;
 
 public class SlimeHelpers {
+    /// Mixes two Slime Balls together.
     public static boolean mergeSlimeBalls(ItemStack self, ItemStack other, Player player) {
         if (self.is(Items.SLIME_BALL) && other.is(Items.SLIME_BALL) && (self.has(SlimeDataComponents.DYED_COLOR) || other.has(DataComponents.DYED_COLOR))) {
             DyeColor selfColor = null;
@@ -72,15 +73,17 @@ public class SlimeHelpers {
         }
     }
 
+    /// Replaces the name of the item with its dyed variant.
     public static void addDyeTooltip(ItemStack stack, Item.TooltipContext context, TooltipFlag flag, List<Component> tooltip) {
         if (stack.has(SlimeDataComponents.DYED_COLOR)) {
             var color = Objects.requireNonNull(stack.get(SlimeDataComponents.DYED_COLOR));
-            tooltip.add(1, Component.translatable("item.color", WordUtils.capitalizeFully(color.getName().replace("_", " "))).withStyle(ChatFormatting.GRAY));
+            String colorName = WordUtils.capitalizeFully(color.getName().replace("_", " "));
+            tooltip.set(0, Component.translatable("slime_time.color", colorName, tooltip.getFirst()));
         }
-
     }
 
-    public static DyeColor getMixedColor(final Level level, final DyeColor dyeColor1, final DyeColor dyeColor2) {
+    /// Variant of DyeColor.getMixedColor that uses recipe synchronization APIs.
+    private static DyeColor getMixedColor(final Level level, final DyeColor dyeColor1, final DyeColor dyeColor2) {
         DyeColor mixedColor = findColorMixInRecipes(level, dyeColor1, dyeColor2);
         if (mixedColor != null) {
             return mixedColor;
@@ -89,6 +92,7 @@ public class SlimeHelpers {
         }
     }
 
+    /// Variant of DyeColor.findColorMixInRecipes that uses recipe synchronization APIs.
     @Nullable
     private static DyeColor findColorMixInRecipes(final Level level, final DyeColor dyeColor1, final DyeColor dyeColor2) {
         DataComponentLookup<Item> itemComponents = level.registryAccess().lookupOrThrow(Registries.ITEM).componentLookup();
