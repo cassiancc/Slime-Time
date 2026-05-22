@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
+import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 
 @EventBusSubscriber()
 public class NeoForgeEntrypoint {
@@ -34,20 +35,12 @@ public class NeoForgeEntrypoint {
 		if (tab.equals(CreativeModeTabs.COMBAT)) {
 			insertAfter(Items.TURTLE_HELMET, SlimeItems.SLIME_BOOTS);
 			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
-				if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
-					insertAfter(Items.SNOWBALL, SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance()));
-				} else {
-					insertAfter(Items.SNOWBALL, Items.SLIME_BALL);
-				}
+				insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		}
 		else if (tab.equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
 			insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
 			insertAfter(SlimeItems.SLIME_BUCKET, SlimeItems.MAGMA_CUBE_BUCKET);
-			if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
-				insertBefore(Items.SADDLE, SlimeHelpers.dye(SlimeItems.SLIME_SLING.getDefaultInstance()));
-			} else {
-				insertBefore(Items.SADDLE, SlimeItems.SLIME_SLING);
-			}
+			insertBefore(Items.SADDLE, SlimeHelpers.addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		} else if (tab.equals(CreativeModeTabs.COLORED_BLOCKS)) {
 			acceptAll(asListOfStacks(SLIME_BLOCKS));
 		}

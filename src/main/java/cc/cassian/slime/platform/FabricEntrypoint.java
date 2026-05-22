@@ -11,36 +11,32 @@ import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
+import java.util.Collections;
+import java.util.List;
+
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
+import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 
 public class FabricEntrypoint implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(event -> {
-			event.insertAfter(Items.TURTLE_HELMET, SlimeItems.SLIME_BOOTS);
-			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab) {
-				if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
-					event.insertAfter(Items.SNOWBALL, SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance()));
-				} else {
-					event.insertAfter(Items.SNOWBALL, Items.SLIME_BALL);
-				}
-            }
+			event.insertAfter(Items.TURTLE_HELMET, addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()));
+			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
+				event.insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		});
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
 			event.insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
 			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
-			if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
-				event.insertAfter(Items.SADDLE, SlimeHelpers.dye(SlimeItems.SLIME_SLING.getDefaultInstance()));
-			} else {
-				event.insertAfter(Items.SADDLE, SlimeItems.SLIME_SLING);
-			}
+			event.insertAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		});
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
 			event.acceptAll(asListOfStacks(SLIME_BLOCKS));
@@ -53,4 +49,6 @@ public class FabricEntrypoint implements ModInitializer {
 		RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(DyeRecipe.SERIALIZER);
 	}
+
+
 }

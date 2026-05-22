@@ -1,5 +1,6 @@
 package cc.cassian.slime.util;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
@@ -161,5 +162,13 @@ public class SlimeHelpers {
             return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
         }
         return Items.AIR;
+    }
+
+    public static List<ItemStack> addDyedItems(ItemStack defaultInstance) {
+        if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
+            return SlimeHelpers.dye(defaultInstance);
+        } else {
+            return Collections.singletonList(defaultInstance);
+        }
     }
 }
