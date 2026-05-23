@@ -17,7 +17,6 @@ import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
 import cc.cassian.slime.util.SlimeHelpers;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -36,8 +35,8 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 	@Override
 	public void onIntegrationInitialize() {
 		ItemView.addClientRecipeProvider(list -> {
-			list.add(getInfoRecipe(SlimeItems.SLIME_BUCKET));
-			list.add(getInfoRecipe(SlimeItems.MAGMA_CUBE_BUCKET));
+			list.add(getInfoRecipe(SlimeItems.SLIME_BUCKET, SlimeHelpers.addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance())));
+			list.add(getInfoRecipe(SlimeItems.MAGMA_CUBE_BUCKET, List.of(SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance())));
 			addCraftingRecipes(list);
 		});
 		ItemView.addClientReloadCallback(()->{
@@ -123,8 +122,8 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 		return Optional.empty();
 	}
 
-	private ReliableClientRecipe getInfoRecipe(Item slimeBucket) {
+	private ReliableClientRecipe getInfoRecipe(Item slimeBucket, List<ItemStack> itemStacks) {
 		Identifier key = BuiltInRegistries.ITEM.getKey(slimeBucket);
-		return new InfoClientRecipe(key, SlotContent.of(slimeBucket), Component.translatable(slimeBucket.getDescriptionId().replace("item", "lore")));
+		return new InfoClientRecipe(key, SlotContent.of(itemStacks), Component.translatable(slimeBucket.getDescriptionId().replace("item", "lore")));
 	}
 }
