@@ -16,11 +16,8 @@
 	"icon": "assets/slime_time/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"yumi:init": [
-			"cc.cassian.slime.SlimeTime"
-		],
-		"yumi:client_init": [
-			"cc.cassian.slime.client.SlimeTimeClient"
+		"client": [
+			"cc.cassian.slime.client.platform.FabricClientEntrypoint"
 		],
 		"main": [
 			"cc.cassian.slime.platform.FabricEntrypoint"
@@ -42,7 +39,6 @@
 	"depends": {
 		"fabricloader": ">=0.19.0",
 		"minecraft": "~26.1",
-		"java": ">=25",
 		"fabric-api": "*"
 	},
 	"breaks": {

@@ -1,4 +1,5 @@
-package cc.cassian.slime.client.data.providers;
+//? fabric {
+/*package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.registry.SlimeItems;
@@ -75,3 +76,4 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 		}
 	}
 }
+*///?}

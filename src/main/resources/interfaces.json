@@ -1,0 +1,11 @@
+{
+  "net/minecraft/world/level/block/Block": [
+    "cc/cassian/slime/api/SlimeBlock"
+  ],
+  "net/minecraft/world/entity/Entity": [
+    "cc/cassian/slime/api/SlimeEntity"
+  ],
+  "net/minecraft/world/entity/LivingEntity": [
+    "cc/cassian/slime/api/SlimeEntity"
+  ]
+}

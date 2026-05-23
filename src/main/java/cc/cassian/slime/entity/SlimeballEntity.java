@@ -1,6 +1,7 @@
 package cc.cassian.slime.entity;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeEntity;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEffects;
 import cc.cassian.slime.registry.SlimeEntityTypes;
@@ -35,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class SlimeballEntity extends ThrowableItemProjectile {
+public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEntity {
 	private static final EntityDataAccessor<Float> BOUNCE = SynchedEntityData.defineId(SlimeballEntity.class, EntityDataSerializers.FLOAT);
 
 	public SlimeballEntity(final EntityType<? extends SlimeballEntity> type, final Level level) {

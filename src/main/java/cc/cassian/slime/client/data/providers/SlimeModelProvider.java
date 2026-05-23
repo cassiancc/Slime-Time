@@ -1,4 +1,5 @@
-package cc.cassian.slime.client.data.providers;
+//? fabric {
+/*package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.client.SlimeDyeTintSource;
 import cc.cassian.slime.registry.SlimeBlocks;
@@ -39,3 +40,4 @@ public class SlimeModelProvider extends FabricModelProvider {
 		itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.tintedModel(model, new SlimeDyeTintSource(defaultColor)));
 	}
 }
+*///?}

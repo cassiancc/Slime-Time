@@ -15,8 +15,15 @@ import java.util.List;
 
 @Mixin(PistonMovingBlockEntity.class)
 public class PistonMovingBlockEntityMixin {
-	@WrapOperation(method = "moveCollidedEntities", require = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+	//? fabric {
+	/*@WrapOperation(method = "moveCollidedEntities", require = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
 	private static boolean vertical(BlockState instance, Object o, Operation<Boolean> original, @Local(name = "entities") List<Entity> entities) {
 		return original.call(instance, o) || instance.is(SlimeBlockTags.BOUNCY) || entities.stream().anyMatch(e->e.slime$getEntityBounciness()>0);
 	}
+	*///?} else {
+    @WrapOperation(method = "moveCollidedEntities", require = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isSlimeBlock()Z"))
+    private static boolean vertical(BlockState instance, Operation<Boolean> original, @Local(name = "entities") List<Entity> entities) {
+        return original.call(instance) || instance.is(SlimeBlockTags.BOUNCY) || entities.stream().anyMatch(e->e.slime$getEntityBounciness()>0);
+    }
+    //?}
 }

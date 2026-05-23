@@ -1,4 +1,5 @@
-package cc.cassian.slime.client.data.providers;
+//? fabric {
+/*package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
@@ -40,3 +41,4 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 }
+*///?}

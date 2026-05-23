@@ -3,7 +3,10 @@ package cc.cassian.slime.mixin;
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.api.VariatedSlimeAccess;
-import cc.cassian.slime.platform.FabricEntrypoint;
+//? fabric
+//import cc.cassian.slime.platform.FabricEntrypoint;
+//? neoforge
+import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
@@ -31,11 +34,17 @@ public class SlimeMixin extends Mob implements VariatedSlimeAccess {
 
     @Override
     public @Nullable SlimeColor slimeTime$getVariant() {
-        return this.getAttached(FabricEntrypoint.SLIME_STATE);
+        //? fabric
+        //return this.getAttached(FabricEntrypoint.SLIME_STATE);
+        //? neoforge
+        return this.getData(NeoForgeEntrypoint.SLIME_STATE);
     }
 
     @Override
     public void slimeTime$setVariant(SlimeColor variant) {
-        this.setAttached(FabricEntrypoint.SLIME_STATE, variant);
+        //? fabric
+        //this.setAttached(FabricEntrypoint.SLIME_STATE, variant);
+        //? neoforge
+        this.setData(NeoForgeEntrypoint.SLIME_STATE, variant);
     }
 }

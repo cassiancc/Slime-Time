@@ -1,4 +1,5 @@
-package cc.cassian.slime.client.data.providers;
+//? fabric {
+/*package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.tags.SlimeBlockTags;
@@ -25,3 +26,4 @@ public class SlimeBlockTagProvider extends FabricTagsProvider.BlockTagsProvider 
 		valueLookupBuilder(SlimeBlockTags.SUPPRESSES_BOUNCE).add(Blocks.HONEY_BLOCK).addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.withDefaultNamespace("suppresses_bounce")));
 	}
 }
+*///?}

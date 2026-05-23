@@ -1,4 +1,5 @@
-package cc.cassian.slime.platform;
+//? fabric {
+/*package cc.cassian.slime.platform;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
@@ -39,6 +40,7 @@ public class FabricEntrypoint implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		SlimeTime.onInitialize();
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(event -> {
 			event.insertAfter(Items.TURTLE_HELMET, addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()));
 			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
@@ -69,3 +71,4 @@ public class FabricEntrypoint implements ModInitializer {
 
 
 }
+*///?}

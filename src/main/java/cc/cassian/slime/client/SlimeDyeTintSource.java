@@ -3,8 +3,6 @@ package cc.cassian.slime.client;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.ExtraCodecs;
@@ -12,7 +10,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
 public record SlimeDyeTintSource(int defaultColor) implements ItemTintSource {
     public static final MapCodec<SlimeDyeTintSource> MAP_CODEC = RecordCodecBuilder.mapCodec(
             i -> i.group(ExtraCodecs.RGB_COLOR_CODEC.fieldOf("default").forGetter(SlimeDyeTintSource::defaultColor)).apply(i, SlimeDyeTintSource::new)

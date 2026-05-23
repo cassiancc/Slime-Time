@@ -2,26 +2,22 @@ package cc.cassian.slime;
 
 import cc.cassian.slime.registry.*;
 
-import dev.yumi.mc.core.api.ModContainer;
-import dev.yumi.mc.core.api.YumiMods;
-import dev.yumi.mc.core.api.entrypoint.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @NullMarked
-public class SlimeTime implements ModInitializer {
+public class SlimeTime {
 	public static final String MOD_ID = "slime_time";
-	public static final ModConfig CONFIG = ModConfig.createToml(YumiMods.get().getConfigDirectory(), "", MOD_ID, ModConfig.class);
+	public static final ModConfig CONFIG = ModConfig.createToml(Platform.getConfigDirectory(), "", MOD_ID, ModConfig.class);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static Identifier of(String name) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, name);
 	}
 
-	@Override
-	public void onInitialize(ModContainer mod) {
+	public static void onInitialize() {
 		LOGGER.info("Slime the world!");
 		SlimeAttributes.touch();
 		SlimeDataComponents.touch();

@@ -1,6 +1,8 @@
-package cc.cassian.slime.platform;
+//? neoforge {
+package cc.cassian.slime.client.platform;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.client.SlimeTimeClient;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.util.SlimeHelpers;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -22,6 +25,10 @@ import java.util.Optional;
 @EventBusSubscriber(modid = SlimeTime.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEntrypoint {
 
+	@SubscribeEvent
+	public static void modifyTintColour(FMLClientSetupEvent event) {
+		SlimeTimeClient.onInitializeClient();
+	}
 
 	@SubscribeEvent
 	public static void modifyTintColour(RegisterClientExtensionsEvent event) {
@@ -55,3 +62,4 @@ public class NeoForgeClientEntrypoint {
         return recipeMap.getRecipesFor(RecipeType.CRAFTING, input, level).findFirst();
     }
 }
+//?}

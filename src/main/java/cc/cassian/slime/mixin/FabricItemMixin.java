@@ -7,8 +7,8 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,15 +20,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import static cc.cassian.slime.SlimeTime.CONFIG;
 
 @Pseudo
-@Mixin(FabricItem.class)
+//? fabric {
+/*@Mixin(net.fabricmc.fabric.api.item.v1.FabricItem.class)
+*///?} else {
+@Mixin(Item.class)
+//?}
 public interface FabricItemMixin {
-
-	@ModifyReturnValue(at = @At(value = "RETURN"), method = "getCreatorNamespace")
+	//? fabric {
+	/*@ModifyReturnValue(at = @At(value = "RETURN"), method = "getCreatorNamespace")
 	private String vertical(String original, ItemStack stack) {
 		if (stack.is(Items.SLIME_BALL) && stack.has(SlimeDataComponents.DYED_COLOR) && original.equals("minecraft")) {
 			return SlimeTime.MOD_ID;
 		}
 		return original;
 	}
+	*///?}
 
 }
