@@ -44,7 +44,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 
 		@Override
 		public void buildRecipes() {
-			/*
+
 			shaped(RecipeCategory.MISC, SlimeItems.SLIME_BOOTS, 1)
 					.pattern("l l")
 					.pattern("s s")
@@ -53,17 +53,15 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
 					.save(output);
 
-			 */
-
 			shaped(RecipeCategory.MISC, SlimeItems.SLIME_SLING, 1)
 					.pattern("l l")
 					.pattern("lll")
 					.define('l', ConventionalItemTags.SLIME_BALLS)
 					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
 					.save(output);
-			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
-			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");
-			dyedItem(Items.SLIME_BALL, "slime_ball");
+//			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
+//			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");
+//			dyedItem(Items.SLIME_BALL, "slime_ball");
 		}
 
 		public void dyedItem(final Item target, final String group) {

@@ -131,7 +131,7 @@ public class SlimeHelpers {
     }
 
     public static List<ItemStack> addDyedItems(ItemStack defaultInstance) {
-        if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
         else return Collections.singletonList(defaultInstance);
     }
 

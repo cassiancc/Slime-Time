@@ -1,5 +1,6 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.platform.FabricEntrypoint;
@@ -23,7 +24,7 @@ public class SlimeMixin extends Mob implements VariatedSlimeAccess {
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void initiallySetRandomVariant(EntityType<Slime> type, Level level, CallbackInfo ci) {
-        if (level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
             this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
         }
     }

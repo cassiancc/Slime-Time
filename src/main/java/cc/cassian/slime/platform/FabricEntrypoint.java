@@ -14,15 +14,19 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
+import static cc.cassian.slime.SlimeTime.MOD_ID;
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
 import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
+import static net.fabricmc.fabric.api.resource.v1.pack.PackActivationType.DEFAULT_ENABLED;
 
 public class FabricEntrypoint implements ModInitializer {
 
@@ -55,6 +59,12 @@ public class FabricEntrypoint implements ModInitializer {
 		RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(DyeRecipe.SERIALIZER);
+		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+			ResourceLoader.registerBuiltinPack(
+					SlimeTime.of("colourful_slimes"),
+					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
+					DEFAULT_ENABLED);
+		}
 	}
 
 

@@ -12,6 +12,7 @@ import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.recipe.SlimeShapedRecipe;
+import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
@@ -22,6 +23,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.block.Block;
 
 import java.util.*;
 
@@ -38,9 +40,13 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 			addCraftingRecipes(list);
 		});
 		ItemView.addClientReloadCallback(()->{
-			addDyedItems(Items.SLIME_BALL.getDefaultInstance());
-			addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance());
-			addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance());
+			if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+				addDyedItems(Items.SLIME_BALL.getDefaultInstance());
+				addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance());
+				addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance());
+			} else {
+				ItemView.excludeItems(SlimeBlocks.SLIME_BLOCKS.values().stream().map(Block::asItem).toArray(Item[]::new));
+			}
 		});
 	}
 
