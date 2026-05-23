@@ -21,14 +21,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-//? if >26.1 {
-/*import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
-import net.minecraft.advancements.triggers.CriteriaTriggers;
-*///?} else {
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.advancements.CriteriaTriggers;
 //?}
@@ -63,19 +60,19 @@ public class SlimeBucketItem extends BucketItem {
 	}
 
 	@Override
-	public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(final Level level, final Player player, final InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		BlockHitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
 		if (hitResult.getType() == HitResult.Type.MISS) {
-			return InteractionResult.PASS;
+			return InteractionResultHolder.pass(itemStack);
 		} else if (hitResult.getType() != HitResult.Type.BLOCK) {
-			return InteractionResult.PASS;
+			return InteractionResultHolder.pass(itemStack);
 		} else {
 			BlockPos pos = hitResult.getBlockPos();
 			Direction direction = hitResult.getDirection();
 			BlockPos placePos = pos.relative(direction);
 			if (!level.mayInteract(player, pos) || !player.mayUseItemAt(placePos, direction, itemStack)) {
-				return InteractionResult.FAIL;
+				return InteractionResultHolder.fail(itemStack);
 			} else {
 				this.checkExtraContent(player, level, itemStack, placePos);
 				if (player instanceof ServerPlayer) {
@@ -84,27 +81,26 @@ public class SlimeBucketItem extends BucketItem {
 
 				player.awardStat(Stats.ITEM_USED.get(this));
 				ItemStack emptyResult = ItemUtils.createFilledResult(itemStack, player, getEmptySuccessItem(itemStack, player));
-				return InteractionResult.SUCCESS.heldItemTransformedTo(emptyResult);
+				return InteractionResultHolder.success(emptyResult);
 			}
 		}
 	}
 
 	@Override
-	public void checkExtraContent(final @Nullable LivingEntity user, final Level level, final ItemStack itemStack, final BlockPos pos) {
+	public void checkExtraContent(@Nullable Player user, Level level, ItemStack itemStack, BlockPos pos) {
 		if (level instanceof ServerLevel) {
 			this.spawn((ServerLevel)level, itemStack, pos);
 			level.gameEvent(user, GameEvent.ENTITY_PLACE, pos);
 		}
-
 	}
 
 	@Override
-	protected void playEmptySound(final @Nullable LivingEntity user, final LevelAccessor level, final BlockPos pos) {
+	protected void playEmptySound(@Nullable Player user, LevelAccessor level, BlockPos pos) {
 		level.playSound(user, pos, this.emptySound, SoundSource.NEUTRAL, 1.0F, 1.0F);
 	}
 
 	private void spawn(final ServerLevel level, final ItemStack itemStack, final BlockPos spawnPos) {
-		Mob mob = this.type.create(level, EntityType.createDefaultStackConfig(level, itemStack, null), spawnPos, EntitySpawnReason.BUCKET, true, false);
+		Mob mob = this.type.create(level, EntityType.createDefaultStackConfig(level, itemStack, null), spawnPos, MobSpawnType.BUCKET, true, false);
 		if (mob instanceof Slime slime) {
 			CustomData entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 			loadFromBucketTag(slime, entityData.copyTag());
@@ -118,11 +114,14 @@ public class SlimeBucketItem extends BucketItem {
 
 	}
 
-	public static void saveToBucketTag(Mob entity, ItemStack bucket) {
-		bucket.copyFrom(DataComponents.CUSTOM_NAME, entity);
+	public static void saveToBucketTag(Slime entity, ItemStack bucket) {
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (tag) -> {
 			if (entity.isNoAi()) {
 				tag.putBoolean("NoAI", true);
+			}
+
+			if (entity.hasCustomName()) {
+				tag.put("CustomName", ComponentSerialization.CODEC.encodeStart(NbtOps.INSTANCE, entity.getCustomName()).getOrThrow());
 			}
 
 			if (entity.isSilent()) {
@@ -150,13 +149,19 @@ public class SlimeBucketItem extends BucketItem {
 	}
 
 	public static void loadFromBucketTag(final Slime entity, final CompoundTag tag) {
-		tag.getBoolean("NoAI").ifPresent(entity::setNoAi);
-		tag.getBoolean("Silent").ifPresent(entity::setSilent);
-		tag.getBoolean("NoGravity").ifPresent(entity::setNoGravity);
-		tag.getBoolean("Glowing").ifPresent(entity::setGlowingTag);
-		tag.getBoolean("Invulnerable").ifPresent(entity::setInvulnerable);
-		tag.getFloat("Health").ifPresent(entity::setHealth);
-		entity.setSize(tag.getIntOr("Size", 1), true);
+		var noAI = tag.getBoolean("NoAI");
+		entity.setNoAi(noAI);
+		var silent = tag.getBoolean("Silent");
+		entity.setSilent(silent);
+		var noGravity = tag.getBoolean("NoGravity");
+		entity.setNoGravity(noGravity);
+		var glowing = tag.getBoolean("Glowing");
+		entity.setGlowingTag(glowing);
+		var invulnerable = tag.getBoolean("Invulnerable");
+		entity.setInvulnerable(invulnerable);
+		var health = tag.getFloat("Health");
+		entity.setHealth(health);
+		entity.setSize(1, true);
 		SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
 		//? fabric
 		entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);

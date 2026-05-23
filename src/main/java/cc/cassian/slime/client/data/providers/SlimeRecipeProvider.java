@@ -3,7 +3,7 @@ package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.registry.SlimeItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -19,9 +19,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
 
+import static net.minecraft.data.recipes.ShapedRecipeBuilder.shaped;
+
 public class SlimeRecipeProvider extends FabricRecipeProvider {
 
-	public SlimeRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public SlimeRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 

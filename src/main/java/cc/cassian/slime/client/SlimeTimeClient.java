@@ -13,6 +13,5 @@ public class SlimeTimeClient {
 
 	public static void onInitializeClient() {
 		EntityRenderers.register(SlimeEntityTypes.SLIMEBALL, ThrownItemRenderer::new);
-		ItemTintSources.ID_MAPPER.put(SlimeTime.of("dye"), SlimeDyeTintSource.MAP_CODEC); //fixme neo
 	}
 }

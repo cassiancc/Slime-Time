@@ -19,29 +19,20 @@
 		"client": [
 			"cc.cassian.slime.client.platform.FabricClientEntrypoint"
 		],
-		"main": [
-			"cc.cassian.slime.platform.FabricEntrypoint"
-		],
 		"fabric-datagen": [
 			"cc.cassian.slime.client.data.SlimeDataGenerator"
 		],
-		"rrv": [
-			"cc.cassian.slime.platform.RrvServerEntrypoint"
-		],
 		"rrv_client": [
-			"cc.cassian.slime.platform.RrvEntrypoint"
+			"cc.cassian.slime.platform.EmiEntrypoint"
 		]
 	},
 	"mixins": [
 		"slime_time.mixins.json"
 	],
-	"accessWidener": "slime_time.classtweaker",
 	"depends": {
-		"fabricloader": ">=0.19.0",
-		"minecraft": "${minecraft_version}",
+		"fabricloader": ">=0.16.0",
+		"minecraft": "1.21.1",
+		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"breaks": {
-		"rrv": "<8.0.0"
 	}
 }

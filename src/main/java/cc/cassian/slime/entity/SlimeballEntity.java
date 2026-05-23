@@ -11,6 +11,8 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,12 +26,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -43,12 +42,12 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 		super(type, level);
 	}
 
-	public SlimeballEntity(final Level level, final LivingEntity mob, final ItemStack itemStack) {
-		super(SlimeEntityTypes.SLIMEBALL, mob, level, itemStack);
+	public SlimeballEntity(final Level level, final LivingEntity mob) {
+		super(SlimeEntityTypes.SLIMEBALL, mob, level);
 	}
 
 	public SlimeballEntity(final Level level, final double x, final double y, final double z, final ItemStack itemStack) {
-		super(SlimeEntityTypes.SLIMEBALL, x, y, z, level, itemStack);
+		super(SlimeEntityTypes.SLIMEBALL, x, y, z, level);
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 			if (this.isInWater()) {
 				ServerLevel level = (ServerLevel) this.level();
 				level.playSound(this, this.blockPosition(),
-						SoundEvents.BUBBLE_POP, SoundSource.NEUTRAL,
+						SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.NEUTRAL,
 						this.getBounce() * .7f, this.getBounce() * 1.5f
 				);
 				this.discard();
@@ -108,7 +107,7 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 	private void bounce(BlockHitResult blockHitResult) {
 		BlockState state = this.level().getBlockState(blockHitResult.getBlockPos());
 		Vec3 velocity = this.getDeltaMovement();
-		Vec3i hitVector = blockHitResult.getDirection().getUnitVec3i();
+		Vec3i hitVector = blockHitResult.getDirection().getNormal();
 		Vec3 normal = new Vec3(hitVector.getX(), hitVector.getY(), hitVector.getZ());
 
 		double dotProduct = velocity.dot(normal);
@@ -147,16 +146,16 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 	}
 
 	@Override
-	protected void addAdditionalSaveData(ValueOutput output) {
+	public void addAdditionalSaveData(CompoundTag output) {
 		super.addAdditionalSaveData(output);
 		output.putFloat("Bounce", this.getBounce());
-		output.store("Stack", ItemStack.CODEC, this.getItem());
+		output.put("Stack", ItemStack.CODEC.encodeStart(level().registryAccess().createSerializationContext(NbtOps.INSTANCE), this.getItem()).getOrThrow());
 	}
 
 	@Override
-	protected void readAdditionalSaveData(ValueInput input) {
+	public void readAdditionalSaveData(CompoundTag input) {
 		super.readAdditionalSaveData(input);
-		this.setBounce(input.getFloatOr("Bounce", 0));
+		this.setBounce(input.getFloat("Bounce"));
 	}
 
 	private ParticleOptions getParticle() {

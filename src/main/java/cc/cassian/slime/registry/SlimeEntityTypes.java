@@ -12,11 +12,11 @@ import net.minecraft.world.entity.MobCategory;
 
 public interface SlimeEntityTypes {
 	EntityType<SlimeballEntity> SLIMEBALL = register(
-			"slimeball", EntityType.Builder.<SlimeballEntity>of(SlimeballEntity::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
+			"slimeball", EntityType.Builder.<SlimeballEntity>of(SlimeballEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
 	);
 
 	private static <T extends Entity> EntityType<T> register(final ResourceKey<EntityType<?>> id, final EntityType.Builder<T> builder) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(id));
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(null));
 	}
 
 	private static ResourceKey<EntityType<?>> key(final String vanillaId) {

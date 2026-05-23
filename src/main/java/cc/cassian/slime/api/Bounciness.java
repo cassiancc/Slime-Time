@@ -99,7 +99,7 @@ public class Bounciness {
 	}
 
 	private static double getBlockBounciness(Entity entity, final Block onBlock) {
-		float blockBounciness = onBlock.slime$getBounceRestitution();
+		float blockBounciness = ((SlimeBlock) onBlock).slime$getBounceRestitution();
 		if (!(entity instanceof LivingEntity)) {
 			blockBounciness *= 0.8F;
 		}

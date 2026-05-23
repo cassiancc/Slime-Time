@@ -8,12 +8,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -25,10 +25,8 @@ public class SlimeSlingItem extends Item {
 	}
 
 	@Override
-	public boolean releaseUsing(final ItemStack itemStack, final Level level, final LivingEntity entity, final int remainingTime) {
-		if (!(entity instanceof Player player)) {
-			return false;
-		} else {
+	public void releaseUsing(final ItemStack itemStack, final Level level, final LivingEntity entity, final int remainingTime) {
+        if (entity instanceof Player player) {
 			if (!player.onGround()) {
 				level.playSound(
 						null,
@@ -40,13 +38,12 @@ public class SlimeSlingItem extends Item {
 						1.0F,
 						1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) * 0.5F
 				);
-				return false;
+				return;
 			}
 			int timeHeld = this.getUseDuration(itemStack, entity) - remainingTime;
 			float pow = getPowerForTime(timeHeld);
 			if (pow < 0.1) {
-				return false;
-			} else {
+            } else {
 				if (level instanceof ServerLevel) {
 					var multiplier = itemStack.getOrDefault(SlimeDataComponents.FORCE_MULTIPLIER, ForceMultiplier.DEFAULT);
 					Vec3 view = player.getViewVector(0);
@@ -54,7 +51,7 @@ public class SlimeSlingItem extends Item {
 					player.setDeltaMovement(launch);
 					player.hurtMarked = true;
 				}
-				itemStack.hurtAndBreak(1, entity, entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof SlimeSlingItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
+				itemStack.hurtAndBreak(1, entity, Player.getSlotForHand(entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof SlimeSlingItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND));
 
 				entity.gameEvent(SlimeGameEvents.BOUNCE);
 
@@ -69,10 +66,9 @@ public class SlimeSlingItem extends Item {
 						1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + pow * 0.5F
 				);
 				player.awardStat(Stats.ITEM_USED.get(this));
-				return true;
-			}
+            }
 		}
-	}
+    }
 
 	public static float getPowerForTime(final int timeHeld) {
 		float pow = (float) timeHeld / MAX_DRAW_DURATION;
@@ -90,13 +86,13 @@ public class SlimeSlingItem extends Item {
 	}
 
 	@Override
-	public ItemUseAnimation getUseAnimation(final ItemStack itemStack) {
-		return ItemUseAnimation.BOW;
+	public UseAnim getUseAnimation(final ItemStack itemStack) {
+		return UseAnim.BOW;
 	}
 
 	@Override
-	public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(final Level level, final Player player, final InteractionHand hand) {
 		player.startUsingItem(hand);
-		return InteractionResult.SUCCESS;
+		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 }
