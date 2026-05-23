@@ -90,7 +90,7 @@ public class SlimeHelpers {
     public static List<ItemStack> dye(ItemStack defaultInstance) {
         List<ItemStack> stacks = new ArrayList<>();
         stacks.add(defaultInstance);
-        for (DyeColor dye : DyeColor.values()) {
+        for (SlimeColor dye : SlimeColor.values()) {
             stacks.add(dye(defaultInstance, dye));
         }
         return stacks;

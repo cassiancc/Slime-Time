@@ -8,12 +8,14 @@ import cc.cassian.rrv.common.builtin.crafting.CraftingClientRecipe;
 import cc.cassian.rrv.common.builtin.info.InfoClientRecipe;
 import cc.cassian.rrv.common.mixin.world.item.crafting.IngredientAccessor;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.recipe.SlimeShapedRecipe;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
+import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -21,13 +23,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static cc.cassian.rrv.common.recipe.util.RrvUtil.getItemsFromIngredient;
-import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 import static cc.cassian.slime.util.SlimeHelpers.dye;
 
 public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
@@ -40,10 +38,14 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 			addCraftingRecipes(list);
 		});
 		ItemView.addClientReloadCallback(()->{
-			addDyedItems(Items.SLIME_BALL.getDefaultInstance()).forEach(ItemView::addStackSensitive);
-			addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()).forEach(ItemView::addStackSensitive);
-			addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()).forEach(ItemView::addStackSensitive);
+			addDyedItems(Items.SLIME_BALL.getDefaultInstance());
+			addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance());
+			addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance());
 		});
+	}
+
+	private static void addDyedItems(ItemStack defaultInstance) {
+		dye(defaultInstance).stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).forEach(ItemView::addStackSensitive);
 	}
 
 	private static void addCraftingRecipes(List<ReliableClientRecipe> recipeList) {
