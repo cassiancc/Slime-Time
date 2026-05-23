@@ -137,7 +137,7 @@ public class SlimeHelpers {
 
     public static Identifier getVariatedSlimeTexture(SlimeRenderState state, Identifier original) {
         var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
-        if (variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
         else return original;
     }
 }

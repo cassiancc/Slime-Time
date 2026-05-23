@@ -5,10 +5,11 @@ authors="cassiancc"
 license="${mod_license}"
 
 [[mods]]
-modId="${mod_id}"
+modId="slime_time"
 version="${mod_version}"
 displayName="${mod_name}"
 description="${mod_description}"
+rrv="cc.cassian.slime.platform.RrvServerEntrypoint"
 rrv_client="cc.cassian.slime.platform.RrvEntrypoint"
 
 [[dependencies.slime_time]]

@@ -1,5 +1,6 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +25,7 @@ public abstract class SlimeMobMixin extends Entity {
 
     @Inject(method = "dropFromLootTable", at = @At(value = "HEAD"), cancellable = true)
     private void dropDyedSlimeBalls(ServerLevel level, DamageSource source, boolean playerKilled, CallbackInfo ci) {
-        if (this instanceof VariatedSlimeAccess slimeAccess && slimeAccess.slimeTime$getVariant() != null) {
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && this instanceof VariatedSlimeAccess slimeAccess && slimeAccess.slimeTime$getVariant() != null) {
             var entity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance(), slimeAccess.slimeTime$getVariant()));
             level.addFreshEntity(entity);
             ci.cancel();
