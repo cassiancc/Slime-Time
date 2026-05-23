@@ -1,5 +1,6 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
 import cc.cassian.slime.util.SlimeHelpers;
@@ -22,7 +23,7 @@ public abstract class SlimeRendererMixin {
 	private void setVariantOnRenderState(Slime entity, SlimeRenderState state, float partialTicks, CallbackInfo ci) {
 		VariatedSlimeAccess variatedSlime = (VariatedSlimeAccess) entity;
 		VariatedSlimeRenderStateAccess variatedSlimeState = (VariatedSlimeRenderStateAccess) state;
-		if (variatedSlime.slimeTime$getVariant() != null) {
+		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variatedSlime.slimeTime$getVariant() != null) {
 			variatedSlimeState.slimeTime$setVariant(variatedSlime.slimeTime$getVariant());
 		}
 	}

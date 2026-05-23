@@ -17,6 +17,7 @@ import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
 import cc.cassian.slime.util.SlimeHelpers;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -44,6 +45,7 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 				addDyedItems(Items.SLIME_BALL.getDefaultInstance());
 				addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance());
 				addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance());
+				addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance());
 			} else {
 				ItemView.excludeItems(SlimeBlocks.SLIME_BLOCKS.values().stream().map(Block::asItem).toArray(Item[]::new));
 			}
@@ -51,7 +53,7 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 	}
 
 	private static void addDyedItems(ItemStack defaultInstance) {
-		dye(defaultInstance).stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).forEach(ItemView::addStackSensitive);
+		dye(defaultInstance, false).forEach(ItemView::addStackSensitive);
 	}
 
 	private static void addCraftingRecipes(List<ReliableClientRecipe> recipeList) {

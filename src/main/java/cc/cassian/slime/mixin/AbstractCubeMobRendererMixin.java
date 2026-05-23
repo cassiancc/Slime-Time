@@ -1,20 +1,22 @@
 package cc.cassian.slime.mixin;
 
-import cc.cassian.slime.api.VariatedSlimeAccess;
+//? if >26.1 {
+/*import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
 import cc.cassian.slime.util.SlimeHelpers;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.client.renderer.entity.AbstractCubeMobRenderer;
-import net.minecraft.client.renderer.entity.SlimeRenderer;
 import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.item.DyeColor;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.item.DyeColor;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+*///?}
+import net.minecraft.client.renderer.entity.SlimeRenderer;
+import org.spongepowered.asm.mixin.Mixin;
 
 //? if >26.1 {
 /*@Mixin(AbstractCubeMobRenderer.class)

@@ -28,22 +28,22 @@ import java.util.function.IntFunction;
 import static cc.cassian.slime.util.SlimeHelpers.getSynchronizedRecipe;
 
 public enum SlimeColor implements StringRepresentable {
-    WHITE(0, "white", 16383998),
-    ORANGE(1, "orange", 16351261),
-    MAGENTA(2, "magenta", 13061821),
-    LIGHT_BLUE(3, "light_blue", 3847130),
-    YELLOW(4, "yellow", 16701501),
-    LIME(5, "lime", 8439583),
-    PINK(6, "pink", 15961002),
-    GRAY(7, "gray", 4673362),
-    LIGHT_GRAY(8, "light_gray", 10329495),
-    CYAN(9, "cyan", 1481884),
-    PURPLE(10, "purple", 8991416),
-    BLUE(11, "blue", 3949738),
-    BROWN(12, "brown", 8606770),
-    GREEN(13, "green", 6192150),
-    RED(14, "red", 11546150),
-    BLACK(15, "black", 1908001);
+    WHITE(0, "white", 0xf9fffe),
+    ORANGE(1, "orange", 0xf9801d),
+    MAGENTA(2, "magenta", 0xc74ebd),
+    LIGHT_BLUE(3, "light_blue", 0x3ab3da),
+    YELLOW(4, "yellow", 0xfed83d),
+    LIME(5, "lime", 0x80c71f),
+    PINK(6, "pink", 0xf38baa),
+    GRAY(7, "gray", 0x474f52),
+    LIGHT_GRAY(8, "light_gray", 0x9d9d97),
+    CYAN(9, "cyan", 0x169c9c),
+    PURPLE(10, "purple", 0x8932b8),
+    BLUE(11, "blue", 0x3c44aa),
+    BROWN(12, "brown", 0x835432),
+    GREEN(13, "green", 0x5e7c16),
+    RED(14, "red", 0xb02e26),
+    BLACK(15, "black", 0x1d1d21);
 
     public static final List<SlimeColor> VALUES = List.of(values());
     private static final IntFunction<SlimeColor> BY_ID = ByIdMap.continuous(

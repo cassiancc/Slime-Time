@@ -47,6 +47,7 @@ fabricApi {
     configureDataGeneration({
         client = true
         modId = "slime_time"
+        outputDirectory = rootProject.file("src/main/generated")
     })
 }
 
@@ -149,7 +150,7 @@ stonecutter {
     }
     replacements.string {
         direction = eval(current.version, ">26.1")
-        replace("EntityType.SLIME", "EntityTypes.SLIME")
+        replace("EntityType.SLIME,", "EntityTypes.SLIME,")
     }
     replacements.string {
         direction = eval(current.version, ">26.1")

@@ -1,4 +1,4 @@
-//? fabric {
+//? fabric && <26.2 {
 package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
@@ -49,7 +49,7 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
 	public class SlimeTimeTagBuilder {
 		//? if >1.21.2 {
-		private TagAppender<Item> valueLookupBuilder;
+		private TagAppender<Item, Item> valueLookupBuilder;
 		//?} else {
 		/*private FabricTagProvider<Item>.FabricTagBuilder valueLookupBuilder;
 		 *///?}
@@ -98,7 +98,7 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         public SlimeTimeTagBuilder addAll(Stream<Item> items) {
 			//? <26.2
-			valueLookupBuilder = valueLookupBuilder.add(items);
+			valueLookupBuilder = valueLookupBuilder.addAll(items);
 			return this;
         }
 	}

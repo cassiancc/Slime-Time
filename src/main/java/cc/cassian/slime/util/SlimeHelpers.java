@@ -7,6 +7,7 @@ import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
 //import cc.cassian.slime.client.platform.NeoForgeClientEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
+import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.minecraft.core.Holder;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.animal.frog.FrogVariants;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -89,8 +91,13 @@ public class SlimeHelpers {
     }
 
     public static List<ItemStack> dye(ItemStack defaultInstance) {
+        return dye(defaultInstance, true);
+    }
+
+    public static List<ItemStack> dye(ItemStack defaultInstance, boolean addDefault) {
         List<ItemStack> stacks = new ArrayList<>();
-        stacks.add(defaultInstance);
+        if (addDefault)
+            stacks.add(defaultInstance);
         for (SlimeColor dye : SlimeColor.values()) {
             stacks.add(dye(defaultInstance, dye));
         }
@@ -101,14 +108,21 @@ public class SlimeHelpers {
         return dye(defaultInstance, SlimeColor.byDyeColor(dye));
     }
 
-    public static ItemStack dye(ItemStack defaultInstance, SlimeColor dye) {
+    public static ItemStack dye(ItemStack defaultInstance, SlimeColor color) {
         if (defaultInstance.is(SlimeItemTags.DYEABLE_SLIME)) {
             var copy = defaultInstance.copy();
-            copy.set(SlimeDataComponents.DYED_COLOR, dye);
+            copy.set(SlimeDataComponents.DYED_COLOR, color);
+            return copy;
+        }
+        if (defaultInstance.is(SlimeItems.SLIME_BUCKET)) {
+            var copy = defaultInstance.copy();
+            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, copy, (tag) -> {
+                tag.store("SlimeTimeColor", SlimeColor.CODEC, color);
+            });
             return copy;
         }
         if (defaultInstance.is(Items.SLIME_BLOCK)) {
-            return SlimeBlocks.SLIME_BLOCKS.get(dye).asItem().getDefaultInstance();
+            return SlimeBlocks.SLIME_BLOCKS.get(color).asItem().getDefaultInstance();
         }
         return defaultInstance;
     }

@@ -10,7 +10,9 @@ import cc.cassian.slime.registry.SlimeItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.locale.Language;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -27,6 +29,7 @@ import net.minecraft.world.entity.Mob;
 /*import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 *///?} else {
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.advancements.CriteriaTriggers;
 //?}
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +45,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -158,6 +162,20 @@ public class SlimeBucketItem extends BucketItem {
 		entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);
 		//? neoforge
 		//entity.setData(NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
+	}
+
+	@Override
+	public Component getName(ItemStack itemStack) {
+		var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
+		if (entityData.contains("SlimeTimeColor")) {
+			var color = entityData.read("SlimeTimeColor", SlimeColor.CODEC).orElseThrow().getName();
+			var key = "item.slime_time.%s_slime_bucket".formatted(color);
+			if (Language.getInstance().has(key)) {
+				return Component.translatable(key);
+			}
+			else return Component.translatable("item.slime_time.colored_slime_bucket", WordUtils.capitalize(color.replace("_", " ")));
+		}
+		return super.getName(itemStack);
 	}
 
 	public static SoundEvent getPickupSound() {

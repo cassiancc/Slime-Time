@@ -12,7 +12,8 @@ import cc.cassian.slime.registry.SlimeItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
+//? if >26.1
+//import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.ItemStack;
