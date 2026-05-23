@@ -1,7 +1,12 @@
 package cc.cassian.slime.item;
 
+import cc.cassian.slime.api.BucketableCubeMob;
+import cc.cassian.slime.api.SlimeColor;
+//? fabric
+import cc.cassian.slime.platform.FabricEntrypoint;
+//? neoforge
+//import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import cc.cassian.slime.registry.SlimeItems;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -21,11 +26,8 @@ import net.minecraft.world.entity.Mob;
 //? if >26.1 {
 /*import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
-import net.minecraft.world.entity.monster.cubemob.MagmaCube;
 *///?} else {
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.world.entity.monster.MagmaCube;
-import net.minecraft.world.entity.monster.Slime;
 //?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
@@ -112,7 +114,7 @@ public class SlimeBucketItem extends BucketItem {
 
 	}
 
-	public static void saveToBucketTag(Slime entity, ItemStack bucket) {
+	public static void saveToBucketTag(Mob entity, ItemStack bucket) {
 		bucket.copyFrom(DataComponents.CUSTOM_NAME, entity);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (tag) -> {
 			if (entity.isNoAi()) {
@@ -144,26 +146,18 @@ public class SlimeBucketItem extends BucketItem {
 	}
 
 	public static void loadFromBucketTag(final Slime entity, final CompoundTag tag) {
-		var noAI = tag.getBoolean("NoAI");
-		noAI.ifPresent(entity::setNoAi);
-		var silent = tag.getBoolean("Silent");
-		silent.ifPresent(entity::setSilent);
-		var noGravity = tag.getBoolean("NoGravity");
-		noGravity.ifPresent(entity::setNoGravity);
-		var glowing = tag.getBoolean("Glowing");
-		glowing.ifPresent(entity::setGlowingTag);
-		var invulnerable = tag.getBoolean("Invulnerable");
-		invulnerable.ifPresent(entity::setInvulnerable);
-		var health = tag.getFloat("Health");
-		health.ifPresent(entity::setHealth);
+		tag.getBoolean("NoAI").ifPresent(entity::setNoAi);
+		tag.getBoolean("Silent").ifPresent(entity::setSilent);
+		tag.getBoolean("NoGravity").ifPresent(entity::setNoGravity);
+		tag.getBoolean("Glowing").ifPresent(entity::setGlowingTag);
+		tag.getBoolean("Invulnerable").ifPresent(entity::setInvulnerable);
+		tag.getFloat("Health").ifPresent(entity::setHealth);
 		entity.setSize(tag.getIntOr("Size", 1), true);
-	}
-
-	public static ItemStack getBucketItemStack(Slime slime) {
-		if (slime instanceof MagmaCube) {
-			return new ItemStack(SlimeItems.MAGMA_CUBE_BUCKET);
-		}
-		return new ItemStack(SlimeItems.SLIME_BUCKET);
+		SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
+		//? fabric
+		entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);
+		//? neoforge
+		//entity.setData(NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
 	}
 
 	public static SoundEvent getPickupSound() {

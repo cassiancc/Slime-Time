@@ -9,6 +9,7 @@
     "FabricItemMixin",
     "ItemMixin",
     "LivingEntityMixin",
+    "MagmaCubeMixin",
     "MobMixin",
     "PistonMovingBlockEntityMixin",
     "PistonStructureResolverMixin",

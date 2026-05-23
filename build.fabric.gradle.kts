@@ -159,6 +159,10 @@ stonecutter {
         direction = eval(current.version, ">26.1")
         replace("net.minecraft.world.entity.monster.Slime", "net.minecraft.world.entity.monster.cubemob.Slime")
     }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("net.minecraft.world.entity.monster.MagmaCube", "net.minecraft.world.entity.monster.cubemob.MagmaCube")
+    }
 }
 
 tasks {

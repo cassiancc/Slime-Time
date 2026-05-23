@@ -1,5 +1,6 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.item.SlimeBucketItem;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.util.SlimeHelpers;
@@ -13,12 +14,11 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.item.ItemEntity;
 //? <26.2 {
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.advancements.CriteriaTriggers;
 //?} else {
 /*import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
-import net.minecraft.world.entity.monster.cubemob.MagmaCube;
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
 *///?}
 import net.minecraft.world.entity.player.Player;
@@ -40,25 +40,19 @@ public abstract class MobMixin {
 	private void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		var mob = (Mob) (Object) this;
 		ItemStack itemStack = player.getItemInHand(hand);
-		if (mob instanceof Slime
-				//? >26.1 {
-				/*|| mob instanceof MagmaCube ) {
-				var slime = (AbstractCubeMob) mob;
-				*///?} else {
-				slime ) {
-				//?}
-			if (slime.isAlive() && itemStack.is(Items.BUCKET) && slime.getSize() == 1) {
-				slime.playSound(SlimeBucketItem.getPickupSound(), 1.0F, 1.0F);
-				ItemStack bucket = SlimeBucketItem.getBucketItemStack(slime);
-				SlimeBucketItem.saveToBucketTag(slime, bucket);
+		if (mob instanceof BucketableCubeMob slime) {
+			if (mob.isAlive() && itemStack.is(Items.BUCKET) && slime.slimeTime$getSize() == 1) {
+				mob.playSound(SlimeBucketItem.getPickupSound(), 1.0F, 1.0F);
+				ItemStack bucket = slime.slimeTime$getBucketItem();
+				SlimeBucketItem.saveToBucketTag(mob, bucket);
 				ItemStack result = ItemUtils.createFilledResult(itemStack, player, bucket, false);
 				player.setItemInHand(hand, result);
-				Level level = slime.level();
+				Level level = mob.level();
 				if (!level.isClientSide()) {
 					CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucket);
 				}
 
-				slime.discard();
+				mob.discard();
 				cir.setReturnValue(InteractionResult.SUCCESS);
 			}
 		}
