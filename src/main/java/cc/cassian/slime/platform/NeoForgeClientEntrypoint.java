@@ -5,7 +5,6 @@ import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -15,17 +14,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
-import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
-import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 
 @EventBusSubscriber(modid = SlimeTime.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEntrypoint {
@@ -37,7 +29,7 @@ public class NeoForgeClientEntrypoint {
 			@Override
 			public int getArmorLayerTintColor(ItemStack itemStack, EquipmentClientInfo.Layer layer, int layerIdx, int fallbackColor) {
 				if (itemStack.has(SlimeDataComponents.DYED_COLOR)) {
-					return itemStack.get(SlimeDataComponents.DYED_COLOR).getTextureDiffuseColor();
+					return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
 				}
 				return IClientItemExtensions.super.getArmorLayerTintColor(itemStack, layer, layerIdx, fallbackColor);
 			}

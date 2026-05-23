@@ -1,30 +1,37 @@
 package cc.cassian.slime.platform;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.registry.SlimeRecipes;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
-
-import java.util.Collections;
-import java.util.List;
 
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
 import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 
 public class FabricEntrypoint implements ModInitializer {
+
+	public static final AttachmentType<SlimeColor> SLIME_STATE = AttachmentRegistry.create(
+			SlimeTime.of("slime_variant"),
+			builder -> builder
+					.persistent(SlimeColor.CODEC)
+					.syncWith(SlimeColor.STREAM_CODEC, AttachmentSyncPredicate.all())
+	);
 
 	@Override
 	public void onInitialize() {

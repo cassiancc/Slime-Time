@@ -1,5 +1,6 @@
 package cc.cassian.slime.recipe;
 
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.util.SlimeHelpers;
 import com.google.common.annotations.VisibleForTesting;
@@ -75,7 +76,7 @@ public class SlimeShapedRecipe extends NormalCraftingRecipe {
         var result = this.result.create();
         if (input.items().stream().allMatch(s->s.has(SlimeDataComponents.DYED_COLOR))) {
             var dyedStack = input.items().stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).findFirst().get();
-            DyeColor color = dyedStack.get(SlimeDataComponents.DYED_COLOR);
+            SlimeColor color = dyedStack.get(SlimeDataComponents.DYED_COLOR);
             if (input.items().stream().allMatch(s->s.get(SlimeDataComponents.DYED_COLOR).equals(color)))
                 return SlimeHelpers.dye(result, color);
         }

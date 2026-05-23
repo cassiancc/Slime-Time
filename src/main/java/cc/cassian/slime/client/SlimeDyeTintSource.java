@@ -21,7 +21,7 @@ public record SlimeDyeTintSource(int defaultColor) implements ItemTintSource {
     @Override
     public int calculate(final ItemStack itemStack, @Nullable final ClientLevel level, @Nullable final LivingEntity owner) {
         if (itemStack.has(SlimeDataComponents.DYED_COLOR))
-            return itemStack.get(SlimeDataComponents.DYED_COLOR).getTextureDiffuseColor();
+            return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
         return defaultColor;
     }
 

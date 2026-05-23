@@ -1,6 +1,7 @@
 package cc.cassian.slime.registry;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -22,22 +23,22 @@ import java.util.function.Function;
 
 public interface SlimeBlocks {
 
-	Map<DyeColor, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
+	Map<SlimeColor, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
 			"slime_block",
 			SlimeBlock::new,
 			BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()
 	);
 
-	static <T extends Block> HashMap<DyeColor, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
-		LinkedHashMap<DyeColor, T> map = LinkedHashMap.newLinkedHashMap(DyeColor.values().length);
-		for (DyeColor value : DyeColor.values()) {
+	static <T extends Block> HashMap<SlimeColor, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
+		LinkedHashMap<SlimeColor, T> map = LinkedHashMap.newLinkedHashMap(SlimeColor.values().length);
+		for (SlimeColor value : SlimeColor.values()) {
 			String dyedBlockName = value.getName() + "_" + name;
 			map.put(value, registerBlock(dyedBlockName, blockFactory, settings, true));
 		}
 		return map;
 	}
 
-	static <T extends Block> List<ItemStack> asListOfStacks(Map<DyeColor, T> blocks) {
+	static <T extends Block> List<ItemStack> asListOfStacks(Map<SlimeColor, T> blocks) {
 		return blocks.values().stream().map(b->b.asItem().getDefaultInstance()).toList();
 	}
 

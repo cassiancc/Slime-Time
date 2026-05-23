@@ -12,7 +12,9 @@
     "MobMixin",
     "PistonMovingBlockEntityMixin",
     "PistonStructureResolverMixin",
-    "SlimeBallItemMixin"
+    "SlimeBallItemMixin",
+    "SlimeMixin",
+    "SlimeMobMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -21,6 +23,9 @@
     "requireAnnotations": true
   },
   "client": [
-    "EquipmentLayerRendererMixin"
+    "EquipmentLayerRendererMixin",
+    "SlimeOuterLayerMixin",
+    "SlimeRendererMixin",
+    "SlimeRenderStateMixin"
   ]
 }

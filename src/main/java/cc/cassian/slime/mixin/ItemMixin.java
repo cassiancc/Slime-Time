@@ -2,7 +2,10 @@ package cc.cassian.slime.mixin;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.entity.SlimeballEntity;
+import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.tags.SlimeItemTags;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,15 +16,27 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.text.WordUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(Item.class)
 public abstract class ItemMixin {
+
+	@ModifyReturnValue(at = @At("RETURN"), method = "getName")
+	private Component name(Component original, ItemStack stack) {
+		if (stack.has(SlimeDataComponents.DYED_COLOR)) {
+			var color = Objects.requireNonNull(stack.get(SlimeDataComponents.DYED_COLOR));
+			String colorName = WordUtils.capitalizeFully(color.getName().replace("_", " "));
+			return Component.translatable("slime_time.color", colorName, original);
+		}
+		return original;
+	}
 
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
 	private void init(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {

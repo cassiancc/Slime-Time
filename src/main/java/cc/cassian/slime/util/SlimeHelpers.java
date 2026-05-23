@@ -1,12 +1,14 @@
 package cc.cassian.slime.util;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
+import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
 import cc.cassian.slime.platform.NeoForgeClientEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.tags.SlimeItemTags;
 import dev.yumi.mc.core.api.YumiMods;
-import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
@@ -35,9 +37,9 @@ public class SlimeHelpers {
     /// Mixes two Slime Balls together.
     public static boolean mergeSlimeBalls(ItemStack self, ItemStack other, Player player) {
         if (self.is(Items.SLIME_BALL) && other.is(Items.SLIME_BALL) && (self.has(SlimeDataComponents.DYED_COLOR) || other.has(DataComponents.DYED_COLOR))) {
-            DyeColor selfColor = null;
-            DyeColor otherColor = null;
-            DyeColor finalColor = null;
+            SlimeColor selfColor = null;
+            SlimeColor otherColor = null;
+            SlimeColor finalColor = null;
             if (self.has(SlimeDataComponents.DYED_COLOR)) {
                 selfColor = Objects.requireNonNull(self.get(SlimeDataComponents.DYED_COLOR));
             }
@@ -45,7 +47,7 @@ public class SlimeHelpers {
                 otherColor = Objects.requireNonNull(other.get(SlimeDataComponents.DYED_COLOR));
             }
             if (selfColor != null && otherColor != null) {
-                finalColor = getMixedColor(player.level(), selfColor, otherColor);
+                finalColor = SlimeColor.getMixedColor(player.level(), selfColor, otherColor);
             }
             else if (selfColor != null) {
                 finalColor = selfColor;
@@ -76,47 +78,7 @@ public class SlimeHelpers {
 
     /// Replaces the name of the item with its dyed variant.
     public static void addDyeTooltip(ItemStack stack, Item.TooltipContext context, TooltipFlag flag, List<Component> tooltip) {
-        if (stack.has(SlimeDataComponents.DYED_COLOR)) {
-            var color = Objects.requireNonNull(stack.get(SlimeDataComponents.DYED_COLOR));
-            String colorName = WordUtils.capitalizeFully(color.getName().replace("_", " "));
-            tooltip.set(0, Component.translatable("slime_time.color", colorName, tooltip.getFirst()));
-        }
-    }
 
-    /// Variant of DyeColor.getMixedColor that uses recipe synchronization APIs.
-    private static DyeColor getMixedColor(final Level level, final DyeColor dyeColor1, final DyeColor dyeColor2) {
-        DyeColor mixedColor = findColorMixInRecipes(level, dyeColor1, dyeColor2);
-        if (mixedColor != null) {
-            return mixedColor;
-        } else {
-            return level.getRandom().nextBoolean() ? dyeColor1 : dyeColor2;
-        }
-    }
-
-    /// Variant of DyeColor.findColorMixInRecipes that uses recipe synchronization APIs.
-    @Nullable
-    private static DyeColor findColorMixInRecipes(final Level level, final DyeColor dyeColor1, final DyeColor dyeColor2) {
-        DataComponentLookup<Item> itemComponents = level.registryAccess().lookupOrThrow(Registries.ITEM).componentLookup();
-        Collection<Holder<Item>> dye1Items = itemComponents.findAll(DataComponents.DYE, dyeColor1);
-        if (!dye1Items.isEmpty()) {
-            Collection<Holder<Item>> dye2Items = itemComponents.findAll(DataComponents.DYE, dyeColor2);
-            if (!dye2Items.isEmpty()) {
-                for (Holder<Item> dye1Item : dye1Items) {
-                    for (Holder<Item> dye2Item : dye2Items) {
-                        CraftingInput input = CraftingInput.of(2, 1, List.of(new ItemStack(dye1Item), new ItemStack(dye2Item)));
-                        Optional<RecipeHolder<CraftingRecipe>> foundRecipe = getSynchronizedRecipe(level, input);
-                        if (foundRecipe.isPresent()) {
-                            ItemStack craftingResult = foundRecipe.get().value().assemble(input);
-                            DyeColor craftedDyeColor = craftingResult.get(DataComponents.DYE);
-                            if (craftedDyeColor != null) {
-                                return craftedDyeColor;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     public static Optional<RecipeHolder<CraftingRecipe>> getSynchronizedRecipe(Level level, CraftingInput input) {
@@ -135,6 +97,10 @@ public class SlimeHelpers {
     }
 
     public static ItemStack dye(ItemStack defaultInstance, DyeColor dye) {
+        return dye(defaultInstance, SlimeColor.byDyeColor(dye));
+    }
+
+    public static ItemStack dye(ItemStack defaultInstance, SlimeColor dye) {
         if (defaultInstance.is(SlimeItemTags.DYEABLE_SLIME)) {
             var copy = defaultInstance.copy();
             copy.set(SlimeDataComponents.DYED_COLOR, dye);
@@ -165,10 +131,13 @@ public class SlimeHelpers {
     }
 
     public static List<ItemStack> addDyedItems(ItemStack defaultInstance) {
-        if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) {
-            return SlimeHelpers.dye(defaultInstance);
-        } else {
-            return Collections.singletonList(defaultInstance);
-        }
+        if (SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
+        else return Collections.singletonList(defaultInstance);
+    }
+
+    public static Identifier getVariatedSlimeTexture(SlimeRenderState state, Identifier original) {
+        var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
+        if (variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
+        else return original;
     }
 }

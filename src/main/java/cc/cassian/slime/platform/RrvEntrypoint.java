@@ -8,6 +8,7 @@ import cc.cassian.rrv.common.builtin.crafting.CraftingClientRecipe;
 import cc.cassian.rrv.common.builtin.info.InfoClientRecipe;
 import cc.cassian.rrv.common.mixin.world.item.crafting.IngredientAccessor;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.recipe.SlimeShapedRecipe;
 import cc.cassian.slime.registry.SlimeDataComponents;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static cc.cassian.rrv.common.recipe.util.RrvUtil.getItemsFromIngredient;
+import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
 import static cc.cassian.slime.util.SlimeHelpers.dye;
 
 public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
@@ -36,6 +38,11 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 			list.add(getInfoRecipe(SlimeItems.SLIME_BUCKET));
 			list.add(getInfoRecipe(SlimeItems.MAGMA_CUBE_BUCKET));
 			addCraftingRecipes(list);
+		});
+		ItemView.addClientReloadCallback(()->{
+			addDyedItems(Items.SLIME_BALL.getDefaultInstance()).forEach(ItemView::addStackSensitive);
+			addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()).forEach(ItemView::addStackSensitive);
+			addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()).forEach(ItemView::addStackSensitive);
 		});
 	}
 
@@ -85,9 +92,9 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 			else if (craftingRecipe instanceof SlimeDyeRecipe recipe) {
 				List<ItemStackTemplate> results = new ArrayList<>();
 				for (Item ingredient : getItemsFromIngredient(recipe.getTarget())) {
-					for (DyeColor dyeColor : DyeColor.values()) {
+					for (SlimeColor color : SlimeColor.values()) {
 						ItemStack defaultInstance = ingredient.getDefaultInstance();
-						defaultInstance.set(SlimeDataComponents.DYED_COLOR, dyeColor);
+						defaultInstance.set(SlimeDataComponents.DYED_COLOR, color);
 						results.add(ItemStackTemplate.fromNonEmptyStack(defaultInstance));
 					}
 				}
