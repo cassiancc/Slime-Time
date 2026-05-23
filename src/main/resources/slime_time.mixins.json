@@ -23,6 +23,7 @@
     "requireAnnotations": true
   },
   "client": [
+    "AbstractCubeMobRendererMixin",
     "EquipmentLayerRendererMixin",
     "SlimeOuterLayerMixin",
     "SlimeRendererMixin",

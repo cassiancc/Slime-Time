@@ -15,6 +15,7 @@ tasks.named<ProcessResources>("processResources") {
 
     val props = HashMap<String, String>().apply {
         this["mod_version"] = prop("mod.version") + "+" + prop("deps.minecraft")
+        this["minecraft_version"] = prop("deps.minecraft_dependency")
         this["mod_name"] = prop("mod.name")
         this["mod_license"] = prop("mod.license")
         this["mod_id"] = prop("mod.id")
@@ -100,23 +101,21 @@ repositories {
 
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft("com.mojang:minecraft:${providers.gradleProperty("deps.minecraft").get()}")
+    minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
 
-    implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("deps.fabric_loader").get()}")
+    implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("deps.fabric_api").get()}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
     // Mod Menu
     compileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
-    localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
 
     // Configs
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     include("folk.sisby:kaleido-config:${property("deps.kaleido")}")
 
     // McQoy
-    implementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
-    implementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
+    compileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
 
     // RRV
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}") {
@@ -128,6 +127,11 @@ dependencies {
     localRuntime("cc.cassian.item-descriptions:item-descriptions-fabric:${property("deps.item_descriptions")}") {
         exclude(group = "mcp.mobius.waila")
         exclude(group = "lol.bai")
+    }
+    if (stonecutter.eval(mcVersion, "=26.1")) {
+        localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
+        implementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
+        localRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
     }
 
 }
@@ -142,6 +146,18 @@ stonecutter {
     replacements.string {
         direction = eval(current.version, ">1.21.10")
         replace("ResourceLocation", "Identifier")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME", "EntityTypes.SLIME")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.MAGMA_CUBE", "EntityTypes.MAGMA_CUBE")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("net.minecraft.world.entity.monster.Slime", "net.minecraft.world.entity.monster.cubemob.Slime")
     }
 }
 

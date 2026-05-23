@@ -1,5 +1,5 @@
 //? fabric {
-/*package cc.cassian.slime.client.data.providers;
+package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.tags.SlimeBlockTags;
@@ -21,9 +21,11 @@ public class SlimeBlockTagProvider extends FabricTagsProvider.BlockTagsProvider 
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
+		//? if <26.2 {
 		valueLookupBuilder(SlimeBlockTags.BOUNCY).add(Blocks.SLIME_BLOCK).addTag(SlimeBlockTags.SLIME_BLOCKS);
 		valueLookupBuilder(SlimeBlockTags.SLIME_BLOCKS).addAll(SlimeBlocks.SLIME_BLOCKS.values().stream().map(o->o));
 		valueLookupBuilder(SlimeBlockTags.SUPPRESSES_BOUNCE).add(Blocks.HONEY_BLOCK).addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.withDefaultNamespace("suppresses_bounce")));
+		//?}
 	}
 }
-*///?}
+//?}

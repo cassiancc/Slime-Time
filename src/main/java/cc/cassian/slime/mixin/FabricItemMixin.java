@@ -21,19 +21,19 @@ import static cc.cassian.slime.SlimeTime.CONFIG;
 
 @Pseudo
 //? fabric {
-/*@Mixin(net.fabricmc.fabric.api.item.v1.FabricItem.class)
-*///?} else {
-@Mixin(Item.class)
-//?}
+@Mixin(net.fabricmc.fabric.api.item.v1.FabricItem.class)
+//?} else {
+/*@Mixin(Item.class)
+*///?}
 public interface FabricItemMixin {
 	//? fabric {
-	/*@ModifyReturnValue(at = @At(value = "RETURN"), method = "getCreatorNamespace")
+	@ModifyReturnValue(at = @At(value = "RETURN"), method = "getCreatorNamespace")
 	private String vertical(String original, ItemStack stack) {
 		if (stack.is(Items.SLIME_BALL) && stack.has(SlimeDataComponents.DYED_COLOR) && original.equals("minecraft")) {
 			return SlimeTime.MOD_ID;
 		}
 		return original;
 	}
-	*///?}
+	//?}
 
 }

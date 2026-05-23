@@ -1,5 +1,5 @@
 //? fabric {
-/*package cc.cassian.slime.platform;
+package cc.cassian.slime.platform;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
@@ -71,4 +71,4 @@ public class FabricEntrypoint implements ModInitializer {
 
 
 }
-*///?}
+//?}

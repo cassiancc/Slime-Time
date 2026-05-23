@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 public class Bounciness {
 	public static void restituteMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
@@ -51,12 +52,25 @@ public class Bounciness {
 			movementAfterBounce = movementAfterBounce.with(Direction.Axis.Y, (gravityCompensation - currentMovement.y) * restitution);
 		}
 
+		movementAfterBounce = removeMinuteBounces(movementAfterBounce, restitution);
+
+
+		if (bounced) {
+			checkForAndPlayBounceSound(restitution, entity);
+		}
+
+		return movementAfterBounce;
+	}
+
+	public static Vec3 removeMinuteBounces(Vec3 movementAfterBounce, double restitution) {
 		if (movementAfterBounce.y < 0.4 && restitution > 0.0) {
 			movementAfterBounce = new Vec3(movementAfterBounce.x, 0.0, movementAfterBounce.z);
 		}
+		return movementAfterBounce;
+	}
 
-
-		if (bounced && restitution > 0.1) {
+	public static void checkForAndPlayBounceSound(double restitution, Entity entity) {
+		if (restitution > 0.1) {
 			entity.gameEvent(SlimeGameEvents.BOUNCE);
 			if (SlimeTime.CONFIG.client.slimyBounceSound && entity instanceof LivingEntity livingEntity) {
 				for (EquipmentSlot value : EquipmentSlot.values()) {
@@ -66,8 +80,6 @@ public class Bounciness {
 				}
 			}
 		}
-
-		return movementAfterBounce;
 	}
 
 	public static void playBounceSound(LivingEntity livingEntity) {

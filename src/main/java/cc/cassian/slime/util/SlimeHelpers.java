@@ -4,7 +4,7 @@ import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
 //? neoforge
-import cc.cassian.slime.client.platform.NeoForgeClientEntrypoint;
+//import cc.cassian.slime.client.platform.NeoForgeClientEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.tags.SlimeItemTags;
@@ -83,9 +83,9 @@ public class SlimeHelpers {
 
     public static Optional<RecipeHolder<CraftingRecipe>> getSynchronizedRecipe(Level level, CraftingInput input) {
         //? fabric
-        //return level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
+        return level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
         //? neoforge
-        return NeoForgeClientEntrypoint.getSynchronizedRecipes(level, input);
+        //return NeoForgeClientEntrypoint.getSynchronizedRecipes(level, input);
     }
 
     public static List<ItemStack> dye(ItemStack defaultInstance) {

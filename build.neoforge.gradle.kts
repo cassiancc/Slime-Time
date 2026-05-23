@@ -45,13 +45,6 @@ repositories {
         }
     }
     maven {
-        name = "Wisp Forest Maven"
-        url = uri("https://maven.wispforest.io/releases/")
-        content {
-            includeGroupAndSubgroups("io.wispforest")
-        }
-    }
-    maven {
         name = "Modrinth"
         url = uri("https://api.modrinth.com/maven")
         content {
@@ -163,6 +156,24 @@ dependencies {
     implementation("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${property("deps.rrv")}")
 }
 
+stonecutter {
+    replacements.string {
+        direction = eval(current.version, ">1.21.10")
+        replace("ResourceLocation", "Identifier")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME", "EntityTypes.SLIME")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.MAGMA_CUBE", "EntityTypes.MAGMA_CUBE")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("net.minecraft.world.entity.monster.Slime", "net.minecraft.world.entity.monster.cubemob.Slime")
+    }
+}
 
 tasks {
     processResources {

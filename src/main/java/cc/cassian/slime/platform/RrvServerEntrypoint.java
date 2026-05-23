@@ -7,6 +7,8 @@ import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.world.entity.EntityType;
+//? if >=26.2
+//import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
 
 public class RrvServerEntrypoint implements ReliableRecipeViewerPlugin {

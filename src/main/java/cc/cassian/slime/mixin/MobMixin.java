@@ -3,7 +3,7 @@ package cc.cassian.slime.mixin;
 import cc.cassian.slime.item.SlimeBucketItem;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.util.SlimeHelpers;
-import net.minecraft.advancements.CriteriaTriggers;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -12,7 +12,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.item.ItemEntity;
+//? <26.2 {
 import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.advancements.CriteriaTriggers;
+//?} else {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
+import net.minecraft.world.entity.monster.cubemob.MagmaCube;
+import net.minecraft.world.entity.monster.Slime;
+*///?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +40,13 @@ public abstract class MobMixin {
 	private void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 		var mob = (Mob) (Object) this;
 		ItemStack itemStack = player.getItemInHand(hand);
-		if (mob instanceof Slime slime) {
+		if (mob instanceof Slime
+				//? >26.1 {
+				/*|| mob instanceof MagmaCube ) {
+				var slime = (AbstractCubeMob) mob;
+				*///?} else {
+				slime ) {
+				//?}
 			if (slime.isAlive() && itemStack.is(Items.BUCKET) && slime.getSize() == 1) {
 				slime.playSound(SlimeBucketItem.getPickupSound(), 1.0F, 1.0F);
 				ItemStack bucket = SlimeBucketItem.getBucketItemStack(slime);

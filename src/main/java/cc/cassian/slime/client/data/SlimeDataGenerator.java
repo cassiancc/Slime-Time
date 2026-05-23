@@ -1,5 +1,5 @@
 //? fabric {
-/*package cc.cassian.slime.client.data;
+package cc.cassian.slime.client.data;
 
 import cc.cassian.slime.client.data.providers.SlimeBlockTagProvider;
 import cc.cassian.slime.client.data.providers.SlimeItemTagProvider;
@@ -18,4 +18,4 @@ public class SlimeDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(SlimeRecipeProvider::new);
 	}
 }
-*///?}
+//?}

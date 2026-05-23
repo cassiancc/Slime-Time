@@ -44,11 +44,11 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 	}
 
 	public SlimeballEntity(final Level level, final LivingEntity mob, final ItemStack itemStack) {
-		super(SlimeEntityTypes.SLIMEBALL, mob, level, itemStack);
+		super(SlimeEntityType.SLIMEBALL, mob, level, itemStack);
 	}
 
 	public SlimeballEntity(final Level level, final double x, final double y, final double z, final ItemStack itemStack) {
-		super(SlimeEntityTypes.SLIMEBALL, x, y, z, level, itemStack);
+		super(SlimeEntityType.SLIMEBALL, x, y, z, level, itemStack);
 	}
 
 	@Override

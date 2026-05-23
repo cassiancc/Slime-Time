@@ -1,5 +1,5 @@
 //? neoforge {
-package cc.cassian.slime.client.platform;
+/*package cc.cassian.slime.client.platform;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.client.SlimeTimeClient;
@@ -62,4 +62,4 @@ public class NeoForgeClientEntrypoint {
         return recipeMap.getRecipesFor(RecipeType.CRAFTING, input, level).findFirst();
     }
 }
-//?}
+*///?}

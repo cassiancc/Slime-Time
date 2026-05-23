@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SlimeRenderer.class)
 public abstract class SlimeRendererMixin {
 
+	//? if <26.2 {
 	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/Slime;Lnet/minecraft/client/renderer/entity/state/SlimeRenderState;F)V", at = @At(value = "RETURN"))
 	private void setVariantOnRenderState(Slime entity, SlimeRenderState state, float partialTicks, CallbackInfo ci) {
 		VariatedSlimeAccess variatedSlime = (VariatedSlimeAccess) entity;
@@ -25,6 +26,7 @@ public abstract class SlimeRendererMixin {
 			variatedSlimeState.slimeTime$setVariant(variatedSlime.slimeTime$getVariant());
 		}
 	}
+	//?}
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/SlimeRenderState;)Lnet/minecraft/resources/Identifier;")
 	private Identifier init(Identifier original, SlimeRenderState state) {

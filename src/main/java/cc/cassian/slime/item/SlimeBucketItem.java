@@ -1,7 +1,7 @@
 package cc.cassian.slime.item;
 
 import cc.cassian.slime.registry.SlimeItems;
-import net.minecraft.advancements.CriteriaTriggers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -18,8 +18,15 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+//? if >26.1 {
+/*import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.world.entity.monster.cubemob.MagmaCube;
+*///?} else {
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
+//?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -36,6 +43,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
+//~ if >26.1 'Slime ' -> 'AbstractCubeMob ' {
 @NullMarked
 public class SlimeBucketItem extends BucketItem {
 
@@ -162,3 +170,4 @@ public class SlimeBucketItem extends BucketItem {
 		return SoundEvents.BUCKET_FILL_TADPOLE;
 	}
 }
+//~}
