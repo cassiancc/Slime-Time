@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:has_component",
+    "component": "slime_time:dyed_color",
+    "ignore_default": true,
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "slime_time:item/slime_sling_dyed"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "slime_time:item/slime_sling"
+    }
+  }
+}
