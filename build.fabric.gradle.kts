@@ -98,6 +98,13 @@ repositories {
             includeGroupAndSubgroups("cc.cassian")
         }
     }
+    maven {
+        name = "shedaniel (Cloth Config)"
+        url = uri("https://maven.shedaniel.me/")
+        content {
+            includeGroupAndSubgroups("me.shedaniel")
+        }
+    }
 }
 
 dependencies {
@@ -129,10 +136,15 @@ dependencies {
         exclude(group = "mcp.mobius.waila")
         exclude(group = "lol.bai")
     }
+    // Field Guide
+    compileOnly("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
+
     if (stonecutter.eval(mcVersion, "=26.1")) {
         localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
-        implementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
+        localRuntime("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
         localRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
+        localRuntime("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
+        localRuntime("me.shedaniel.cloth:cloth-config-fabric:${property("deps.cloth_config")}")
     }
 
 }
@@ -151,6 +163,10 @@ stonecutter {
     replacements.string {
         direction = eval(current.version, ">26.1")
         replace("EntityType.SLIME,", "EntityTypes.SLIME,")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME)", "EntityTypes.SLIME)")
     }
     replacements.string {
         direction = eval(current.version, ">26.1")

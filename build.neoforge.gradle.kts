@@ -143,17 +143,12 @@ neoForge {
 }
 
 dependencies {
-    // McQoy
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     jarJar("folk.sisby:kaleido-config:${property("deps.kaleido")}")
 //    implementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
-
-    // YACL  - required by McQoy
-    if (hasProperty("deps.yacl")) {
-        runtimeOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-neoforge")
-    }
-
+    runtimeOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-neoforge")
     implementation("cc.cassian.rrv:reliable-recipe-viewer-neoforge:${property("deps.rrv")}")
+    compileOnly("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
 }
 
 stonecutter {
@@ -164,6 +159,10 @@ stonecutter {
     replacements.string {
         direction = eval(current.version, ">26.1")
         replace("EntityType.SLIME,", "EntityTypes.SLIME,")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME)", "EntityTypes.SLIME)")
     }
     replacements.string {
         direction = eval(current.version, ">26.1")

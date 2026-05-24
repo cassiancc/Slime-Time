@@ -76,7 +76,7 @@ public abstract class SlimeMixin
     @Override
     public void slimeTime$setVariant(SlimeColor variant) {
         //? <26.2
-        if (!typeHolder().is(EntityType.MAGMA_CUBE.builtInRegistryHolder().key())) return;
+        if (typeHolder().is(EntityType.MAGMA_CUBE.builtInRegistryHolder().key())) return;
         //? fabric
         this.setAttached(FabricEntrypoint.SLIME_STATE, variant);
         //? neoforge
