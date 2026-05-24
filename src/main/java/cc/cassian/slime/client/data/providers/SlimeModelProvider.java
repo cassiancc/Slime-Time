@@ -1,3 +1,4 @@
+//? fabric {
 package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
@@ -30,3 +31,4 @@ public class SlimeModelProvider extends FabricModelProvider {
 //		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_SLING, ModelTemplates.FLAT_HANDHELD_ITEM);
 	}
 }
+//?}

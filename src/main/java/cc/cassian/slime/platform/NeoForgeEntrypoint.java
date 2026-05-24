@@ -105,10 +105,6 @@ public class NeoForgeEntrypoint {
 		});
 	}
 
-	@SubscribeEvent
-	public static void sendRecipes(OnDatapackSyncEvent event) {
-		event.sendRecipes(RecipeType.CRAFTING);
-	}
 
 }
 *///?}

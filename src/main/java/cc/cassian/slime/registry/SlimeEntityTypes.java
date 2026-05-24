@@ -16,7 +16,7 @@ public interface SlimeEntityTypes {
 	);
 
 	private static <T extends Entity> EntityType<T> register(final ResourceKey<EntityType<?>> id, final EntityType.Builder<T> builder) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(null));
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(id.location().getPath()));
 	}
 
 	private static ResourceKey<EntityType<?>> key(final String vanillaId) {

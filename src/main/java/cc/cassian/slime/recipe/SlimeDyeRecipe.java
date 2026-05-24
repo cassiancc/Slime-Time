@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 public class SlimeDyeRecipe extends CustomRecipe {
     public static final MapCodec<SlimeDyeRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(
             i -> i.group(
-                            CraftingBookCategory.CODEC.fieldOf("group").forGetter(o -> o.bookInfo),
+                            CraftingBookCategory.CODEC.optionalFieldOf("category", CraftingBookCategory.MISC).forGetter(o -> o.bookInfo),
                             Ingredient.CODEC.fieldOf("target").forGetter(o -> o.target),
                             Ingredient.CODEC.fieldOf("dye").forGetter(o -> o.dye),
                             ItemStack.CODEC.fieldOf("result").forGetter(o -> o.result)

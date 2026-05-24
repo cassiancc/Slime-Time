@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 public class SlimeShapedRecipe extends CustomRecipe {
     public static final MapCodec<SlimeShapedRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(
             i -> i.group(
-                            CraftingBookCategory.CODEC.fieldOf("group").forGetter(o -> o.bookInfo),
+                            CraftingBookCategory.CODEC.optionalFieldOf("category", CraftingBookCategory.MISC).forGetter(o -> o.bookInfo),
                             ShapedRecipePattern.MAP_CODEC.forGetter(o -> o.pattern),
                             ItemStack.CODEC.fieldOf("result").forGetter(o -> o.result)
                     )

@@ -4,7 +4,6 @@ import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.registry.SlimeItems;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.component.DataComponents;
@@ -16,8 +15,7 @@ import org.jspecify.annotations.Nullable;
 public class SlimeTimeClient {
 
 	public static void onInitializeClient() {
-		//? neoforge
-		//EntityRendererRegistry.register(SlimeEntityTypes.SLIMEBALL, ThrownItemRenderer::new);
+
 	}
 
 	public static int calculateTinting(final ItemStack itemStack, int tintIndex) {

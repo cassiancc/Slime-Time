@@ -2,8 +2,8 @@ package cc.cassian.slime.item;
 
 import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
-//? fabric
 import cc.cassian.slime.api.VariatedSlimeAccess;
+//? fabric
 import cc.cassian.slime.platform.FabricEntrypoint;
 //? neoforge
 //import cc.cassian.slime.platform.NeoForgeEntrypoint;
