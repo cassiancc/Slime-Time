@@ -28,5 +28,6 @@ public class SlimeTime {
 		SlimeGameEvents.touch();
 		SlimeEffects.touch();
 		SlimeSoundEvents.touch();
+		SlimeParticleTypes.touch();
 	}
 }

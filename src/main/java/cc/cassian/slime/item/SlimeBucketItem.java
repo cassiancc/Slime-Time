@@ -2,11 +2,7 @@ package cc.cassian.slime.item;
 
 import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
-//? fabric
 import cc.cassian.slime.api.VariatedSlimeAccess;
-import cc.cassian.slime.platform.FabricEntrypoint;
-//? neoforge
-//import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import cc.cassian.slime.registry.SlimeItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

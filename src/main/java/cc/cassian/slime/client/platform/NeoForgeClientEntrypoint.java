@@ -3,8 +3,10 @@
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.client.SlimeTimeClient;
+import cc.cassian.slime.client.particle.TintedSlimeParticle;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.SlimeParticleTypes;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.world.item.*;
@@ -15,6 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -28,6 +31,11 @@ public class NeoForgeClientEntrypoint {
 	@SubscribeEvent
 	public static void modifyTintColour(FMLClientSetupEvent event) {
 		SlimeTimeClient.onInitializeClient();
+	}
+
+	@SubscribeEvent
+	public static void modifyTintColour(RegisterParticleProvidersEvent event) {
+		event.registerSpecial(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
 	}
 
 	@SubscribeEvent
