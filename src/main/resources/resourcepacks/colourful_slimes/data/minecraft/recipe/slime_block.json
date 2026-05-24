@@ -2,7 +2,9 @@
   "type": "slime_time:crafting_shaped",
   "category": "misc",
   "key": {
-    "l": "minecraft:slime_ball"
+    "l": {
+      "item": "minecraft:slime_ball"
+    }
   },
   "pattern": [
     "ll",

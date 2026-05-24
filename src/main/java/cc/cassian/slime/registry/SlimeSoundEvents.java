@@ -3,7 +3,7 @@ package cc.cassian.slime.registry;
 import cc.cassian.slime.SlimeTime;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public interface SlimeSoundEvents {
@@ -15,7 +15,7 @@ public interface SlimeSoundEvents {
 		return register(SlimeTime.of(id));
 	}
 
-	private static SoundEvent register(final Identifier id) {
+	private static SoundEvent register(final ResourceLocation id) {
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
 	}
 

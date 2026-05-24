@@ -2,26 +2,30 @@ package cc.cassian.slime.api;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ARGB;
 import net.minecraft.util.ByIdMap;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.IntFunction;
 
@@ -58,7 +62,17 @@ public enum SlimeColor implements StringRepresentable {
     SlimeColor(final int id, final String name, final int rgb) {
         this.id = id;
         this.name = name;
-        this.argb = ARGB.opaque(rgb);
+        this.argb = FastColor.ARGB32.opaque(rgb);
+    }
+
+    public static @Nullable SlimeColor decode(CompoundTag entityData) {
+        if (entityData.contains("SlimeTimeColor"))
+            return CODEC.decode(NbtOps.INSTANCE, entityData.get("SlimeTimeColor")).getOrThrow().getFirst();
+        return null;
+    }
+
+    public void encode(CompoundTag tag) {
+        tag.put("SlimeTimeColor", CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow());
     }
 
     public int getId() {
@@ -95,7 +109,7 @@ public enum SlimeColor implements StringRepresentable {
 
     /// Variant of DyeColor.getMixedColor that uses recipe synchronization APIs.
     public static SlimeColor getMixedColor(final Level level, final SlimeColor dyeColor1, final SlimeColor dyeColor2) {
-        SlimeColor mixedColor = findColorMixInRecipes(level, dyeColor1, dyeColor2);
+        SlimeColor mixedColor = findColorMixInRecipes(level, DyeColor.byId(dyeColor1.id), DyeColor.byId(dyeColor2.id));
         if (mixedColor != null) {
             return mixedColor;
         } else {
@@ -105,28 +119,17 @@ public enum SlimeColor implements StringRepresentable {
 
     /// Variant of DyeColor.findColorMixInRecipes that uses recipe synchronization APIs.
     @Nullable
-    private static SlimeColor findColorMixInRecipes(final Level level, final SlimeColor slimeColor1, final SlimeColor slimeColor2) {
-        DataComponentLookup<Item> itemComponents = level.registryAccess().lookupOrThrow(Registries.ITEM).componentLookup();
-        Collection<Holder<Item>> dye1Items = itemComponents.findAll(DataComponents.DYE, DyeColor.byId(slimeColor1.id));
-        if (!dye1Items.isEmpty()) {
-            Collection<Holder<Item>> dye2Items = itemComponents.findAll(DataComponents.DYE, DyeColor.byId(slimeColor2.id));
-            if (!dye2Items.isEmpty()) {
-                for (Holder<Item> dye1Item : dye1Items) {
-                    for (Holder<Item> dye2Item : dye2Items) {
-                        CraftingInput input = CraftingInput.of(2, 1, List.of(new ItemStack(dye1Item), new ItemStack(dye2Item)));
-                        Optional<RecipeHolder<CraftingRecipe>> foundRecipe = getSynchronizedRecipe(level, input);
-                        if (foundRecipe.isPresent()) {
-                            ItemStack craftingResult = foundRecipe.get().value().assemble(input);
-                            DyeColor craftedDyeColor = craftingResult.get(DataComponents.DYE);
-                            if (craftedDyeColor != null) {
-                                return SlimeColor.byDyeColor(craftedDyeColor);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+    private static SlimeColor findColorMixInRecipes(final Level level, final DyeColor slimeColor1, final DyeColor slimeColor2) {
+        CraftingInput craftingInput = makeCraftInput(slimeColor1, slimeColor2);
+        Optional<Item> var10000 = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftingInput, level).map((recipeHolder) -> recipeHolder.value().assemble(craftingInput, level.registryAccess())).map(ItemStack::getItem);
+        Objects.requireNonNull(DyeItem.class);
+        var10000 = var10000.filter(DyeItem.class::isInstance);
+        Objects.requireNonNull(DyeItem.class);
+        return SlimeColor.byDyeColor(var10000.map(o -> (DyeItem) o).map(DyeItem::getDyeColor).orElseGet(() -> level.random.nextBoolean() ? slimeColor1 : slimeColor2));
+    }
+
+    private static CraftingInput makeCraftInput(DyeColor color1, DyeColor color2) {
+        return CraftingInput.of(2, 1, List.of(new ItemStack(DyeItem.byColor(color1)), new ItemStack(DyeItem.byColor(color2))));
     }
 
     public static @Nullable SlimeColor byDyeColor(DyeColor craftedDyeColor) {

@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("net.fabricmc.fabric-loom")
+    id("net.fabricmc.fabric-loom-remap")
     id("dev.kikugie.postprocess.jsonlang")
     id("me.modmuss50.mod-publish-plugin")
     id("maven-publish")
@@ -98,16 +98,31 @@ repositories {
             includeGroupAndSubgroups("cc.cassian")
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Parchment Mappings"
+                url = uri("https://maven.parchmentmc.org")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("org.parchmentmc")
+        }
+    }
 }
 
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${property("deps.parchment")}@zip")
+    })
 
-    implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+    modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
     // Mod Menu
     compileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
 
@@ -116,23 +131,16 @@ dependencies {
     include("folk.sisby:kaleido-config:${property("deps.kaleido")}")
 
     // McQoy
-    compileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
+    modCompileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
 
     // RRV
-    compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}") {
-        isTransitive = false
-    }
-    localRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}") {
-        isTransitive = false
-    }
-    localRuntime("cc.cassian.item-descriptions:item-descriptions-fabric:${property("deps.item_descriptions")}") {
-        exclude(group = "mcp.mobius.waila")
-        exclude(group = "lol.bai")
-    }
+    modCompileOnly("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
+    modImplementation("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
+    implementation("org.jspecify:jspecify:1.0.0")
     if (stonecutter.eval(mcVersion, "=26.1")) {
-        localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
-        implementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
-        localRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
+        modLocalRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
+        modImplementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
+        modLocalRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
     }
 
 }

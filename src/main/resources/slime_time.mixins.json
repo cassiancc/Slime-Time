@@ -24,10 +24,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "AbstractCubeMobRendererMixin",
     "EquipmentLayerRendererMixin",
     "SlimeOuterLayerMixin",
-    "SlimeRendererMixin",
-    "SlimeRenderStateMixin"
+    "SlimeRendererMixin"
   ]
 }

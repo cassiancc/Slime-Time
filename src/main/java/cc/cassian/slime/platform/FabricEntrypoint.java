@@ -5,29 +5,25 @@ import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
-import cc.cassian.slime.registry.SlimeRecipes;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
-import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.DyeRecipe;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+
+import java.util.Objects;
 
 import static cc.cassian.slime.SlimeTime.MOD_ID;
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
 import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
-import static net.fabricmc.fabric.api.resource.v1.pack.PackActivationType.DEFAULT_ENABLED;
+import static net.fabricmc.fabric.api.resource.ResourcePackActivationType.DEFAULT_ENABLED;
 
 public class FabricEntrypoint implements ModInitializer {
 
@@ -41,28 +37,27 @@ public class FabricEntrypoint implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		SlimeTime.onInitialize();
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(event -> {
-			event.insertAfter(Items.TURTLE_HELMET, addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(event -> {
+			event.addAfter(Items.TURTLE_HELMET, addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()));
 			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
-				event.insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
+				event.addAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		});
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
-			event.insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
-			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
-			event.insertAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
+			event.addAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
+			event.addAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
+			event.addAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		});
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
 			event.acceptAll(asListOfStacks(SLIME_BLOCKS));
 		});
-		ItemComponentTooltipProviderRegistry.addFirst(SlimeDataComponents.FORCE_MULTIPLIER);
+		ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> {
+			if (stack.has(SlimeDataComponents.FORCE_MULTIPLIER)) {
+				Objects.requireNonNull(stack.get(SlimeDataComponents.FORCE_MULTIPLIER)).addToTooltip(tooltipContext, lines::add, tooltipType);
+			}
+		});
 		ItemTooltipCallback.EVENT.register(SlimeHelpers::addDyeTooltip);
-		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_DYE_RECIPE_SERIALIZER);
-		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_SHAPED_RECIPE_SERIALIZER);
-		RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
-		RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
-		RecipeSynchronization.synchronizeRecipeSerializer(DyeRecipe.SERIALIZER);
 		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
-			ResourceLoader.registerBuiltinPack(
+			ResourceManagerHelper.registerBuiltinResourcePack(
 					SlimeTime.of("colourful_slimes"),
 					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
 					DEFAULT_ENABLED);

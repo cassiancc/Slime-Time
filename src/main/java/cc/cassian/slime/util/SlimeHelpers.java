@@ -2,25 +2,21 @@ package cc.cassian.slime.util;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
-import cc.cassian.slime.api.VariatedSlimeRenderStateAccess;
+import cc.cassian.slime.api.VariatedSlimeAccess;
 //? neoforge
 //import cc.cassian.slime.client.platform.NeoForgeClientEntrypoint;
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
-import net.minecraft.client.renderer.entity.state.SlimeRenderState;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraft.world.entity.animal.frog.FrogVariant;
-import net.minecraft.world.entity.animal.frog.FrogVariants;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
@@ -30,8 +26,6 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.text.WordUtils;
-import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 
@@ -58,7 +52,7 @@ public class SlimeHelpers {
                 finalColor = otherColor;
             }
             if (finalColor != null) {
-                int count = self.count() + other.getCount();
+                int count = self.getCount() + other.getCount();
                 if (count <= self.getMaxStackSize()) {
                     self.setCount(count);
                     self.set(SlimeDataComponents.DYED_COLOR, finalColor);
@@ -84,10 +78,7 @@ public class SlimeHelpers {
     }
 
     public static Optional<RecipeHolder<CraftingRecipe>> getSynchronizedRecipe(Level level, CraftingInput input) {
-        //? fabric
-        return level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
-        //? neoforge
-        //return NeoForgeClientEntrypoint.getSynchronizedRecipes(level, input);
+        return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level);
     }
 
     public static List<ItemStack> dye(ItemStack defaultInstance) {
@@ -117,7 +108,7 @@ public class SlimeHelpers {
         if (defaultInstance.is(SlimeItems.SLIME_BUCKET)) {
             var copy = defaultInstance.copy();
             CustomData.update(DataComponents.BUCKET_ENTITY_DATA, copy, (tag) -> {
-                tag.store("SlimeTimeColor", SlimeColor.CODEC, color);
+                color.encode(tag);
             });
             return copy;
         }
@@ -129,18 +120,18 @@ public class SlimeHelpers {
 
     public static Item getFroglight(Frog frog) {
         ResourceKey<FrogVariant> variant = frog.getVariant().unwrapKey().get();
-        if (variant.equals(FrogVariants.TEMPERATE)) {
+        if (variant.equals(FrogVariant.TEMPERATE)) {
             return Items.OCHRE_FROGLIGHT;
         }
-        else if (variant.equals(FrogVariants.COLD)) {
+        else if (variant.equals(FrogVariant.COLD)) {
             return Items.VERDANT_FROGLIGHT;
         }
-        else if (variant.equals(FrogVariants.WARM)) {
+        else if (variant.equals(FrogVariant.WARM)) {
             return Items.PEARLESCENT_FROGLIGHT;
-        } else if (variant.identifier().equals(Identifier.fromNamespaceAndPath("instantfeedback", "dark"))) {
-            return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
-        } else if (variant.identifier().equals(Identifier.fromNamespaceAndPath("nomansland", "mud"))) {
-            return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
+        } else if (variant.location().equals(ResourceLocation.fromNamespaceAndPath("instantfeedback", "dark"))) {
+            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
+        } else if (variant.location().equals(ResourceLocation.fromNamespaceAndPath("nomansland", "mud"))) {
+            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
         }
         return Items.AIR;
     }
@@ -150,8 +141,8 @@ public class SlimeHelpers {
         else return Collections.singletonList(defaultInstance);
     }
 
-    public static Identifier getVariatedSlimeTexture(SlimeRenderState state, Identifier original) {
-        var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
+    public static ResourceLocation getVariatedSlimeTexture(Slime state, ResourceLocation original) {
+        var variant = ((VariatedSlimeAccess) state).slimeTime$getVariant();
         if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
         else return original;
     }

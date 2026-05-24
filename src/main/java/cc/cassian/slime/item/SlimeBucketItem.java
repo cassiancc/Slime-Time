@@ -3,6 +3,7 @@ package cc.cassian.slime.item;
 import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
 //? fabric
+import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.platform.FabricEntrypoint;
 //? neoforge
 //import cc.cassian.slime.platform.NeoForgeEntrypoint;
@@ -12,7 +13,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.locale.Language;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -28,7 +31,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.advancements.CriteriaTriggers;
-//?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -114,7 +116,7 @@ public class SlimeBucketItem extends BucketItem {
 
 	}
 
-	public static void saveToBucketTag(Slime entity, ItemStack bucket) {
+	public static void saveToBucketTag(Mob entity, ItemStack bucket) {
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (tag) -> {
 			if (entity.isNoAi()) {
 				tag.putBoolean("NoAI", true);
@@ -142,6 +144,10 @@ public class SlimeBucketItem extends BucketItem {
 
 			if (entity instanceof Slime slime) {
 				tag.putInt("Size", slime.getSize());
+				var variant = ((VariatedSlimeAccess) slime).slimeTime$getVariant();
+				if (variant != null) {
+					variant.encode(tag);
+				}
 			}
 
 			tag.putFloat("Health", entity.getHealth());
@@ -162,18 +168,21 @@ public class SlimeBucketItem extends BucketItem {
 		var health = tag.getFloat("Health");
 		entity.setHealth(health);
 		entity.setSize(1, true);
-		SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
-		//? fabric
-		entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);
-		//? neoforge
-		//entity.setData(NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
+		if (tag.contains("SlimeTimeColor")) {
+			SlimeColor slimeTimeColor = SlimeColor.decode(tag);
+			//? fabric
+			entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);
+			//? neoforge
+			//entity.setData(NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
+		}
+
 	}
 
 	@Override
 	public Component getName(ItemStack itemStack) {
 		var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
 		if (entityData.contains("SlimeTimeColor")) {
-			var color = entityData.read("SlimeTimeColor", SlimeColor.CODEC).orElseThrow().getName();
+			var color = SlimeColor.decode(entityData).getName();
 			var key = "item.slime_time.%s_slime_bucket".formatted(color);
 			if (Language.getInstance().has(key)) {
 				return Component.translatable(key);

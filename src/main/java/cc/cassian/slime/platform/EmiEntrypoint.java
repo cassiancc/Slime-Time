@@ -7,16 +7,17 @@ import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
 
+@dev.emi.emi.api.EmiEntrypoint
 public class EmiEntrypoint implements EmiPlugin {
 
 	private EmiInfoRecipe getInfoRecipe(Item slimeBucket) {
-		Identifier key = BuiltInRegistries.ITEM.getKey(slimeBucket);
-		return new EmiInfoRecipe(List.of(EmiStack.of(slimeBucket)), List.of(Component.translatable(slimeBucket.getDescriptionId().replace("item", "lore"))), key);
+		ResourceLocation key = BuiltInRegistries.ITEM.getKey(slimeBucket);
+		return new EmiInfoRecipe(List.of(EmiStack.of(slimeBucket)), List.of(Component.translatable(slimeBucket.getDescriptionId().replace("item", "lore"))), key.withPrefix("/"));
 	}
 
 	@Override

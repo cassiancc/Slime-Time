@@ -76,7 +76,7 @@ public abstract class SlimeMixin
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (tag) -> {
             SlimeColor variant = slimeTime$getVariant();
             if (variant != null)
-                tag.store("SlimeTimeColor", SlimeColor.CODEC, variant);
+                variant.encode(tag);
         });
         return bucket;
     }

@@ -23,7 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -162,7 +162,7 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 		ItemStack item = this.getItem();
         if (item.isEmpty()) return ParticleTypes.ITEM_SLIME;
 		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, item.get(SlimeDataComponents.DYED_COLOR).argb()); //FIXME need a tinted slime particle
-        return new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
+        return new ItemParticleOption(ParticleTypes.ITEM, item);
     }
 
 	@Override

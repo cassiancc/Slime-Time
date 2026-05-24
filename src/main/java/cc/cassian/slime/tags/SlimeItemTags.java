@@ -3,7 +3,7 @@ package cc.cassian.slime.tags;
 import cc.cassian.slime.SlimeTime;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +21,6 @@ public class SlimeItemTags {
 	}
 
 	private static TagKey<Item> getTagKey(String namespace, String id) {
-		return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, id));
+		return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, id));
 	}
 }

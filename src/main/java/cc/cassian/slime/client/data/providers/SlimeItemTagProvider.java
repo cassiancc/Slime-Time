@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
@@ -33,6 +33,6 @@ public class SlimeItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	}
 
 	private ResourceKey<Item> key(String namespace, String path) {
-		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path));
+		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, path));
 	}
 }

@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Blocks;
 
@@ -19,6 +19,6 @@ public class SlimeBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		getOrCreateTagBuilder(SlimeBlockTags.BOUNCY).add(Blocks.SLIME_BLOCK);
-		getOrCreateTagBuilder(SlimeBlockTags.SUPPRESSES_BOUNCE).add(Blocks.HONEY_BLOCK).addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.withDefaultNamespace("suppresses_bounce")));
+		getOrCreateTagBuilder(SlimeBlockTags.SUPPRESSES_BOUNCE).add(Blocks.HONEY_BLOCK).addOptionalTag(TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("suppresses_bounce")));
 	}
 }
