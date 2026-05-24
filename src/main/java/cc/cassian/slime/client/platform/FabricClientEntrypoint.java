@@ -2,9 +2,12 @@
 package cc.cassian.slime.client.platform;
 
 import cc.cassian.slime.client.SlimeTimeClient;
+import cc.cassian.slime.client.particle.TintedSlimeParticle;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.SlimeParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -17,7 +20,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
         SlimeTimeClient.onInitializeClient();
         EntityRendererRegistry.register(SlimeEntityTypes.SLIMEBALL, ThrownItemRenderer::new);
         ColorProviderRegistry.ITEM.register(SlimeTimeClient::calculateTinting, Items.SLIME_BALL, SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, SlimeItems.SLIME_BUCKET);
-        ParticleProviderRegistry.getInstance().register(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
+        ParticleFactoryRegistry.getInstance().register(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
     }
 }
 //?}

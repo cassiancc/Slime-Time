@@ -57,9 +57,9 @@ public abstract class MobMixin {
 
 					mob.discard();
 					cir.setReturnValue(InteractionResult.SUCCESS);
-				} else if (itemStack.is(ItemTags.DYES) && mob instanceof VariatedSlimeAccess variatedSlime) {
+				} else if (itemStack.getItem() instanceof DyeItem dyeItem && mob instanceof VariatedSlimeAccess variatedSlime) {
 					mob.playSound(SoundEvents.DYE_USE, 1.0F, 1.0F);
-					variatedSlime.slimeTime$setVariant(SlimeColor.byDyeColor(itemStack.getOrDefault(DataComponents.DYE, DyeColor.LIME)));
+					variatedSlime.slimeTime$setVariant(SlimeColor.byDyeColor(dyeItem.getDyeColor()));
 					itemStack.consume(1, player);
 					cir.setReturnValue(InteractionResult.SUCCESS);
 				}

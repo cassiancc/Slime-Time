@@ -163,7 +163,7 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 		ItemStack item = this.getItem();
         if (item.isEmpty()) return ParticleTypes.ITEM_SLIME;
 		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, item.get(SlimeDataComponents.DYED_COLOR).argb());
-        return new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
+        return new ItemParticleOption(ParticleTypes.ITEM, item);
     }
 
 	@Override

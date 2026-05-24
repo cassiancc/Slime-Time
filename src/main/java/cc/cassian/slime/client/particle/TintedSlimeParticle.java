@@ -4,37 +4,30 @@ import cc.cassian.slime.SlimeTime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.ColorParticleOption;
-import net.minecraft.data.AtlasIds;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Items;
+import org.jspecify.annotations.Nullable;
 
 public class TintedSlimeParticle extends BreakingItemParticle {
 
     protected TintedSlimeParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
-        super(level, x, y, z, sprite);
+        super(level, x, y, z, Items.SLIME_BALL.getDefaultInstance());
+        setSprite(sprite);
     }
 
     public static class TintedSlimeProvider implements ParticleProvider<ColorParticleOption> {
 
-        protected TextureAtlasSprite getSprite() {
-            return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.ITEMS).getSprite(SlimeTime.of("item/slime_ball_dyed"));
-        }
-
-        public Particle createParticle(
-                final ColorParticleOption options,
-                final ClientLevel level,
-                final double x,
-                final double y,
-                final double z,
-                final double xAux,
-                final double yAux,
-                final double zAux,
-                final RandomSource random
-        ) {
+        @Override
+        public @Nullable Particle createParticle(ColorParticleOption options, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             TintedSlimeParticle particle = new TintedSlimeParticle(level, x, y, z, this.getSprite());
             particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
             return particle;
+        }
+
+        private TextureAtlasSprite getSprite() {
+            return Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS).getSprite(SlimeTime.of("item/slime_ball_dyed"));
         }
     }
 }

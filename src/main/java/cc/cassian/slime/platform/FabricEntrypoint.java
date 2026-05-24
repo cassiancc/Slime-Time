@@ -50,8 +50,8 @@ public class FabricEntrypoint implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
 			List<ItemStack> newStacks = new ArrayList<>(addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance()));
 			newStacks.add(SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance());
-			event.insertAfter(Items.TADPOLE_BUCKET, newStacks);
-			event.insertAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
+			event.addAfter(Items.TADPOLE_BUCKET, newStacks);
+			event.addAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
 			event.acceptAll(asListOfStacks(SLIME_BLOCKS));

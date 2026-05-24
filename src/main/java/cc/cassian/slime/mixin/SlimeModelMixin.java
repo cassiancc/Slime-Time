@@ -5,10 +5,9 @@ import cc.cassian.slime.util.SlimeHelpers;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.model.monster.slime.SlimeModel;
-import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(SlimeModel.class)

@@ -75,18 +75,6 @@ public enum SlimeColor implements StringRepresentable {
         tag.put("SlimeTimeColor", CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow());
     }
 
-    public static @Nullable SlimeColor decode(CompoundTag tag) {
-        return tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
-    }
-
-    public static void encode(CompoundTag tag, SlimeColor color) {
-        tag.store("SlimeTimeColor", SlimeColor.CODEC, color);
-    }
-
-    public void encode(CompoundTag tag) {
-        tag.store("SlimeTimeColor", SlimeColor.CODEC, this);
-    }
-
     public int getId() {
         return this.id;
     }
