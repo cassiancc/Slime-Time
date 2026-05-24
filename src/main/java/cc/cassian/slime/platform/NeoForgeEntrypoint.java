@@ -22,6 +22,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -69,8 +70,9 @@ public class NeoForgeEntrypoint {
 				insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		}
 		else if (tab.equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
-			insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
-			insertAfter(SlimeItems.SLIME_BUCKET, SlimeItems.MAGMA_CUBE_BUCKET);
+			List<ItemStack> newStacks = new ArrayList<>(addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance()));
+			newStacks.add(SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance());
+			insertAfter(Items.TADPOLE_BUCKET, newStacks);
 			insertBefore(Items.SADDLE, SlimeHelpers.addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		} else if (tab.equals(CreativeModeTabs.COLORED_BLOCKS)) {
 			acceptAll(asListOfStacks(SLIME_BLOCKS));

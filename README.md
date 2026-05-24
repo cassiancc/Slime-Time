@@ -47,4 +47,6 @@ Slime Time is a client and server mod for 26.1. Its dependencies are listed belo
 ## License
 [![Code license (MIT)](https://img.shields.io/badge/code%20license-MIT-green.svg?style=flat-square)](https://github.com/cassiancc/slime-time)
 
-Slime Time is distributed under the open-source MIT license.
+Slime Time is distributed under the open-source MIT license. Note that this only applies to the code.
+
+Slime textures were designed by [ProbablyEkho](https://modrinth.com/user/ProbablyEkho).

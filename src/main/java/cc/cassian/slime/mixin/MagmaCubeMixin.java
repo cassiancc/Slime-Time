@@ -5,6 +5,8 @@ import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.SlimeSoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 //? if >=26.2 {
@@ -40,5 +42,9 @@ public abstract class MagmaCubeMixin
     @Override
     public int slimeTime$getSize() {
         return getSize();
+    }
+
+    public SoundEvent slimeTime$getPickupSound() {
+        return SlimeSoundEvents.BUCKET_FILL_MAGMA_CUBE;
     }
 }

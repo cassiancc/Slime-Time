@@ -14,10 +14,15 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.Objects;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static cc.cassian.slime.SlimeTime.MOD_ID;
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
@@ -43,9 +48,10 @@ public class FabricEntrypoint implements ModInitializer {
 				event.addAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
-			event.addAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
-			event.addAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
-			event.addAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
+			List<ItemStack> newStacks = new ArrayList<>(addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance()));
+			newStacks.add(SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance());
+			event.insertAfter(Items.TADPOLE_BUCKET, newStacks);
+			event.insertAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
 			event.acceptAll(asListOfStacks(SLIME_BLOCKS));

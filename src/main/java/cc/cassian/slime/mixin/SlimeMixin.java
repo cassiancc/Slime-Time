@@ -9,7 +9,13 @@ import cc.cassian.slime.platform.FabricEntrypoint;
 //? neoforge
 //import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.SlimeParticleTypes;
+import cc.cassian.slime.registry.SlimeSoundEvents;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 //? if >26.1
@@ -44,9 +50,19 @@ public abstract class SlimeMixin
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void initiallySetRandomVariant(EntityType<Slime> type, Level level, CallbackInfo ci) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes
+                //? if <26.2
+                && !type.equals(EntityType.MAGMA_CUBE)
+                && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
             this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
         }
+    }
+
+    @ModifyReturnValue(method = "getParticleType", at = @At(value = "RETURN"))
+    private ParticleOptions getVariantParticle(ParticleOptions original) {
+        if (slimeTime$getVariant() != null)
+            return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, slimeTime$getVariant().argb());
+        return original;
     }
 
     @Override
@@ -59,6 +75,8 @@ public abstract class SlimeMixin
 
     @Override
     public void slimeTime$setVariant(SlimeColor variant) {
+        //? <26.2
+        if (typeHolder().is(EntityType.MAGMA_CUBE.builtInRegistryHolder().key())) return;
         //? fabric
         this.setAttached(FabricEntrypoint.SLIME_STATE, variant);
         //? neoforge
@@ -84,5 +102,9 @@ public abstract class SlimeMixin
     @Override
     public int slimeTime$getSize() {
         return getSize();
+    }
+
+    public SoundEvent slimeTime$getPickupSound() {
+        return SlimeSoundEvents.BUCKET_FILL_SLIME;
     }
 }

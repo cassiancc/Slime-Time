@@ -25,6 +25,7 @@
   },
   "client": [
     "EquipmentLayerRendererMixin",
+    "SlimeModelMixin",
     "SlimeOuterLayerMixin",
     "SlimeRendererMixin"
   ]

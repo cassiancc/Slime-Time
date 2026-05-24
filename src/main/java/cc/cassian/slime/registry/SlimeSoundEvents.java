@@ -10,6 +10,9 @@ public interface SlimeSoundEvents {
 	SoundEvent SLIME_SLING_FLING = register("slime_time.slime_sling.fling");
 	SoundEvent SLIME_SLING_SNAP = register("slime_time.slime_sling.snap");
 	SoundEvent SLIMY_BOUNCE = register("slime_time.slimy_bounce");
+	SoundEvent BUCKET_FILL_SLIME = register("slime_time.bucket.fill_slime");
+	SoundEvent BUCKET_FILL_MAGMA_CUBE = register("slime_time.bucket.fill_magma_cube");
+
 
 	private static SoundEvent register(final String id) {
 		return register(SlimeTime.of(id));

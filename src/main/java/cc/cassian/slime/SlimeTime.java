@@ -1,5 +1,6 @@
 package cc.cassian.slime;
 
+import cc.cassian.slime.platform.FieldGuideEntrypoint;
 import cc.cassian.slime.registry.*;
 
 import net.minecraft.resources.ResourceLocation;
@@ -30,5 +31,9 @@ public class SlimeTime {
 		SlimeGameEvents.touch();
 		SlimeEffects.touch();
 		SlimeSoundEvents.touch();
+		SlimeParticleTypes.touch();
+		if (Platform.isModLoaded("fieldguide")) {
+			FieldGuideEntrypoint.registerProvider();
+		}
 	}
 }

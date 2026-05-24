@@ -144,9 +144,8 @@ public class SlimeBucketItem extends BucketItem {
 
 			if (entity instanceof Slime slime) {
 				tag.putInt("Size", slime.getSize());
-				var variant = ((VariatedSlimeAccess) slime).slimeTime$getVariant();
-				if (variant != null) {
-					variant.encode(tag);
+				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess) {
+					variatedSlimeAccess.slimeTime$getVariant().encode(tag);
 				}
 			}
 
@@ -192,8 +191,5 @@ public class SlimeBucketItem extends BucketItem {
 		return super.getName(itemStack);
 	}
 
-	public static SoundEvent getPickupSound() {
-		return SoundEvents.BUCKET_FILL_TADPOLE;
-	}
 }
 //~}

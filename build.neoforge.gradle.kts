@@ -143,7 +143,6 @@ neoForge {
 }
 
 dependencies {
-    // McQoy
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     jarJar("folk.sisby:kaleido-config:${property("deps.kaleido")}")
     "additionalRuntimeClasspath"("folk.sisby:kaleido-config:${property("deps.kaleido")}")
@@ -156,6 +155,7 @@ dependencies {
 
     implementation("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+neoforge")
     implementation("org.jspecify:jspecify:1.0.0")
+    implementation("maven.modrinth:field-guide:${property("deps.field_guide")}-neoforge")
 
 }
 
@@ -167,6 +167,10 @@ stonecutter {
     replacements.string {
         direction = eval(current.version, ">26.1")
         replace("EntityType.SLIME,", "EntityTypes.SLIME,")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME)", "EntityTypes.SLIME)")
     }
     replacements.string {
         direction = eval(current.version, ">26.1")

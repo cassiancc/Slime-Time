@@ -142,6 +142,7 @@ dependencies {
         modImplementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
         modLocalRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
     }
+    modImplementation("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
     modImplementation("maven.modrinth:modefite-item-definition-backport:XG0Uwv8m")
 
 }
@@ -160,6 +161,10 @@ stonecutter {
     replacements.string {
         direction = eval(current.version, ">26.1")
         replace("EntityType.SLIME,", "EntityTypes.SLIME,")
+    }
+    replacements.string {
+        direction = eval(current.version, ">26.1")
+        replace("EntityType.SLIME)", "EntityTypes.SLIME)")
     }
     replacements.string {
         direction = eval(current.version, ">26.1")

@@ -5,6 +5,7 @@ import cc.cassian.slime.api.SlimeEntity;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEffects;
 import cc.cassian.slime.registry.SlimeEntityTypes;
+import cc.cassian.slime.registry.SlimeParticleTypes;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -161,8 +162,8 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 	private ParticleOptions getParticle() {
 		ItemStack item = this.getItem();
         if (item.isEmpty()) return ParticleTypes.ITEM_SLIME;
-		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, item.get(SlimeDataComponents.DYED_COLOR).argb()); //FIXME need a tinted slime particle
-        return new ItemParticleOption(ParticleTypes.ITEM, item);
+		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, item.get(SlimeDataComponents.DYED_COLOR).argb());
+        return new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
     }
 
 	@Override
