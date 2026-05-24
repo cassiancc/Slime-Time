@@ -233,6 +233,7 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft").toString())
         minecraftVersions.addAll(additionalVersions)
         optional("mcqoy")
+        requires("modefite-item-definition-backport")
     }
 
     curseforge {
@@ -240,5 +241,6 @@ publishMods {
         accessToken = env.CURSEFORGE_API_KEY.orNull()
         minecraftVersions.add(property("deps.minecraft").toString())
         minecraftVersions.addAll(additionalVersions)
+        requires("modefite-item-definition-backport")
     }
 }

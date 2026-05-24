@@ -137,11 +137,12 @@ dependencies {
     modCompileOnly("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
     modImplementation("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
     implementation("org.jspecify:jspecify:1.0.0")
-    if (stonecutter.eval(mcVersion, "=26.1")) {
+    if (stonecutter.eval(mcVersion, "=1.21")) {
         modLocalRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
         modImplementation("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
         modLocalRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
     }
+    modImplementation("maven.modrinth:modefite-item-definition-backport:XG0Uwv8m")
 
 }
 
@@ -201,7 +202,7 @@ val additionalVersions: List<String> = additionalVersionsStr
     ?: emptyList()
 
 publishMods {
-    file = tasks.jar.map { it.archiveFile.get() }
+    file = tasks.remapJar.map { it.archiveFile.get() }
 
     // one of BETA, ALPHA, STABLE
     type = STABLE
@@ -216,6 +217,7 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft").toString())
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        requires("modefite-item-definition-backport")
         optional("modmenu")
     }
 
@@ -225,5 +227,6 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft").toString())
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        requires("modefite-item-definition-backport")
     }
 }

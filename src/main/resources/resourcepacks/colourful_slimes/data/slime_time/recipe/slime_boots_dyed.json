@@ -2,11 +2,13 @@
   "type": "slime_time:dye",
   "category": "misc",
   "dye": {
-    "tag": "#minecraft:dyes"
+    "tag": "c:dyes"
   },
   "group": "slime_boots",
   "result": {
     "id": "slime_time:slime_boots"
   },
-  "target": "slime_time:slime_boots"
+  "target": {
+    "item": "slime_time:slime_boots"
+  }
 }

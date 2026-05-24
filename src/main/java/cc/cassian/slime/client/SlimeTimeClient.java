@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -28,6 +29,8 @@ public class SlimeTimeClient {
 				if (slimeTimeColor != null)
 					return slimeTimeColor.argb();
 			}
+			if (itemStack.is(Items.SLIME_BALL))
+				return -1;
 			return -7274619;
 		}
 		return -1;
