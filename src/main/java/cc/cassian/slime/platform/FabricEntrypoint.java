@@ -17,11 +17,16 @@ import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static cc.cassian.slime.SlimeTime.MOD_ID;
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
@@ -47,14 +52,15 @@ public class FabricEntrypoint implements ModInitializer {
 				event.insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		});
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(event -> {
-			event.insertAfter(Items.TADPOLE_BUCKET, SlimeItems.SLIME_BUCKET);
-			event.insertAfter(SlimeItems.SLIME_BUCKET.getDefaultInstance(), SlimeItems.MAGMA_CUBE_BUCKET);
+			List<ItemStack> newStacks = new ArrayList<>(addDyedItems(SlimeItems.SLIME_BUCKET.getDefaultInstance()));
+			newStacks.add(SlimeItems.MAGMA_CUBE_BUCKET.getDefaultInstance());
+			event.insertAfter(Items.TADPOLE_BUCKET, newStacks);
 			event.insertAfter(Items.SADDLE, addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance()));
 		});
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(event -> {
 			event.acceptAll(asListOfStacks(SLIME_BLOCKS));
 		});
-		ItemComponentTooltipProviderRegistry.addFirst(SlimeDataComponents.FORCE_MULTIPLIER);
+		ItemComponentTooltipProviderRegistry.addAfter(DataComponents.ATTRIBUTE_MODIFIERS, SlimeDataComponents.FORCE_MULTIPLIER);
 		ItemTooltipCallback.EVENT.register(SlimeHelpers::addDyeTooltip);
 		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_DYE_RECIPE_SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(SlimeRecipes.SLIME_SHAPED_RECIPE_SERIALIZER);

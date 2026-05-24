@@ -9,7 +9,10 @@ import cc.cassian.slime.platform.FabricEntrypoint;
 //? neoforge
 //import cc.cassian.slime.platform.NeoForgeEntrypoint;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.registry.SlimeSoundEvents;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 //? if >26.1
@@ -44,7 +47,10 @@ public abstract class SlimeMixin
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void initiallySetRandomVariant(EntityType<Slime> type, Level level, CallbackInfo ci) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
+        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes
+                //? if <26.2
+                && !type.equals(EntityType.MAGMA_CUBE)
+                && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
             this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
         }
     }
@@ -59,6 +65,8 @@ public abstract class SlimeMixin
 
     @Override
     public void slimeTime$setVariant(SlimeColor variant) {
+        //? <26.2
+        if (!typeHolder().is(EntityType.MAGMA_CUBE.builtInRegistryHolder().key())) return;
         //? fabric
         this.setAttached(FabricEntrypoint.SLIME_STATE, variant);
         //? neoforge
@@ -76,7 +84,7 @@ public abstract class SlimeMixin
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (tag) -> {
             SlimeColor variant = slimeTime$getVariant();
             if (variant != null)
-                tag.store("SlimeTimeColor", SlimeColor.CODEC, variant);
+                variant.encode(tag);
         });
         return bucket;
     }
@@ -84,5 +92,9 @@ public abstract class SlimeMixin
     @Override
     public int slimeTime$getSize() {
         return getSize();
+    }
+
+    public SoundEvent slimeTime$getPickupSound() {
+        return SlimeSoundEvents.BUCKET_FILL_SLIME;
     }
 }

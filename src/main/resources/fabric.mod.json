@@ -29,7 +29,7 @@
 			"cc.cassian.slime.platform.RrvServerEntrypoint"
 		],
 		"rrv_client": [
-			"cc.cassian.slime.platform.RrvEntrypoint"
+			"cc.cassian.slime.client.platform.RrvEntrypoint"
 		]
 	},
 	"mixins": [

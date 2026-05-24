@@ -3,6 +3,7 @@ package cc.cassian.slime.item;
 import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
 //? fabric
+import cc.cassian.slime.api.VariatedSlimeAccess;
 import cc.cassian.slime.platform.FabricEntrypoint;
 //? neoforge
 //import cc.cassian.slime.platform.NeoForgeEntrypoint;
@@ -143,6 +144,9 @@ public class SlimeBucketItem extends BucketItem {
 
 			if (entity instanceof Slime slime) {
 				tag.putInt("Size", slime.getSize());
+				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess) {
+					variatedSlimeAccess.slimeTime$getVariant().encode(tag);
+				}
 			}
 
 			tag.putFloat("Health", entity.getHealth());
@@ -157,18 +161,16 @@ public class SlimeBucketItem extends BucketItem {
 		tag.getBoolean("Invulnerable").ifPresent(entity::setInvulnerable);
 		tag.getFloat("Health").ifPresent(entity::setHealth);
 		entity.setSize(tag.getIntOr("Size", 1), true);
-		SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
-		//? fabric
-		entity.setAttached(FabricEntrypoint.SLIME_STATE, slimeTimeColor);
-		//? neoforge
-		//entity.setData(NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
+		if (entity instanceof VariatedSlimeAccess variatedSlimeAccess) {
+			variatedSlimeAccess.slimeTime$setVariant(SlimeColor.decode(tag));
+		}
 	}
 
 	@Override
 	public Component getName(ItemStack itemStack) {
 		var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
 		if (entityData.contains("SlimeTimeColor")) {
-			var color = entityData.read("SlimeTimeColor", SlimeColor.CODEC).orElseThrow().getName();
+			var color = SlimeColor.decode(entityData).getName();
 			var key = "item.slime_time.%s_slime_bucket".formatted(color);
 			if (Language.getInstance().has(key)) {
 				return Component.translatable(key);
@@ -178,8 +180,5 @@ public class SlimeBucketItem extends BucketItem {
 		return super.getName(itemStack);
 	}
 
-	public static SoundEvent getPickupSound() {
-		return SoundEvents.BUCKET_FILL_TADPOLE;
-	}
 }
 //~}

@@ -117,7 +117,7 @@ public class SlimeHelpers {
         if (defaultInstance.is(SlimeItems.SLIME_BUCKET)) {
             var copy = defaultInstance.copy();
             CustomData.update(DataComponents.BUCKET_ENTITY_DATA, copy, (tag) -> {
-                tag.store("SlimeTimeColor", SlimeColor.CODEC, color);
+                color.encode(tag);
             });
             return copy;
         }

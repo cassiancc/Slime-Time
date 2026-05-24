@@ -24,7 +24,7 @@ public record SlimeDyeTintSource(int defaultColor) implements ItemTintSource {
             return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
         if (itemStack.is(SlimeItems.SLIME_BUCKET) && itemStack.has(DataComponents.BUCKET_ENTITY_DATA)) {
             var tag = itemStack.get(DataComponents.BUCKET_ENTITY_DATA).copyTag();
-            SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
+            SlimeColor slimeTimeColor = SlimeColor.decode(tag);
             if (slimeTimeColor != null)
                 return slimeTimeColor.argb();
         }

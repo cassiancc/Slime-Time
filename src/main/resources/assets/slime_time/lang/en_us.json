@@ -1,4 +1,6 @@
 {
+  "slime_time.subtitles.item.bucket.fill_slime": "Slime captured",
+  "slime_time.subtitles.item.bucket.fill_magma_cube": "Magma Cube captured",
   "attribute.name.bounciness": "Bounciness",
   "item.slime_time.slime_boots": "Slime Boots",
   "lore.slime_time.slime_boots": "An armour piece that allows the player to bounce around.",

@@ -5,6 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ARGB;
@@ -59,6 +60,18 @@ public enum SlimeColor implements StringRepresentable {
         this.id = id;
         this.name = name;
         this.argb = ARGB.opaque(rgb);
+    }
+
+    public static @Nullable SlimeColor decode(CompoundTag tag) {
+        return tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
+    }
+
+    public static void encode(CompoundTag tag, SlimeColor color) {
+        tag.store("SlimeTimeColor", SlimeColor.CODEC, color);
+    }
+
+    public void encode(CompoundTag tag) {
+        tag.store("SlimeTimeColor", SlimeColor.CODEC, this);
     }
 
     public int getId() {

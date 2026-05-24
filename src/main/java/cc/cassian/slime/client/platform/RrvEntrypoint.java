@@ -1,4 +1,4 @@
-package cc.cassian.slime.platform;
+package cc.cassian.slime.client.platform;
 
 import cc.cassian.rrv.api.ReliableRecipeViewerClientPlugin;
 import cc.cassian.rrv.api.recipe.ItemView;

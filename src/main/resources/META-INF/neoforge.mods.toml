@@ -10,7 +10,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 description="${mod_description}"
 rrv="cc.cassian.slime.platform.RrvServerEntrypoint"
-rrv_client="cc.cassian.slime.platform.RrvEntrypoint"
+rrv_client="cc.cassian.slime.client.platform.RrvEntrypoint"
 
 [[dependencies.slime_time]]
 modId="neoforge"

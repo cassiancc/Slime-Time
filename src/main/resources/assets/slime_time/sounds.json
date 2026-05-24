@@ -20,5 +20,45 @@
       "mob/slime/small5"
     ],
     "subtitle": "slime_time.slimy_bounce.subtitles"
+  },
+  "slime_time.bucket.fill_slime": {
+    "sounds": [
+      {
+        "name": "item/bucket/fill1",
+        "pitch": 1.5,
+        "volume": 0.5
+      },
+      {
+        "name": "item/bucket/fill2",
+        "pitch": 1.5,
+        "volume": 0.5
+      },
+      {
+        "name": "item/bucket/fill3",
+        "pitch": 1.5,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "slime_time.subtitles.item.bucket.fill_slime"
+  },
+  "slime_time.bucket.fill_magma_cube": {
+    "sounds": [
+      {
+        "name": "item/bucket/fill1",
+        "pitch": 1.5,
+        "volume": 0.5
+      },
+      {
+        "name": "item/bucket/fill2",
+        "pitch": 1.5,
+        "volume": 0.5
+      },
+      {
+        "name": "item/bucket/fill3",
+        "pitch": 1.5,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "slime_time.subtitles.item.bucket.fill_magma_cube"
   }
 }
