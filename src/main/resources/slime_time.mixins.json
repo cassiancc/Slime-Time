@@ -26,6 +26,7 @@
   "client": [
     "AbstractCubeMobRendererMixin",
     "EquipmentLayerRendererMixin",
+    "SlimeModelMixin",
     "SlimeOuterLayerMixin",
     "SlimeRendererMixin",
     "SlimeRenderStateMixin"

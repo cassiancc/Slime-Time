@@ -157,9 +157,11 @@ public class SlimeBucketItem extends BucketItem {
 		tag.getBoolean("Invulnerable").ifPresent(entity::setInvulnerable);
 		tag.getFloat("Health").ifPresent(entity::setHealth);
 		entity.setSize(tag.getIntOr("Size", 1), true);
-		if (entity instanceof VariatedSlimeAccess variatedSlimeAccess) {
-			variatedSlimeAccess.slimeTime$setVariant(SlimeColor.decode(tag));
-		}
+		SlimeColor slimeTimeColor = tag.read("SlimeTimeColor", SlimeColor.CODEC).orElse(null);
+		//? fabric
+		entity.setAttached(cc.cassian.slime.platform.FabricEntrypoint.SLIME_STATE, slimeTimeColor);
+		//? neoforge
+		//entity.setData(cc.cassian.slime.platform.NeoForgeEntrypoint.SLIME_STATE, slimeTimeColor);
 	}
 
 	@Override
