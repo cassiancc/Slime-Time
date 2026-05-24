@@ -30,6 +30,7 @@ public class SlimeTimeClient {
 				if (slimeTimeColor != null)
 					return slimeTimeColor.argb();
 			}
+			return -7274619;
 		}
 		return -1;
 	}

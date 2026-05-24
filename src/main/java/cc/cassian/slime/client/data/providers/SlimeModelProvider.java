@@ -1,5 +1,6 @@
 package cc.cassian.slime.client.data.providers;
 
+import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -18,14 +19,14 @@ public class SlimeModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
-
+		SlimeBlocks.SLIME_BLOCKS.values().forEach(blockModelGenerators::createNonTemplateModelBlock);
 	}
 
 	@Override
 	public void generateItemModels(ItemModelGenerators itemModelGenerators) {
 		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BOOTS, ModelTemplates.FLAT_ITEM);
-		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BUCKET, ModelTemplates.FLAT_ITEM);
+//		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_BUCKET, ModelTemplates.FLAT_ITEM);
 		itemModelGenerators.generateFlatItem(SlimeItems.MAGMA_CUBE_BUCKET, ModelTemplates.FLAT_ITEM);
-		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_SLING, ModelTemplates.FLAT_HANDHELD_ITEM);
+//		itemModelGenerators.generateFlatItem(SlimeItems.SLIME_SLING, ModelTemplates.FLAT_HANDHELD_ITEM);
 	}
 }
