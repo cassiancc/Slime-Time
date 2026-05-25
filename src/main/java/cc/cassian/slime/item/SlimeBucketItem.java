@@ -169,7 +169,7 @@ public class SlimeBucketItem extends BucketItem {
 		var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
 		if (entityData.contains("SlimeTimeColor")) {
 			var color = SlimeColor.decode(entityData).getName();
-			var key = "item.slime_time.%s_slime_bucket".formatted(color);
+			var key = "item.slime_time.slime_bucket.%s".formatted(color);
 			return Component.translatable(key);
 		}
 		return super.getName(itemStack);

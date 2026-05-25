@@ -1,11 +1,13 @@
 package cc.cassian.slime.mixin;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.entity.SlimeballEntity;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.tags.SlimeItemTags;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,8 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.text.WordUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,11 +31,17 @@ import java.util.Objects;
 public abstract class ItemMixin {
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getName")
-	private Component name(Component original, ItemStack stack) {
-		if (stack.has(SlimeDataComponents.DYED_COLOR)) {
-			var color = Objects.requireNonNull(stack.get(SlimeDataComponents.DYED_COLOR));
-			String colorName = WordUtils.capitalizeFully(color.getName().replace("_", " "));
-			return Component.translatable("slime_time.color", colorName, original);
+	private Component name(Component original, ItemStack itemStack) {
+		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && original.getContents() instanceof TranslatableContents translatableContents) {
+			if ((itemStack.has(SlimeDataComponents.DYED_COLOR) || itemStack.is(SlimeItemTags.DYEABLE_SLIME))) {
+				if (SlimeTime.CONFIG.slimeTime.renameDefaultSlimeToLime || itemStack.has(SlimeDataComponents.DYED_COLOR)) {
+					var color = Objects.requireNonNull(itemStack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME));
+					return Component.translatable(translatableContents.getKey()+"."+color.getName());
+				}
+			}
+			else if (itemStack.is(Items.SLIME_BLOCK) && SlimeTime.CONFIG.slimeTime.renameDefaultSlimeToLime) {
+				return Component.translatable("block.slime_time.lime_slime_block");
+			}
 		}
 		return original;
 	}

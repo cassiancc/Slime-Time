@@ -8,6 +8,8 @@ public class ModConfig extends WrappedConfig {
 	public static class SlimeTime implements WrappedConfig.Section {
 		@Comment("Spawn colourful slimes, and allowing dyeing slimeballs and slime blocks and items.")
 		public boolean colourfulSlimes = true;
+		@Comment("Whether the default Slime should be named Lime Slime or just Slime.")
+		public boolean renameDefaultSlimeToLime = true;
 		@Comment("Whether to allow throwing slimeballs.")
 		public boolean throwableSlimeballs = true;
 		public boolean addSlimeBallToCombatTab = true;
