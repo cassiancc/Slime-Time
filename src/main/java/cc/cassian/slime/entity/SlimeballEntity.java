@@ -36,6 +36,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NullMarked;
 
+import java.util.Objects;
+
 @NullMarked
 public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEntity {
 	private static final EntityDataAccessor<Float> BOUNCE = SynchedEntityData.defineId(SlimeballEntity.class, EntityDataSerializers.FLOAT);
@@ -163,7 +165,7 @@ public class SlimeballEntity extends ThrowableItemProjectile implements SlimeEnt
 	private ParticleOptions getParticle() {
 		ItemStack item = this.getItem();
         if (item.isEmpty()) return ParticleTypes.ITEM_SLIME;
-		else if (item.has(SlimeDataComponents.DYED_COLOR)) return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, item.get(SlimeDataComponents.DYED_COLOR).argb());
+		else if (item.has(SlimeDataComponents.DYED_COLOR)) return Objects.requireNonNull(item.get(SlimeDataComponents.DYED_COLOR)).getParticle();
         return new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
     }
 

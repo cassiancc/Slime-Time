@@ -1,9 +1,13 @@
 package cc.cassian.slime.api;
 
+import cc.cassian.slime.registry.SlimeParticleTypes;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -18,12 +22,15 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 
 import static cc.cassian.slime.util.SlimeHelpers.getSynchronizedRecipe;
@@ -34,7 +41,7 @@ public enum SlimeColor implements StringRepresentable {
     MAGENTA(2, "magenta", 0xc74ebd),
     LIGHT_BLUE(3, "light_blue", 0x3ab3da),
     YELLOW(4, "yellow", 0xfed83d),
-    LIME(5, "lime", 0x80c71f),
+    LIME(5, "lime", 0xff90ff85),
     PINK(6, "pink", 0xf38baa),
     GRAY(7, "gray", 0x474f52),
     LIGHT_GRAY(8, "light_gray", 0x9d9d97),
@@ -106,6 +113,10 @@ public enum SlimeColor implements StringRepresentable {
         return this.name;
     }
 
+    public static boolean isDefault(@Nullable SlimeColor color) {
+        return color == null || color == LIME;
+    }
+
     /// Variant of DyeColor.getMixedColor that uses recipe synchronization APIs.
     public static SlimeColor getMixedColor(final Level level, final SlimeColor dyeColor1, final SlimeColor dyeColor2) {
         SlimeColor mixedColor = findColorMixInRecipes(level, dyeColor1, dyeColor2);
@@ -144,6 +155,15 @@ public enum SlimeColor implements StringRepresentable {
 
     public static @Nullable SlimeColor byDyeColor(DyeColor craftedDyeColor) {
         return SlimeColor.byId(craftedDyeColor.getId());
+    }
+
+    public ParticleOptions getParticle() {
+        if (isDefault(this)) return ParticleTypes.ITEM_SLIME;
+        return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, argb());
+    }
+
+    public DyeColor getDyeColor() {
+        return DyeColor.byId(this.getId());
     }
 }
 

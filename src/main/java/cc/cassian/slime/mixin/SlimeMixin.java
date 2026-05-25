@@ -53,15 +53,19 @@ public abstract class SlimeMixin
         if (SlimeTime.CONFIG.slimeTime.colourfulSlimes
                 //? if <26.2
                 && !type.equals(EntityType.MAGMA_CUBE)
-                && level.getRandom().nextBoolean() && this.slimeTime$getVariant() == null) {
-            this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
+                && this.slimeTime$getVariant() == null) {
+            if (this.random.nextBoolean()) {
+                this.slimeTime$setVariant(SlimeColor.LIME);
+            } else {
+                this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
+            }
         }
     }
 
     @ModifyReturnValue(method = "getParticleType", at = @At(value = "RETURN"))
     private ParticleOptions getVariantParticle(ParticleOptions original) {
         if (slimeTime$getVariant() != null)
-            return ColorParticleOption.create(SlimeParticleTypes.TINTED_SLIME, slimeTime$getVariant().argb());
+            return slimeTime$getVariant().getParticle();
         return original;
     }
 

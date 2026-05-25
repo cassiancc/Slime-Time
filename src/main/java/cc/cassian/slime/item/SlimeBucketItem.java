@@ -88,8 +88,8 @@ public class SlimeBucketItem extends BucketItem {
 
 	@Override
 	public void checkExtraContent(final @Nullable LivingEntity user, final Level level, final ItemStack itemStack, final BlockPos pos) {
-		if (level instanceof ServerLevel) {
-			this.spawn((ServerLevel)level, itemStack, pos);
+		if (level instanceof ServerLevel serverLevel) {
+			this.spawn(serverLevel, itemStack, pos);
 			level.gameEvent(user, GameEvent.ENTITY_PLACE, pos);
 		}
 
@@ -170,10 +170,7 @@ public class SlimeBucketItem extends BucketItem {
 		if (entityData.contains("SlimeTimeColor")) {
 			var color = SlimeColor.decode(entityData).getName();
 			var key = "item.slime_time.%s_slime_bucket".formatted(color);
-			if (Language.getInstance().has(key)) {
-				return Component.translatable(key);
-			}
-			else return Component.translatable("item.slime_time.colored_slime_bucket", WordUtils.capitalize(color.replace("_", " ")));
+			return Component.translatable(key);
 		}
 		return super.getName(itemStack);
 	}

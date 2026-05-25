@@ -21,19 +21,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import static cc.cassian.slime.registry.SlimeItems.keyOfItem;
+
 public interface SlimeBlocks {
 
 	Map<SlimeColor, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
 			"slime_block",
 			SlimeBlock::new,
-			BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()
+			BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK)
 	);
 
 	static <T extends Block> HashMap<SlimeColor, T> registerDyedBlocks(String name, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
 		LinkedHashMap<SlimeColor, T> map = LinkedHashMap.newLinkedHashMap(SlimeColor.values().length);
 		for (SlimeColor value : SlimeColor.values()) {
-			String dyedBlockName = value.getName() + "_" + name;
-			map.put(value, registerBlock(dyedBlockName, blockFactory, settings, true));
+			if (!SlimeColor.isDefault(value)) {
+				String dyedBlockName = "%s_%s".formatted(value.getName(), name);
+				map.put(value, registerBlock(dyedBlockName, blockFactory, settings.mapColor(value.getDyeColor()), true));
+			}
 		}
 		return map;
 	}
@@ -63,11 +67,7 @@ public interface SlimeBlocks {
 	}
 
 	static ResourceKey<Block> keyOfBlock(String name) {
-		return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(SlimeTime.MOD_ID, name));
-	}
-
-	static ResourceKey<Item> keyOfItem(String name) {
-		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(SlimeTime.MOD_ID, name));
+		return ResourceKey.create(Registries.BLOCK, SlimeTime.of(name));
 	}
 
 	static void touch() {

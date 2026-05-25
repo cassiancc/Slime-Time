@@ -11,13 +11,10 @@ import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
 import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.animal.frog.FrogVariant;
 import net.minecraft.world.entity.animal.frog.FrogVariants;
@@ -30,8 +27,6 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.text.WordUtils;
-import org.jspecify.annotations.Nullable;
 
 import java.util.*;
 
@@ -96,10 +91,9 @@ public class SlimeHelpers {
 
     public static List<ItemStack> dye(ItemStack defaultInstance, boolean addDefault) {
         List<ItemStack> stacks = new ArrayList<>();
-        if (addDefault)
-            stacks.add(defaultInstance);
         for (SlimeColor dye : SlimeColor.values()) {
-            stacks.add(dye(defaultInstance, dye));
+            if (!SlimeColor.isDefault(dye) || addDefault)
+                stacks.add(dye(defaultInstance, dye));
         }
         return stacks;
     }
@@ -111,7 +105,8 @@ public class SlimeHelpers {
     public static ItemStack dye(ItemStack defaultInstance, SlimeColor color) {
         if (defaultInstance.is(SlimeItemTags.DYEABLE_SLIME)) {
             var copy = defaultInstance.copy();
-            copy.set(SlimeDataComponents.DYED_COLOR, color);
+            if (SlimeColor.isDefault(color)) copy.remove(SlimeDataComponents.DYED_COLOR);
+            else copy.set(SlimeDataComponents.DYED_COLOR, color);
             return copy;
         }
         if (defaultInstance.is(SlimeItems.SLIME_BUCKET)) {
@@ -122,24 +117,23 @@ public class SlimeHelpers {
             return copy;
         }
         if (defaultInstance.is(Items.SLIME_BLOCK)) {
+            if (SlimeColor.isDefault(color)) return Items.SLIME_BLOCK.getDefaultInstance();
             return SlimeBlocks.SLIME_BLOCKS.get(color).asItem().getDefaultInstance();
         }
         return defaultInstance;
     }
 
     public static Item getFroglight(Frog frog) {
-        ResourceKey<FrogVariant> variant = frog.getVariant().unwrapKey().get();
-        if (variant.equals(FrogVariants.TEMPERATE)) {
+        Holder<FrogVariant> variant = frog.getVariant();
+        if (variant.is(FrogVariants.TEMPERATE)) {
             return Items.OCHRE_FROGLIGHT;
-        }
-        else if (variant.equals(FrogVariants.COLD)) {
+        } else if (variant.is(FrogVariants.COLD)) {
             return Items.VERDANT_FROGLIGHT;
-        }
-        else if (variant.equals(FrogVariants.WARM)) {
+        } else if (variant.is(FrogVariants.WARM)) {
             return Items.PEARLESCENT_FROGLIGHT;
-        } else if (variant.identifier().equals(Identifier.fromNamespaceAndPath("instantfeedback", "dark"))) {
+        } else if (variant.is(Identifier.fromNamespaceAndPath("instantfeedback", "dark"))) {
             return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
-        } else if (variant.identifier().equals(Identifier.fromNamespaceAndPath("nomansland", "mud"))) {
+        } else if (variant.is(Identifier.fromNamespaceAndPath("nomansland", "mud"))) {
             return BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
         }
         return Items.AIR;

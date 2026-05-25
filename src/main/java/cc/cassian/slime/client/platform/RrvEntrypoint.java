@@ -102,9 +102,7 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 				List<ItemStackTemplate> results = new ArrayList<>();
 				for (Item ingredient : getItemsFromIngredient(recipe.getTarget())) {
 					for (SlimeColor color : SlimeColor.values()) {
-						ItemStack defaultInstance = ingredient.getDefaultInstance();
-						defaultInstance.set(SlimeDataComponents.DYED_COLOR, color);
-						results.add(ItemStackTemplate.fromNonEmptyStack(defaultInstance));
+						results.add(ItemStackTemplate.fromNonEmptyStack(SlimeHelpers.dye(ingredient.getDefaultInstance(), color)));
 					}
 				}
 
