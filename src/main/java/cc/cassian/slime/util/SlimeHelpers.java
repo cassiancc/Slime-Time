@@ -140,13 +140,13 @@ public class SlimeHelpers {
     }
 
     public static List<ItemStack> addDyedItems(ItemStack defaultInstance) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && SlimeTime.CONFIG.colorfulSlimes.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
         else return Collections.singletonList(defaultInstance);
     }
 
     public static Identifier getVariatedSlimeTexture(SlimeRenderState state, Identifier original) {
         var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
         else return original;
     }
 }

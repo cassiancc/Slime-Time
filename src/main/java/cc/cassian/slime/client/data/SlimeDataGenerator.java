@@ -9,13 +9,10 @@ public class SlimeDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		//? if <26.2 {
-		
-		pack.addProvider(SlimeBlockTagProvider::new);
-		pack.addProvider(SlimeItemTagProvider::new);
+		var blockTags = pack.addProvider(SlimeBlockTagProvider::new);
+		pack.addProvider((output, registryLookupFuture) -> new SlimeItemTagProvider(output, registryLookupFuture, blockTags));
 		pack.addProvider(SlimeModelProvider::new);
 		pack.addProvider(SlimeRecipeProvider::new);
-		//?}
 	}
 }
 //?}

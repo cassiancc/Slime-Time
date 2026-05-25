@@ -16,7 +16,7 @@ public class RrvServerEntrypoint implements ReliableRecipeViewerPlugin {
 	@Override
 	public void onIntegrationInitialize() {
 		ItemView.addServerReloadCallback(()->{
-			if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+			if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 				SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance()).stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).forEach(stack -> ItemView.addMobDrops(EntityType.SLIME, SlotContent.of(stack)));
 			}
 		});

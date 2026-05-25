@@ -40,7 +40,7 @@ public class RrvEntrypoint implements ReliableRecipeViewerClientPlugin {
 			addCraftingRecipes(list);
 		});
 		ItemView.addClientReloadCallback(()->{
-			if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+			if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 				addDyedItems(Items.SLIME_BALL.getDefaultInstance());
 				addDyedItems(SlimeItems.SLIME_SLING.getDefaultInstance());
 				addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance());

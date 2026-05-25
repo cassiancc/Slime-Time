@@ -1,4 +1,10 @@
 {
+  "slime_time.entity.slime_ball.throw": {
+    "sounds": [
+      "random/bow"
+    ],
+    "subtitle": "slime_time.subtitles.entity.slime_ball.throw"
+  },
   "slime_time.slime_sling.fling": {
     "sounds": [
       "random/bow"

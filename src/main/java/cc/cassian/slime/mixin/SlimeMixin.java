@@ -50,7 +50,7 @@ public abstract class SlimeMixin
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void initiallySetRandomVariant(EntityType<Slime> type, Level level, CallbackInfo ci) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes
                 //? if <26.2
                 && !type.equals(EntityType.MAGMA_CUBE)
                 && this.slimeTime$getVariant() == null) {

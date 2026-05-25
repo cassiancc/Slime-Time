@@ -67,7 +67,7 @@ public class FabricEntrypoint implements ModInitializer {
 		RecipeSynchronization.synchronizeRecipeSerializer(ShapelessRecipe.SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(ShapedRecipe.SERIALIZER);
 		RecipeSynchronization.synchronizeRecipeSerializer(DyeRecipe.SERIALIZER);
-		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 			ResourceLoader.registerBuiltinPack(
 					SlimeTime.of("colourful_slimes"),
 					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),

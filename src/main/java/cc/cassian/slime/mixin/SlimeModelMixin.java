@@ -16,7 +16,7 @@ public abstract class SlimeModelMixin {
 
 	@WrapMethod(method = "createOuterBodyLayer")
 	private static LayerDefinition translucent(Operation<LayerDefinition> original) {
-		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 			MeshDefinition mesh = new MeshDefinition();
 			PartDefinition root = mesh.getRoot();
 

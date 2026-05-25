@@ -1,5 +1,6 @@
 package cc.cassian.slime.client;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
@@ -20,13 +21,15 @@ public record SlimeDyeTintSource(int defaultColor) implements ItemTintSource {
 
     @Override
     public int calculate(final ItemStack itemStack, @Nullable final ClientLevel level, @Nullable final LivingEntity owner) {
-        if (itemStack.has(SlimeDataComponents.DYED_COLOR))
-            return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
-        if (itemStack.is(SlimeItems.SLIME_BUCKET) && itemStack.has(DataComponents.BUCKET_ENTITY_DATA)) {
-            var tag = itemStack.get(DataComponents.BUCKET_ENTITY_DATA).copyTag();
-            SlimeColor slimeTimeColor = SlimeColor.decode(tag);
-            if (slimeTimeColor != null)
-                return slimeTimeColor.argb();
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
+            if (itemStack.has(SlimeDataComponents.DYED_COLOR))
+                return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
+            if (itemStack.is(SlimeItems.SLIME_BUCKET) && itemStack.has(DataComponents.BUCKET_ENTITY_DATA)) {
+                var tag = itemStack.get(DataComponents.BUCKET_ENTITY_DATA).copyTag();
+                SlimeColor slimeTimeColor = SlimeColor.decode(tag);
+                if (slimeTimeColor != null)
+                    return slimeTimeColor.argb();
+            }
         }
         return defaultColor;
     }

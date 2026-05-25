@@ -1,17 +1,16 @@
-//? fabric && <26.2 {
+//? fabric {
 package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.tags.SlimeBlockTags;
 import cc.cassian.slime.tags.SlimeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
@@ -19,13 +18,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
-	public SlimeItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
-		super(output, registryLookupFuture);
+	public SlimeItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture, SlimeBlockTagProvider blockTags) {
+		super(output, registryLookupFuture, blockTags);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		tagBuilder(ConventionalItemTags.TOOLS).add(SlimeItems.SLIME_SLING);
 		tagBuilder(SlimeItemTags.FROGLIGHTS).add(Items.OCHRE_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, Items.VERDANT_FROGLIGHT);
 		tagBuilder(SlimeItemTags.FROGLIGHTS).addOptional(key("instantfeedback", "cerulean_froglight"));
-		tagBuilder(SlimeItemTags.SLIME_BLOCKS).addAll(SlimeBlocks.SLIME_BLOCKS.values().stream().map(Block::asItem));
+		copy(SlimeBlockTags.SLIME_BLOCKS, SlimeItemTags.SLIME_BLOCKS);
 		tagBuilder(SlimeItemTags.DYEABLE_SLIME).add(SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, Items.SLIME_BALL);
 	}
 
@@ -48,7 +48,9 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 	}
 
 	public class SlimeTimeTagBuilder {
-		//? if >1.21.2 {
+		//? if >26.1 {
+		/*private TagAppender<Item> valueLookupBuilder;
+		*///?} else if >1.21.2 {
 		private TagAppender<Item, Item> valueLookupBuilder;
 		//?} else {
 		/*private FabricTagProvider<Item>.FabricTagBuilder valueLookupBuilder;
@@ -69,14 +71,11 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		}
 
 		public SlimeTimeTagBuilder add(Item item) {
-			//? <26.2
+			//? <26.2 {
 			valueLookupBuilder = valueLookupBuilder.add(item);
-			return this;
-		}
-
-		public SlimeTimeTagBuilder add(Supplier<Item> item) {
-			//? <26.2
-			valueLookupBuilder = valueLookupBuilder.add(item.get());
+			//?} else {
+			/*valueLookupBuilder = valueLookupBuilder.add(item.builtInRegistryHolder().key());
+			*///?}
 			return this;
 		}
 
@@ -86,8 +85,11 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		}
 
 		public SlimeTimeTagBuilder add(Item... items) {
-			//? <26.2
+			//? <26.2 {
 			valueLookupBuilder = valueLookupBuilder.add(items);
+			//?} else {
+			/*valueLookupBuilder.addAll(Arrays.stream(items).map(item -> item.builtInRegistryHolder().key()));
+			*///?}
 			return this;
 		}
 
@@ -97,8 +99,11 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		}
 
         public SlimeTimeTagBuilder addAll(Stream<Item> items) {
-			//? <26.2
+			//? <26.2 {
 			valueLookupBuilder = valueLookupBuilder.addAll(items);
+			//?} else {
+			/*items.map(i->i.builtInRegistryHolder().key()).forEach(valueLookupBuilder::add);
+			*///?}
 			return this;
         }
 	}

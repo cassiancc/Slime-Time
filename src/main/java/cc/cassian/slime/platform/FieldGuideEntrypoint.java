@@ -22,7 +22,7 @@ public class FieldGuideEntrypoint {
 
         @Override
         public List<VariantDef> getVariants(Slime entity) {
-            if (entity.is(net.minecraft.world.entity.EntityType.SLIME) && SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+            if (entity.is(net.minecraft.world.entity.EntityType.SLIME) && SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
                 ArrayList<VariantDef> list = new ArrayList<>();
                 for (SlimeColor color : SlimeColor.values()) {
                     list.add(new VariantDef(color.getName(), color));

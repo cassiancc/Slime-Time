@@ -23,7 +23,7 @@ public abstract class SlimeRendererMixin {
 	private void setVariantOnRenderState(Slime entity, SlimeRenderState state, float partialTicks, CallbackInfo ci) {
 		VariatedSlimeAccess variatedSlime = (VariatedSlimeAccess) entity;
 		VariatedSlimeRenderStateAccess variatedSlimeState = (VariatedSlimeRenderStateAccess) state;
-		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variatedSlime.slimeTime$getVariant() != null) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && variatedSlime.slimeTime$getVariant() != null) {
 			variatedSlimeState.slimeTime$setVariant(variatedSlime.slimeTime$getVariant());
 		}
 	}

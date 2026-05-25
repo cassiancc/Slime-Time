@@ -57,7 +57,8 @@ public class NeoForgeEntrypoint {
 
 	@SubscribeEvent
 	public static void modifyTabs(AddPackFindersEvent event) {
-		event.addPackFinders(SlimeTime.of("resourcepacks/colourful_slimes"), PackType.SERVER_DATA, Component.literal("Colourful Slimes"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes)
+		    event.addPackFinders(SlimeTime.of("resourcepacks/colourful_slimes"), PackType.SERVER_DATA, Component.literal("Colourful Slimes"), PackSource.BUILT_IN, true, Pack.Position.TOP);
 	}
 
 	@SubscribeEvent

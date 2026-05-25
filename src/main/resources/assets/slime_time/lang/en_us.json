@@ -112,6 +112,6 @@
   "block.slime_time.yellow_slime_block": "Yellow Slime Block",
   "block.slime_time.brown_slime_block": "Brown Slime Block",
   "block.slime_time.purple_slime_block": "Purple Slime Block",
-  "slime_time.color": "%s %s"
+  "slime_time.subtitles.entity.slime_ball.throw": "Slime Ball flies"
 
 }
