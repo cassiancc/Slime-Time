@@ -2,6 +2,7 @@
 /*package cc.cassian.slime.client.platform;
 
 import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.client.SlimeTimeClient;
 import cc.cassian.slime.client.particle.TintedSlimeParticle;
 import cc.cassian.slime.registry.SlimeDataComponents;
@@ -9,8 +10,11 @@ import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.registry.SlimeParticleTypes;
 import cc.cassian.slime.util.SlimeHelpers;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,6 +25,7 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -29,7 +34,7 @@ import java.util.Optional;
 public class NeoForgeClientEntrypoint {
 
 	@SubscribeEvent
-	public static void modifyTintColour(FMLClientSetupEvent event) {
+	public static void clientSetup(FMLClientSetupEvent event) {
 		SlimeTimeClient.onInitializeClient();
 	}
 
@@ -38,18 +43,18 @@ public class NeoForgeClientEntrypoint {
 		event.registerSpecial(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
 	}
 
+	/^
 	@SubscribeEvent
-	public static void modifyTintColour(RegisterClientExtensionsEvent event) {
+	public static void modifySlimeBootsColour(RegisterClientExtensionsEvent event) {
 		event.registerItem(new IClientItemExtensions() {
 			@Override
-			public int getArmorLayerTintColor(ItemStack itemStack, EquipmentClientInfo.Layer layer, int layerIdx, int fallbackColor) {
-				if (itemStack.has(SlimeDataComponents.DYED_COLOR)) {
-					return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
-				}
-				return IClientItemExtensions.super.getArmorLayerTintColor(itemStack, layer, layerIdx, fallbackColor);
+			public Identifier getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, Identifier id) {
+				return id.withPath(p -> p.replace("slime", "%s_slime".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName())));
 			}
 		}, SlimeItems.SLIME_BOOTS);
 	}
+
+	 ^/
 
 	@SubscribeEvent
 	public static void registerTooltip(ItemTooltipEvent event) {

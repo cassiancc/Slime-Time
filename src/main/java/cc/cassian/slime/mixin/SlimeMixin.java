@@ -64,6 +64,7 @@ public abstract class SlimeMixin
         }
     }
 
+    //? if <26.2 {
     @WrapOperation(method = "lambda$remove$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Slime;setSize(IZ)V"))
     private void setVariantOnChildren(Slime instance, int size, boolean updateHealth, Operation<Void> original) {
         if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes
@@ -74,6 +75,7 @@ public abstract class SlimeMixin
         }
         original.call(instance, size, updateHealth);
     }
+    //?}
 
     @ModifyReturnValue(method = "getParticleType", at = @At(value = "RETURN"))
     private ParticleOptions getVariantParticle(ParticleOptions original) {

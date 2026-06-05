@@ -2,12 +2,12 @@
   "layers": {
     "humanoid": [
       {
-        "texture": "slime_time:lime_slime"
+        "texture": "slime_time:white_slime"
       }
     ],
     "humanoid_baby": [
       {
-        "texture": "slime_time:lime_slime"
+        "texture": "slime_time:white_slime"
       }
     ]
   }

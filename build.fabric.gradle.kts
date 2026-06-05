@@ -117,6 +117,7 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
     // Mod Menu
     compileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
+    localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
 
     // Configs
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
@@ -124,6 +125,8 @@ dependencies {
 
     // McQoy
     compileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
+    localRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
+    localRuntime("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
 
     // RRV
     compileOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${property("deps.rrv")}") {
@@ -140,9 +143,6 @@ dependencies {
     compileOnly("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
 
     if (stonecutter.eval(mcVersion, "=26.1")) {
-        localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
-        localRuntime("maven.modrinth:mcqoy:${property("deps.mcqoy")}")
-        localRuntime("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
         localRuntime("maven.modrinth:field-guide:${property("deps.field_guide")}-fabric")
         localRuntime("me.shedaniel.cloth:cloth-config-fabric:${property("deps.cloth_config")}")
     }
