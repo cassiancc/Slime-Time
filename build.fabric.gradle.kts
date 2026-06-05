@@ -124,8 +124,8 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
     // Mod Menu
-    compileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
-    localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
+    modCompileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
+    modLocalRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
 
     // Configs
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")

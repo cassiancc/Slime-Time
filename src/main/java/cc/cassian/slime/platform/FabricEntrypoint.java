@@ -62,7 +62,7 @@ public class FabricEntrypoint implements ModInitializer {
 			}
 		});
 		ItemTooltipCallback.EVENT.register(SlimeHelpers::addDyeTooltip);
-		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 			ResourceManagerHelper.registerBuiltinResourcePack(
 					SlimeTime.of("colourful_slimes"),
 					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),

@@ -1,7 +1,6 @@
 //? fabric {
 package cc.cassian.slime.client.data.providers;
 
-import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeBlockTags;
 import cc.cassian.slime.tags.SlimeItemTags;
@@ -9,19 +8,17 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlimeBlock;
 
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
-public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
-	public SlimeItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture, SlimeBlockTagProvider blockTags) {
+public class SlimeItemTagProvider extends FabricTagProvider.ItemTagProvider {
+	public SlimeItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture, SlimeBlockTagProvider blockTags) {
 		super(output, registryLookupFuture, blockTags);
 	}
 
@@ -49,10 +46,10 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		//? if >26.1 {
 		/*private TagAppender<Item> valueLookupBuilder;
 		*///?} else if >1.21.2 {
-		private TagAppender<Item, Item> valueLookupBuilder;
-		//?} else {
-		/*private FabricTagProvider<Item>.FabricTagBuilder valueLookupBuilder;
-		 *///?}
+		/*private TagAppender<Item, Item> valueLookupBuilder;
+		*///?} else {
+		private FabricTagProvider<Item>.FabricTagBuilder valueLookupBuilder;
+		 //?}
 
 		private TagBuilder rawBuilder;
 
@@ -60,10 +57,10 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 			//? if >26.1 {
 			/*this.valueLookupBuilder = builder(tag);
 			*///?} else if >1.21.2 {
-			this.valueLookupBuilder = valueLookupBuilder(tag);
-			//?} else {
-			/*this.valueLookupBuilder = getOrCreateTagBuilder(tag);
-			 *///?}
+			/*this.valueLookupBuilder = valueLookupBuilder(tag);
+			*///?} else {
+			this.valueLookupBuilder = getOrCreateTagBuilder(tag);
+			 //?}
 
 			this.rawBuilder = getOrCreateRawBuilder(tag);
 		}
@@ -95,15 +92,6 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 			rawBuilder = rawBuilder.addOptionalElement(item);
 			return this;
 		}
-
-        public SlimeTimeTagBuilder addAll(Stream<Item> items) {
-			//? <26.2 {
-			valueLookupBuilder = valueLookupBuilder.addAll(items);
-			//?} else {
-			/*items.map(i->i.builtInRegistryHolder().key()).forEach(valueLookupBuilder::add);
-			*///?}
-			return this;
-        }
 	}
 
 	private ResourceLocation key(String namespace, String path) {

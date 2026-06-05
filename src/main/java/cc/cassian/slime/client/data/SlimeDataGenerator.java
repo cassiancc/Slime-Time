@@ -11,7 +11,7 @@ public class SlimeDataGenerator implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		var blockTags = pack.addProvider(SlimeBlockTagProvider::new);
 		pack.addProvider((output, registryLookupFuture) -> new SlimeItemTagProvider(output, registryLookupFuture, blockTags));
-		pack.addProvider(SlimeModelProvider::new);
+//		pack.addProvider(SlimeModelProvider::new);
 		pack.addProvider(SlimeRecipeProvider::new);
 	}
 }

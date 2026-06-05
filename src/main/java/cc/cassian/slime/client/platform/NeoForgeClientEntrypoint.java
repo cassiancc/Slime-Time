@@ -41,11 +41,6 @@ public class NeoForgeClientEntrypoint {
 	}
 
 	@SubscribeEvent
-	public static void modifyTintColour(RegisterColorHandlersEvent.Item event) {
-		event.register(SlimeTimeClient::calculateTinting, Items.SLIME_BALL, SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, SlimeItems.SLIME_BUCKET);
-	}
-
-	@SubscribeEvent
 	public static void modifyTintColour(RegisterParticleProvidersEvent event) {
 		event.registerSpecial(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
 	}
@@ -55,7 +50,7 @@ public class NeoForgeClientEntrypoint {
 	public static void modifySlimeBootsColour(RegisterClientExtensionsEvent event) {
 		event.registerItem(new IClientItemExtensions() {
 			@Override
-			public Identifier getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, Identifier id) {
+			public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation id) {
 				return id.withPath(p -> p.replace("slime", "%s_slime".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName())));
 			}
 		}, SlimeItems.SLIME_BOOTS);

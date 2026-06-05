@@ -5,21 +5,25 @@ import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.equipment.EquipmentAsset;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(HumanoidArmorLayer.class)
 public class EquipmentLayerRendererMixin {
-    @WrapOperation(require = 0, method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/EquipmentAssetManager;get(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/client/resources/model/EquipmentClientInfo;"))
-    private EquipmentClientInfo slimeDyesRender(EquipmentAssetManager instance, ResourceKey<EquipmentAsset> id, Operation<EquipmentClientInfo> original, @Local(name = "itemStack", argsOnly = true) ItemStack stack) {
-        if (id.identifier().getNamespace().equals(SlimeTime.MOD_ID)) {
-            ResourceKey<EquipmentAsset> equipmentAssetResourceKey = ResourceKey.create(id.registryKey(), id.identifier().withPath(p -> "%s_%s".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName(), p)));
-            return original.call(instance, equipmentAssetResourceKey);
+    @WrapOperation(require = 0, method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/HumanoidModel;ILnet/minecraft/resources/ResourceLocation;)V"))
+    private void slimeDyesRender(HumanoidArmorLayer instance, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_289681_, HumanoidModel model, int p_350798_, ResourceLocation id, Operation<Void> original, @Local ItemStack stack) {
+        if (id.getNamespace().equals(SlimeTime.MOD_ID)) {
+            var equipmentAssetResourceKey = id.withPath(p -> "%s_%s".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName(), p));
+            original.call(instance, poseStack, multiBufferSource, p_289681_, model, p_350798_, equipmentAssetResourceKey);
         } else {
-            return original.call(instance, id);
+            original.call(instance, poseStack, multiBufferSource, p_289681_, model, p_350798_, id);
         }
     }
 }

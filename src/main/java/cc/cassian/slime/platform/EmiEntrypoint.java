@@ -40,7 +40,7 @@ public class EmiEntrypoint implements EmiPlugin {
 	}
 
 	private static void addCraftingRecipes(EmiRegistry registry) {
-		if (SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
 			for (SlimeColor color : SlimeColor.values()) {
 				EmiStack slimeball = EmiStack.of(SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance(), color));
 				EmiStack slimeBlock = EmiStack.of(dye(Items.SLIME_BLOCK.getDefaultInstance(), color));
@@ -103,7 +103,7 @@ public class EmiEntrypoint implements EmiPlugin {
 	public void register(EmiRegistry emiRegistry) {
 		emiRegistry.addRecipe(getInfoRecipe(SlimeItems.SLIME_BUCKET));
 		emiRegistry.addRecipe(getInfoRecipe(SlimeItems.MAGMA_CUBE_BUCKET));
-        if (!SlimeTime.CONFIG.slimeTime.colourfulSlimes) {
+        if (!SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
             emiRegistry.removeEmiStacks(stack->stack.getItemStack().is(SlimeItemTags.SLIME_BLOCKS));
         }
         addCraftingRecipes(emiRegistry);

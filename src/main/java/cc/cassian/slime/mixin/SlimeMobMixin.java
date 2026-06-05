@@ -25,7 +25,7 @@ public abstract class SlimeMobMixin extends Entity {
 
     @Inject(method = "dropFromLootTable", at = @At(value = "HEAD"), cancellable = true)
     private void dropDyedSlimeBalls(DamageSource damageSource, boolean hitByPlayer, CallbackInfo ci) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && this instanceof VariatedSlimeAccess slimeAccess && slimeAccess.slimeTime$getVariant() != null) {
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && this instanceof VariatedSlimeAccess slimeAccess && slimeAccess.slimeTime$getVariant() != null) {
             var entity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance(), slimeAccess.slimeTime$getVariant()));
             level().addFreshEntity(entity);
             ci.cancel();

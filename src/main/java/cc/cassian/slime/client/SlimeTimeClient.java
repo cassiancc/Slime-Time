@@ -1,5 +1,6 @@
 package cc.cassian.slime.client;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEntityTypes;
@@ -16,8 +17,7 @@ import org.jspecify.annotations.Nullable;
 public class SlimeTimeClient {
 
 	public static void onInitializeClient() {
-		ItemTintSources.ID_MAPPER.put(SlimeTime.of("dye"), SlimeDyeTintSource.MAP_CODEC); //fixme neo
-		SelectItemModelProperties.ID_MAPPER.put(SlimeTime.of("dye"), SlimeDyeSelectProperty.TYPE);
+
 	}
 
 	public static int calculateTinting(final ItemStack itemStack, int tintIndex) {

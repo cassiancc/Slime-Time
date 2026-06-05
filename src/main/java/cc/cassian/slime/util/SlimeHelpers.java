@@ -9,6 +9,7 @@ import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.tags.SlimeItemTags;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -121,16 +122,16 @@ public class SlimeHelpers {
 
     public static Item getFroglight(Frog frog) {
         Holder<FrogVariant> variant = frog.getVariant();
-        if (variant.is(FrogVariants.TEMPERATE)) {
+        if (variant.is(FrogVariant.TEMPERATE)) {
             return Items.OCHRE_FROGLIGHT;
-        } else if (variant.is(FrogVariants.COLD)) {
+        } else if (variant.is(FrogVariant.COLD)) {
             return Items.VERDANT_FROGLIGHT;
-        } else if (variant.is(FrogVariants.WARM)) {
+        } else if (variant.is(FrogVariant.WARM)) {
             return Items.PEARLESCENT_FROGLIGHT;
-        } else if (variant.is(Identifier.fromNamespaceAndPath("instantfeedback", "dark"))) {
-            return BuiltInRegistries.ITEM.get(Identifier.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
-        } else if (variant.is(Identifier.fromNamespaceAndPath("nomansland", "mud"))) {
-            return BuiltInRegistries.ITEM.get(Identifier.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
+        } else if (variant.is(ResourceLocation.fromNamespaceAndPath("instantfeedback", "dark"))) {
+            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
+        } else if (variant.is(ResourceLocation.fromNamespaceAndPath("nomansland", "mud"))) {
+            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
         }
         return Items.AIR;
     }
@@ -140,8 +141,8 @@ public class SlimeHelpers {
         else return Collections.singletonList(defaultInstance);
     }
 
-    public static ResourceLocation getVariatedSlimeTexture(SlimeRenderState state, ResourceLocation original) {
-        var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
+    public static ResourceLocation getVariatedSlimeTexture(Slime state, ResourceLocation original) {
+        var variant = ((VariatedSlimeAccess) state).slimeTime$getVariant();
         if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
         else return original;
     }

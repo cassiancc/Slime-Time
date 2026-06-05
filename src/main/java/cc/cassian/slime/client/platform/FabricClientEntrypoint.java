@@ -19,7 +19,6 @@ public class FabricClientEntrypoint implements ClientModInitializer {
     public void onInitializeClient() {
         SlimeTimeClient.onInitializeClient();
         EntityRendererRegistry.register(SlimeEntityTypes.SLIMEBALL, ThrownItemRenderer::new);
-        ColorProviderRegistry.ITEM.register(SlimeTimeClient::calculateTinting, Items.SLIME_BALL, SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, SlimeItems.SLIME_BUCKET);
         ParticleFactoryRegistry.getInstance().register(SlimeParticleTypes.TINTED_SLIME, new TintedSlimeParticle.TintedSlimeProvider());
     }
 }

@@ -28,6 +28,7 @@
     "EquipmentLayerRendererMixin",
     "SlimeModelMixin",
     "SlimeOuterLayerMixin",
-    "SlimeRendererMixin"
+    "SlimeRendererMixin",
+    "modefite.SelectPropertyRegistryMixin"
   ]
 }
