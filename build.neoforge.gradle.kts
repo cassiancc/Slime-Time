@@ -156,6 +156,7 @@ dependencies {
     implementation("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+neoforge")
     implementation("org.jspecify:jspecify:1.0.0")
     implementation("maven.modrinth:field-guide:${property("deps.field_guide")}-neoforge")
+    implementation("maven.modrinth:modefite-item-definition-backport:cy8BkRZc")
 
 }
 
