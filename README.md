@@ -1,18 +1,19 @@
 # Slime Time
 
-<a href='https://modrinth.com/mod/springy-things/versions?l=fabric'><img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"></a>
+<a href='https://modrinth.com/mod/slime-time/versions?l=fabric'><img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"></a>
+<a href='https://modrinth.com/mod/slime-time/versions?l=neoforge&l=forge'><img alt="forge" height="56" src="https://raw.githubusercontent.com/cassiancc/Cassians-Badges/refs/heads/main/cozy/NeoForge.svg"></a>
 <a href='https://modfest.net/26'><img alt="Made for ModFest: 26" height="56" src="https://raw.githubusercontent.com/cassiancc/Cassians-Badges/refs/heads/main/cozy/ModFest-26.svg"></a>
 
-Bounce around with Slime Boots, throwable Slime Balls, Slime Buckets, and more - powered by a backport of the Bounciness attribute.
+An expansion on Slime, providing tools like Slime Boots, throwable Slime Balls, Slime Buckets, dyeable Slime Blocks and more.
 
 ## Installation
 
 Slime Time is a client and server mod for 26.1. Its dependencies are listed below.
 
 ## Features
-- Slimes now generate in a variety of common colours. 
+- Slimes now generate in a variety of common colours.
   - Colourful Slimes drop coloured Slime Balls.
-- Slime Balls can be thrown, and now come in a variety of colours. 
+- Slime Balls can be thrown, and now come in a variety of colours.
   - Coloured Slime Balls stack together, to avoid inventory bloat. Mixing slime balls will merge the two dyes.
   - Throwing a Slime Ball at an entity will inflict it with **Slime Time**, a new effect that causes afflicted targets to bounce around.
 - Slime Blocks now come in a variety of colours.
