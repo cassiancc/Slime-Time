@@ -1,5 +1,6 @@
 package cc.cassian.slime.client;
 
+import cc.cassian.slime.Platform;
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
@@ -17,7 +18,9 @@ import org.jspecify.annotations.Nullable;
 public class SlimeTimeClient {
 
 	public static void onInitializeClient() {
-
+		if (!Platform.isModLoaded("modefite")) {
+			SlimeTime.LOGGER.error("Slime Time was loaded without Modefite! Tinting logic will not work correctly.");
+		}
 	}
 
 	public static int calculateTinting(final ItemStack itemStack, int tintIndex) {

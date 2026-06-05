@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import timmychips.modefiteitemdefinitions.property.handler.SelectPropertyHandler;
 import timmychips.modefiteitemdefinitions.property.registry.SelectPropertyRegistry;
 
+@Pseudo
 @Mixin({SelectPropertyRegistry.class})
 public abstract class SelectPropertyRegistryMixin {
 	@Shadow
