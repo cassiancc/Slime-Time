@@ -1,6 +1,10 @@
 {
   "pack": {
     "description": "Colourful slimes. Disable via Slime Time config.",
-    "pack_format": 48
+    "pack_format": 34,
+    "supported_formats": {
+      "min_inclusive": 34,
+      "max_inclusive": 48
+    }
   }
 }

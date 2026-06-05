@@ -28,7 +28,7 @@ import static cc.cassian.slime.SlimeTime.MOD_ID;
 import static cc.cassian.slime.registry.SlimeBlocks.SLIME_BLOCKS;
 import static cc.cassian.slime.registry.SlimeBlocks.asListOfStacks;
 import static cc.cassian.slime.util.SlimeHelpers.addDyedItems;
-import static net.fabricmc.fabric.api.resource.ResourcePackActivationType.DEFAULT_ENABLED;
+import static net.fabricmc.fabric.api.resource.ResourcePackActivationType.ALWAYS_ENABLED;
 
 public class FabricEntrypoint implements ModInitializer {
 
@@ -66,7 +66,7 @@ public class FabricEntrypoint implements ModInitializer {
 			ResourceManagerHelper.registerBuiltinResourcePack(
 					SlimeTime.of("colourful_slimes"),
 					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
-					DEFAULT_ENABLED);
+					ALWAYS_ENABLED);
 		}
 	}
 

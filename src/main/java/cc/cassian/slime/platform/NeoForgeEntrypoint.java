@@ -49,16 +49,18 @@ public class NeoForgeEntrypoint {
 	}
 
 	@SubscribeEvent
-	public static void modifyTabs(RegisterEvent event) {
+	public static void register(RegisterEvent event) {
 		if (event.getRegistryKey().equals(Registries.BLOCK)) {
 			SlimeTime.onInitialize();
 		}
 	}
 
 	@SubscribeEvent
-	public static void modifyTabs(AddPackFindersEvent event) {
-        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes)
-		    event.addPackFinders(SlimeTime.of("resourcepacks/colourful_slimes"), PackType.SERVER_DATA, Component.literal("Colourful Slimes"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+	public static void addPacks(AddPackFindersEvent event) {
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
+			event.addPackFinders(SlimeTime.of("resourcepacks/colourful_slimes"), PackType.SERVER_DATA, Component.literal("Colourful Slimes"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+			event.addPackFinders(SlimeTime.of("resourcepacks/colourful_slimes"), PackType.CLIENT_RESOURCES, Component.literal("Colourful Slimes"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+		}
 	}
 
 	@SubscribeEvent
@@ -66,7 +68,7 @@ public class NeoForgeEntrypoint {
 		NeoForgeEntrypoint.event = event;
 		ResourceKey<CreativeModeTab> tab = event.getTabKey();
 		if (tab.equals(CreativeModeTabs.COMBAT)) {
-			insertAfter(Items.TURTLE_HELMET, SlimeItems.SLIME_BOOTS);
+			insertAfter(Items.TURTLE_HELMET, addDyedItems(SlimeItems.SLIME_BOOTS.getDefaultInstance()));
 			if (SlimeTime.CONFIG.slimeTime.addSlimeBallToCombatTab)
 				insertAfter(Items.SNOWBALL, addDyedItems(Items.SLIME_BALL.getDefaultInstance()));
 		}

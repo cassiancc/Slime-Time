@@ -87,7 +87,7 @@ public abstract class SlimeMixin
         //? fabric
         return this.getAttached(FabricEntrypoint.SLIME_STATE);
         //? neoforge
-        //return this.getData(NeoForgeEntrypoint.SLIME_STATE);
+        //return this.getExistingData(NeoForgeEntrypoint.SLIME_STATE).orElse(null);
     }
 
     @Override
