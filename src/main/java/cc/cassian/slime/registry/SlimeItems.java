@@ -27,7 +27,7 @@ import java.util.function.Function;
 public interface SlimeItems {
 	Item SLIME_BOOTS = register("slime_boots", p->new ArmorItem(SlimeMaterials.SLIME, ArmorItem.Type.BOOTS, p), new Item.Properties().durability(128)
 			.attributes(ItemAttributeModifiers.builder()
-					.add(SlimeAttributes.BOUNCINESS, new AttributeModifier(SlimeTime.of("spring_boots"), 1f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
+					.add(SlimeAttributes.BOUNCINESS, new AttributeModifier(SlimeTime.of("slime_boots"), 1f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
 					.build()));
 
 	Item SLIME_BUCKET = register("slime_bucket", (p) -> new SlimeBucketItem(EntityType.SLIME, SoundEvents.BUCKET_EMPTY_TADPOLE, p), (new Item.Properties()).stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).craftRemainder(Items.BUCKET));
@@ -46,9 +46,11 @@ public interface SlimeItems {
 	}
 
 	static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
-		// Create the item key.
-		ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, SlimeTime.of(name));
-		return register(itemKey, itemFactory, settings);
+		return register(keyOfItem(name), itemFactory, settings);
+	}
+
+	static ResourceKey<Item> keyOfItem(String name) {
+		return ResourceKey.create(Registries.ITEM, SlimeTime.of(name));
 	}
 
 	static void touch() {

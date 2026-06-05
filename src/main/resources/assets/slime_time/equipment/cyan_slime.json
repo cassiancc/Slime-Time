@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "slime_time:cyan_slime"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "slime_time:cyan_slime"
+      }
+    ]
+  }
+}

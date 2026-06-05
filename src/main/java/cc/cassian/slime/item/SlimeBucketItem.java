@@ -1,5 +1,6 @@
 package cc.cassian.slime.item;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.BucketableCubeMob;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.api.VariatedSlimeAccess;
@@ -179,14 +180,13 @@ public class SlimeBucketItem extends BucketItem {
 
 	@Override
 	public Component getName(ItemStack itemStack) {
-		var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
-		if (entityData.contains("SlimeTimeColor")) {
-			var color = SlimeColor.decode(entityData).getName();
-			var key = "item.slime_time.%s_slime_bucket".formatted(color);
-			if (Language.getInstance().has(key)) {
+		if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
+			var entityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
+			if (entityData.contains("SlimeTimeColor")) {
+				var color = SlimeColor.decode(entityData).getName();
+				var key = "item.slime_time.slime_bucket.%s".formatted(color);
 				return Component.translatable(key);
 			}
-			else return Component.translatable("item.slime_time.colored_slime_bucket", WordUtils.capitalize(color.replace("_", " ")));
 		}
 		return super.getName(itemStack);
 	}

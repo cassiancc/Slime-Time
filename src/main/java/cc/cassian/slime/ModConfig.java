@@ -6,14 +6,21 @@ import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Comment;
 public class ModConfig extends WrappedConfig {
 	public SlimeTime slimeTime = new SlimeTime();
 	public static class SlimeTime implements WrappedConfig.Section {
-		@Comment("Spawn colourful slimes, and allowing dyeing slimeballs and slime blocks and items.")
-		public boolean colourfulSlimes = true;
 		@Comment("Whether to allow throwing slimeballs.")
 		public boolean throwableSlimeballs = true;
 		public boolean addSlimeBallToCombatTab = true;
+
+    }
+
+	public ColorfulSlimes colorfulSlimes = new ColorfulSlimes();
+	public static class ColorfulSlimes implements WrappedConfig.Section {
+		@Comment("Spawn colourful slimes, and allowing dyeing slimeballs and slime blocks and items.")
+		public boolean colourfulSlimes = true;
+		@Comment("Whether the default Slime should be named Lime Slime or just Slime.")
+		public boolean renameDefaultSlimeToLime = true;
 		@Comment("With the Colourful Slimes feature enabled, dyed variants of slime items are added to vanilla creative tabs. To avoid cluttering your creative menu, this can be disabled.")
 		public boolean addDyedVariantsToCreativeTabs = true;
-    }
+	}
 
 	public Client client = new Client();
 	public static class Client implements WrappedConfig.Section {

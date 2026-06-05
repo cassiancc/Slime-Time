@@ -4,7 +4,6 @@ loaderVersion = "[4,)"
 issueTrackerURL="https://github.com/cassiancc/Slime-Time/issues"
 displayURL="https://modrinth.com/project/slime-time/"
 logoFile= "assets/slime_time/icon.png"
-authors="cassiancc"
 license="${mod_license}"
 
 [[mods]]
@@ -12,6 +11,8 @@ modId="slime_time"
 version="${mod_version}"
 displayName="${mod_name}"
 description="${mod_description}"
+authors="cassiancc"
+credits="cassiancc, ProbablyEkho"
 
 [[dependencies.slime_time]]
 modId="neoforge"
@@ -29,3 +30,6 @@ side="BOTH"
 
 [[mixins]]
 config = "slime_time.mixins.json"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"

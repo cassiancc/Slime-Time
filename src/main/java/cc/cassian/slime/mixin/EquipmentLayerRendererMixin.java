@@ -1,20 +1,25 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
+import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(HumanoidArmorLayer.class)
 public class EquipmentLayerRendererMixin {
-    @WrapOperation(require = 0, method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/DyedItemColor;getOrDefault(Lnet/minecraft/world/item/ItemStack;I)I"))
-    private int slimeDyesRender(ItemStack itemStack, int defaultColor, Operation<Integer> original) {
-        if (itemStack.has(SlimeDataComponents.DYED_COLOR)) {
-            return itemStack.get(SlimeDataComponents.DYED_COLOR).argb();
+    @WrapOperation(require = 0, method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/model/EquipmentAssetManager;get(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/client/resources/model/EquipmentClientInfo;"))
+    private EquipmentClientInfo slimeDyesRender(EquipmentAssetManager instance, ResourceKey<EquipmentAsset> id, Operation<EquipmentClientInfo> original, @Local(name = "itemStack", argsOnly = true) ItemStack stack) {
+        if (id.identifier().getNamespace().equals(SlimeTime.MOD_ID)) {
+            ResourceKey<EquipmentAsset> equipmentAssetResourceKey = ResourceKey.create(id.registryKey(), id.identifier().withPath(p -> "%s_%s".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName(), p)));
+            return original.call(instance, equipmentAssetResourceKey);
+        } else {
+            return original.call(instance, id);
         }
-        return original.call(itemStack, defaultColor);
     }
 }

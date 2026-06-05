@@ -2,6 +2,7 @@ package cc.cassian.slime.recipe;
 
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.registry.SlimeDataComponents;
+import cc.cassian.slime.util.SlimeHelpers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -120,8 +121,7 @@ public class SlimeDyeRecipe extends CustomRecipe {
 
         if (!targetStack.isEmpty() && dye != null) {
             ItemStack result = this.result.copy();
-            result.set(SlimeDataComponents.DYED_COLOR, SlimeColor.byDyeColor(dye));
-            return result;
+            return SlimeHelpers.dye(result, dye);
         } else {
             return ItemStack.EMPTY;
         }

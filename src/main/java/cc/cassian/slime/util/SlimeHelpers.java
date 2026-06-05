@@ -87,10 +87,9 @@ public class SlimeHelpers {
 
     public static List<ItemStack> dye(ItemStack defaultInstance, boolean addDefault) {
         List<ItemStack> stacks = new ArrayList<>();
-        if (addDefault)
-            stacks.add(defaultInstance);
         for (SlimeColor dye : SlimeColor.values()) {
-            stacks.add(dye(defaultInstance, dye));
+            if (!SlimeColor.isDefault(dye) || addDefault)
+                stacks.add(dye(defaultInstance, dye));
         }
         return stacks;
     }
@@ -102,7 +101,8 @@ public class SlimeHelpers {
     public static ItemStack dye(ItemStack defaultInstance, SlimeColor color) {
         if (defaultInstance.is(SlimeItemTags.DYEABLE_SLIME)) {
             var copy = defaultInstance.copy();
-            copy.set(SlimeDataComponents.DYED_COLOR, color);
+            if (SlimeColor.isDefault(color)) copy.remove(SlimeDataComponents.DYED_COLOR);
+            else copy.set(SlimeDataComponents.DYED_COLOR, color);
             return copy;
         }
         if (defaultInstance.is(SlimeItems.SLIME_BUCKET)) {
@@ -113,37 +113,36 @@ public class SlimeHelpers {
             return copy;
         }
         if (defaultInstance.is(Items.SLIME_BLOCK)) {
+            if (SlimeColor.isDefault(color)) return Items.SLIME_BLOCK.getDefaultInstance();
             return SlimeBlocks.SLIME_BLOCKS.get(color).asItem().getDefaultInstance();
         }
         return defaultInstance;
     }
 
     public static Item getFroglight(Frog frog) {
-        ResourceKey<FrogVariant> variant = frog.getVariant().unwrapKey().get();
-        if (variant.equals(FrogVariant.TEMPERATE)) {
+        Holder<FrogVariant> variant = frog.getVariant();
+        if (variant.is(FrogVariants.TEMPERATE)) {
             return Items.OCHRE_FROGLIGHT;
-        }
-        else if (variant.equals(FrogVariant.COLD)) {
+        } else if (variant.is(FrogVariants.COLD)) {
             return Items.VERDANT_FROGLIGHT;
-        }
-        else if (variant.equals(FrogVariant.WARM)) {
+        } else if (variant.is(FrogVariants.WARM)) {
             return Items.PEARLESCENT_FROGLIGHT;
-        } else if (variant.location().equals(ResourceLocation.fromNamespaceAndPath("instantfeedback", "dark"))) {
-            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
-        } else if (variant.location().equals(ResourceLocation.fromNamespaceAndPath("nomansland", "mud"))) {
-            return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
+        } else if (variant.is(Identifier.fromNamespaceAndPath("instantfeedback", "dark"))) {
+            return BuiltInRegistries.ITEM.get(Identifier.fromNamespaceAndPath("instantfeedback", "cerulean_froglight"));
+        } else if (variant.is(Identifier.fromNamespaceAndPath("nomansland", "mud"))) {
+            return BuiltInRegistries.ITEM.get(Identifier.fromNamespaceAndPath("nomansland", "vermillion_froglight"));
         }
         return Items.AIR;
     }
 
     public static List<ItemStack> addDyedItems(ItemStack defaultInstance) {
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && SlimeTime.CONFIG.slimeTime.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && SlimeTime.CONFIG.colorfulSlimes.addDyedVariantsToCreativeTabs) return SlimeHelpers.dye(defaultInstance);
         else return Collections.singletonList(defaultInstance);
     }
 
-    public static ResourceLocation getVariatedSlimeTexture(Slime state, ResourceLocation original) {
-        var variant = ((VariatedSlimeAccess) state).slimeTime$getVariant();
-        if (SlimeTime.CONFIG.slimeTime.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
+    public static ResourceLocation getVariatedSlimeTexture(SlimeRenderState state, ResourceLocation original) {
+        var variant = ((VariatedSlimeRenderStateAccess) state).slimeTime$getVariant();
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes && variant != null) return SlimeTime.of("textures/entity/slime/%s_slime.png".formatted(variant.getName()));
         else return original;
     }
 }

@@ -125,6 +125,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
     // Mod Menu
     compileOnly("maven.modrinth:modmenu:${property("deps.modmenu")}")
+    localRuntime("maven.modrinth:modmenu:${property("deps.modmenu")}")
 
     // Configs
     implementation("folk.sisby:kaleido-config:${property("deps.kaleido")}")
@@ -133,7 +134,7 @@ dependencies {
     // McQoy
     modCompileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}-fabric")
 
-    // RRV
+    // EMI
     modCompileOnly("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
     modImplementation("maven.modrinth:emi:${property("deps.emi")}+${property("deps.minecraft")}+fabric")
     implementation("org.jspecify:jspecify:1.0.0")

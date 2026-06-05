@@ -2,7 +2,8 @@
 package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import cc.cassian.slime.tags.SlimeItemTags;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -45,6 +46,49 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 	@Override
 	public String getName() {
 		return "Slime Time Recipes";
+	}
+
+	private static class SlimeTimeRecipeProvider extends RecipeProvider {
+		RecipeOutput output;
+
+		public SlimeTimeRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
+			super(provider, output);
+			this.output = output;
+		}
+
+		@Override
+		public void buildRecipes() {
+
+			shaped(RecipeCategory.MISC, SlimeItems.SLIME_BOOTS, 1)
+					.pattern("l l")
+					.pattern("s s")
+					.define('l', ConventionalItemTags.SLIME_BALLS)
+					.define('s', Items.SLIME_BLOCK)
+					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
+					.unlockedBy("has_slime_blocks", has(SlimeItemTags.SLIME_BLOCKS))
+					.save(output);
+
+			shaped(RecipeCategory.MISC, SlimeItems.SLIME_SLING, 1)
+					.pattern("l l")
+					.pattern("lll")
+					.define('l', ConventionalItemTags.SLIME_BALLS)
+					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
+					.unlockedBy("has_slime_blocks", has(SlimeItemTags.SLIME_BLOCKS))
+					.save(output);
+//			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
+//			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");
+//			dyedItem(Items.SLIME_BALL, "slime_ball");
+		}
+
+		public void dyedItem(final Item target, final String group) {
+			CustomCraftingRecipeBuilder.customCrafting(
+							RecipeCategory.MISC,
+							(commonInfo, bookInfo) -> new SlimeDyeRecipe(commonInfo, bookInfo, Ingredient.of(target), this.tag(ItemTags.DYES), new ItemStackTemplate(target))
+					)
+					.unlockedBy(getHasName(target), this.has(target))
+					.group(group)
+					.save(output, "slime_time:"+ getItemName(target) + "_dyed");
+		}
 	}
 }
 //?}

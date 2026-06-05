@@ -11,3 +11,4 @@
 ### Fixed
 - Feeding Mud Frogs from No Man's Land now produces the correct Froglight.
 - Subtitle when picking up Slimes and Magma Cubes in buckets.
+- Subtitle when throwing Slime Balls.

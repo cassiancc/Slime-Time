@@ -16,7 +16,8 @@ import org.jspecify.annotations.Nullable;
 public class SlimeTimeClient {
 
 	public static void onInitializeClient() {
-
+		ItemTintSources.ID_MAPPER.put(SlimeTime.of("dye"), SlimeDyeTintSource.MAP_CODEC); //fixme neo
+		SelectItemModelProperties.ID_MAPPER.put(SlimeTime.of("dye"), SlimeDyeSelectProperty.TYPE);
 	}
 
 	public static int calculateTinting(final ItemStack itemStack, int tintIndex) {
@@ -34,5 +35,6 @@ public class SlimeTimeClient {
 			return -7274619;
 		}
 		return -1;
+	
 	}
 }
