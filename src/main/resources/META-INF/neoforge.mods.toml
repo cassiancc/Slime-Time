@@ -1,7 +1,6 @@
 issueTrackerURL="https://github.com/cassiancc/Slime-Time/issues"
 displayURL="https://modrinth.com/project/slime-time/"
 logoFile= "assets/slime_time/icon.png"
-authors="cassiancc"
 license="${mod_license}"
 
 [[mods]]
@@ -9,6 +8,8 @@ modId="slime_time"
 version="${mod_version}"
 displayName="${mod_name}"
 description="${mod_description}"
+authors="cassiancc"
+credits="cassiancc, ProbablyEkho"
 rrv="cc.cassian.slime.platform.RrvServerEntrypoint"
 rrv_client="cc.cassian.slime.client.platform.RrvEntrypoint"
 
@@ -31,9 +32,3 @@ config = "slime_time.mixins.json"
 
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
-
-[modproperties.slime_time."yumi:entrypoints"."yumi:init"]
-value = "cc.cassian.slime.SlimeTime"
-
-[modproperties.slime_time."yumi:entrypoints"."yumi:client_init"]
-value = "cc.cassian.slime.client.SlimeTimeClient"

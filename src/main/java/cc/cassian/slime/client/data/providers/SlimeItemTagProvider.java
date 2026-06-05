@@ -40,6 +40,7 @@ public class SlimeItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		tagBuilder(SlimeItemTags.FROGLIGHTS).addOptional(key("instantfeedback", "cerulean_froglight"));
 		copy(SlimeBlockTags.SLIME_BLOCKS, SlimeItemTags.SLIME_BLOCKS);
 		tagBuilder(SlimeItemTags.DYEABLE_SLIME).add(SlimeItems.SLIME_BOOTS, SlimeItems.SLIME_SLING, Items.SLIME_BALL);
+		tagBuilder(ConventionalItemTags.STORAGE_BLOCKS_SLIME).addOptionalTag(SlimeItemTags.SLIME_BLOCKS);
 	}
 
 

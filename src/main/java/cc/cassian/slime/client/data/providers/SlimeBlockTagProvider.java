@@ -3,8 +3,11 @@ package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.registry.SlimeBlocks;
 import cc.cassian.slime.tags.SlimeBlockTags;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
@@ -30,6 +33,7 @@ public class SlimeBlockTagProvider extends FabricTagsProvider.BlockTagsProvider 
 		tagBuilder(SlimeBlockTags.BOUNCY).add(Blocks.SLIME_BLOCK).addTag(SlimeBlockTags.SLIME_BLOCKS);
 		var slimeBlocks = tagBuilder(SlimeBlockTags.SLIME_BLOCKS);
 		SlimeBlocks.SLIME_BLOCKS.values().forEach(slimeBlocks::addOptional);
+		tagBuilder(ConventionalBlockTags.STORAGE_BLOCKS_SLIME).addOptionalTag(SlimeBlockTags.SLIME_BLOCKS);
 	}
 
 	private SlimeTimeTagBuilder tagBuilder(TagKey<Block> tag) {

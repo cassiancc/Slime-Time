@@ -12,6 +12,8 @@ import cc.cassian.slime.registry.SlimeItems;
 import cc.cassian.slime.registry.SlimeParticleTypes;
 import cc.cassian.slime.registry.SlimeSoundEvents;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -60,6 +62,17 @@ public abstract class SlimeMixin
                 this.slimeTime$setVariant(SlimeColor.values()[this.getRandom().nextInt(0, SlimeColor.values().length)]);
             }
         }
+    }
+
+    @WrapOperation(method = "lambda$remove$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Slime;setSize(IZ)V"))
+    private void setVariantOnChildren(Slime instance, int size, boolean updateHealth, Operation<Void> original) {
+        if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes
+                //? if <26.2
+                && !getType().equals(EntityType.MAGMA_CUBE)
+                && instance instanceof VariatedSlimeAccess variatedSlimeAccess) {
+            variatedSlimeAccess.slimeTime$setVariant(this.slimeTime$getVariant());
+        }
+        original.call(instance, size, updateHealth);
     }
 
     @ModifyReturnValue(method = "getParticleType", at = @At(value = "RETURN"))

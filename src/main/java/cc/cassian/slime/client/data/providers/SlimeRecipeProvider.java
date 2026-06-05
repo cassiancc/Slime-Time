@@ -3,6 +3,7 @@ package cc.cassian.slime.client.data.providers;
 
 import cc.cassian.slime.recipe.SlimeDyeRecipe;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.tags.SlimeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -52,6 +53,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 					.define('l', ConventionalItemTags.SLIME_BALLS)
 					.define('s', Items.SLIME_BLOCK)
 					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
+					.unlockedBy("has_slime_blocks", has(SlimeItemTags.SLIME_BLOCKS))
 					.save(output);
 
 			shaped(RecipeCategory.MISC, SlimeItems.SLIME_SLING, 1)
@@ -59,6 +61,7 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 					.pattern("lll")
 					.define('l', ConventionalItemTags.SLIME_BALLS)
 					.unlockedBy(getHasName(Items.SLIME_BLOCK), has(Items.SLIME_BLOCK))
+					.unlockedBy("has_slime_blocks", has(SlimeItemTags.SLIME_BLOCKS))
 					.save(output);
 //			dyedItem(SlimeItems.SLIME_BOOTS, "slime_boots");
 //			dyedItem(SlimeItems.SLIME_SLING, "slime_sling");

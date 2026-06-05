@@ -16,6 +16,7 @@ public class SlimeRenderStateMixin implements VariatedSlimeRenderStateAccess {
     public SlimeRenderStateMixin() {
         slimeTime$variant = null;
     }
+
     @Override
     public @Nullable SlimeColor slimeTime$getVariant() {
         return slimeTime$variant;

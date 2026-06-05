@@ -1,0 +1,124 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/white_slime_bucket"
+        },
+        "when": "white"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/orange_slime_bucket"
+        },
+        "when": "orange"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/magenta_slime_bucket"
+        },
+        "when": "magenta"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/light_blue_slime_bucket"
+        },
+        "when": "light_blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/yellow_slime_bucket"
+        },
+        "when": "yellow"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/lime_slime_bucket"
+        },
+        "when": "lime"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/pink_slime_bucket"
+        },
+        "when": "pink"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/gray_slime_bucket"
+        },
+        "when": "gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/light_gray_slime_bucket"
+        },
+        "when": "light_gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/cyan_slime_bucket"
+        },
+        "when": "cyan"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/purple_slime_bucket"
+        },
+        "when": "purple"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/blue_slime_bucket"
+        },
+        "when": "blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/brown_slime_bucket"
+        },
+        "when": "brown"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/green_slime_bucket"
+        },
+        "when": "green"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/red_slime_bucket"
+        },
+        "when": "red"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "slime_time:item/black_slime_bucket"
+        },
+        "when": "black"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "slime_time:item/slime_bucket"
+    },
+    "property": "slime_time:dye"
+  }
+}
