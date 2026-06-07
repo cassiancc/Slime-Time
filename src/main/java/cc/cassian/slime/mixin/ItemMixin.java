@@ -15,6 +15,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +49,7 @@ public abstract class ItemMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
-	private void throwSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+	private void throwSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (SlimeTime.CONFIG.slimeTime.throwableSlimeballs && itemStack.is(SlimeItemTags.THROWABLE_SLIME_BALLS)) {
 			level.playSound(
@@ -69,7 +71,7 @@ public abstract class ItemMixin {
 
 			player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 			itemStack.consume(1, player);
-			cir.setReturnValue(InteractionResult.SUCCESS);
+			cir.setReturnValue(InteractionResultHolder.success(itemStack));
 		}
 	}
 
