@@ -1,18 +1,26 @@
 package cc.cassian.slime.mixin;
 
+import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.item.SlimeBucketItem;
 import cc.cassian.slime.registry.SlimeItems;
+import cc.cassian.slime.util.SlimeHelpers;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,6 +42,18 @@ public interface DispenseItemBehaviorMixin {
 		};
 		DispenserBlock.registerBehavior(SlimeItems.SLIME_BUCKET, slimeBucketBehavior);
 		DispenserBlock.registerBehavior(SlimeItems.MAGMA_CUBE_BUCKET, slimeBucketBehavior);
+		if (SlimeTime.CONFIG.slimeTime.throwableSlimeballs) {
+			DispenseItemBehavior slimeBallBehaviour = new DefaultDispenseItemBehavior() {
+				@Override
+				public ItemStack execute(final BlockSource source, final ItemStack dispensed) {
+					Direction direction = source.state().getValue(DispenserBlock.FACING);
+					Position position = ProjectileItem.DispenseConfig.DEFAULT.positionFunction().getDispensePosition(source, direction);
+					SlimeHelpers.throwSlimeBall(source.level(), dispensed, position, null, direction.getUnitVec3());
+					return dispensed;
+				}
+			};
+			DispenserBlock.registerBehavior(Items.SLIME_BALL, slimeBallBehaviour);
+		}
 	}
 
 }
