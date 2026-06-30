@@ -50,10 +50,10 @@ public abstract class ItemMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
-	private void injThrowSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+	private void injThrowSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
 		InteractionResult returnValue = SlimeHelpers.throwSlimeBall(level, player.getItemInHand(hand), player.position(), player, new Vec3(0.0f, 1.5f, 1.0));;
 		if (returnValue.equals(InteractionResult.SUCCESS))
-			cir.setReturnValue(returnValue);
+			cir.setReturnValue(InteractionResultHolder.success(player.getItemInHand(hand)));
 	}
 
 

@@ -18,6 +18,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.monster.Slime;
@@ -167,10 +171,16 @@ public class SlimeHelpers {
             );
             if (level instanceof ServerLevel serverLevel) {
                 if (player != null) {
-                    Projectile.spawnProjectileFromRotation(SlimeballEntity::new, serverLevel, itemStack, player, 0.0F, 1.5F, 1.0F);
+                    SlimeballEntity slimeBall = new SlimeballEntity(level, player);
+                    slimeBall.setItem(itemStack);
+                    slimeBall.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+                    level.addFreshEntity(slimeBall);
                 } else {
                     ProjectileItem.DispenseConfig config = ProjectileItem.DispenseConfig.DEFAULT;
-                    Projectile.spawnProjectileUsingShoot(new SlimeballEntity(level, pos.x(), pos.y(), pos.z(), itemStack), serverLevel, itemStack, angle.x(), angle.y(), angle.z(), config.power(), config.uncertainty());
+                    SlimeballEntity slimeBall = new SlimeballEntity(level, pos.x(), pos.y(), pos.z(), itemStack);
+                    slimeBall.setItem(itemStack);
+                    slimeBall.shoot(angle.x, angle.y, angle.z, config.power(), config.uncertainty());
+                    level.addFreshEntity(slimeBall);
                 }
             }
 

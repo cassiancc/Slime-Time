@@ -48,7 +48,7 @@ public interface DispenseItemBehaviorMixin {
 				public ItemStack execute(final BlockSource source, final ItemStack dispensed) {
 					Direction direction = source.state().getValue(DispenserBlock.FACING);
 					Position position = ProjectileItem.DispenseConfig.DEFAULT.positionFunction().getDispensePosition(source, direction);
-					SlimeHelpers.throwSlimeBall(source.level(), dispensed, position, null, direction.getUnitVec3());
+					SlimeHelpers.throwSlimeBall(source.level(), dispensed, position, null, new Vec3(direction.getStepX(), direction.getStepY(), direction.getStepZ()));
 					return dispensed;
 				}
 			};
