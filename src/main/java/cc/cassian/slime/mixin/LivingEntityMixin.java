@@ -10,9 +10,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,6 +40,10 @@ public abstract class LivingEntityMixin extends Entity implements SlimeEntity {
 	@Shadow
 	public abstract boolean removeEffect(Holder<MobEffect> effect);
 
+	@Shadow
+	@Nullable
+	public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
+
 	@ModifyReturnValue(method = "createLivingAttributes", at = @At(value = "RETURN"))
 	private static AttributeSupplier.Builder addBouncinessAttribute(AttributeSupplier.Builder builder) {
 		builder.add(SlimeAttributes.BOUNCINESS);
@@ -53,7 +59,10 @@ public abstract class LivingEntityMixin extends Entity implements SlimeEntity {
 
 	@Override
 	public double slime$getEntityBounciness() {
-		return getAttributeValue(SlimeAttributes.BOUNCINESS);
+		if (this.getAttribute(SlimeAttributes.BOUNCINESS) != null) {
+			return getAttributeValue(SlimeAttributes.BOUNCINESS);
+		}
+		return 0;
 	}
 
 }
