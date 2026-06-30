@@ -28,7 +28,7 @@ public abstract class EntityMixin implements SlimeEntity {
 		Vec3 movement = arg.get();
 		boolean xCollision = !Mth.equal(pos.x, movement.x);
 		boolean zCollision = !Mth.equal(pos.z, movement.z);
-		if (CONFIG.bounciness.verticalBounciness)
+		if (CONFIG.bounciness.verticalBounciness && Bounciness.shouldAttemptBounce(entity, effectState, movement))
 			Bounciness.restituteMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
 		else original.call(instance, level, entity);
 	}
