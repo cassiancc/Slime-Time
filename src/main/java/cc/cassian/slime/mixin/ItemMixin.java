@@ -6,11 +6,11 @@ import cc.cassian.slime.entity.SlimeballEntity;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeSoundEvents;
 import cc.cassian.slime.tags.SlimeItemTags;
+import cc.cassian.slime.util.SlimeHelpers;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -49,30 +50,12 @@ public abstract class ItemMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "use", cancellable = true)
-	private void throwSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (SlimeTime.CONFIG.slimeTime.throwableSlimeballs && itemStack.is(SlimeItemTags.THROWABLE_SLIME_BALLS)) {
-			level.playSound(
-					null,
-					player.getX(),
-					player.getY(),
-					player.getZ(),
-					SlimeSoundEvents.SLIME_BALL_THROW,
-					SoundSource.NEUTRAL,
-					0.5F,
-					0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
-			);
-			if (level instanceof ServerLevel serverLevel) {
-				SlimeballEntity slimeBall = new SlimeballEntity(level, player);
-				slimeBall.setItem(itemStack);
-				slimeBall.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-				level.addFreshEntity(slimeBall);
-			}
-
-			player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-			itemStack.consume(1, player);
-			cir.setReturnValue(InteractionResultHolder.success(itemStack));
-		}
+	private void injThrowSlimeBall(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+		InteractionResult returnValue = SlimeHelpers.throwSlimeBall(level, player.getItemInHand(hand), player.position(), player, new Vec3(0.0f, 1.5f, 1.0));;
+		if (returnValue.equals(InteractionResult.SUCCESS))
+			cir.setReturnValue(returnValue);
 	}
+
+
 
 }

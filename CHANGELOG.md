@@ -15,7 +15,6 @@
 - Subtitle when picking up Slimes and Magma Cubes in buckets.
 - Subtitle when throwing Slime Balls.
 
-
 ## [1.1.6]
 
 ### Changed
