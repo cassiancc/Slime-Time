@@ -2,6 +2,7 @@ package cc.cassian.slime.registry;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.component.ForceMultiplier;
+import cc.cassian.slime.item.SlimeArmorItem;
 import cc.cassian.slime.item.SlimeBucketItem;
 import cc.cassian.slime.item.SlimeSlingItem;
 import cc.cassian.slime.tags.SlimeItemTags;
@@ -25,7 +26,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import java.util.function.Function;
 
 public interface SlimeItems {
-	Item SLIME_BOOTS = register("slime_boots", p->new ArmorItem(SlimeMaterials.SLIME, ArmorItem.Type.BOOTS, p), new Item.Properties().durability(128)
+	Item SLIME_BOOTS = register("slime_boots", p->new SlimeArmorItem(SlimeMaterials.SLIME, ArmorItem.Type.BOOTS, p), new Item.Properties().durability(128)
 			.attributes(ItemAttributeModifiers.builder()
 					.add(SlimeAttributes.BOUNCINESS, new AttributeModifier(SlimeTime.of("slime_boots"), 1f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET)
 					.build()));

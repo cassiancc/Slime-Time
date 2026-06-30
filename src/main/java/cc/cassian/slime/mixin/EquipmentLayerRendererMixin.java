@@ -17,13 +17,16 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(HumanoidArmorLayer.class)
 public class EquipmentLayerRendererMixin {
+
+    //? fabric {
     @WrapOperation(require = 0, method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/HumanoidModel;ILnet/minecraft/resources/ResourceLocation;)V"))
-    private void slimeDyesRender(HumanoidArmorLayer instance, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_289681_, HumanoidModel model, int p_350798_, ResourceLocation id, Operation<Void> original, @Local ItemStack stack) {
+    private void slimeDyesRender(HumanoidArmorLayer instance, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, HumanoidModel model, int dyeColor, ResourceLocation id, Operation<Void> original, @Local ItemStack stack) {
         if (id.getNamespace().equals(SlimeTime.MOD_ID)) {
-            var equipmentAssetResourceKey = id.withPath(p -> "%s_%s".formatted(stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName(), p));
-            original.call(instance, poseStack, multiBufferSource, p_289681_, model, p_350798_, equipmentAssetResourceKey);
+            var equipmentAssetResourceKey = id.withPath(p -> p.replace("slime", (stack.getOrDefault(SlimeDataComponents.DYED_COLOR, SlimeColor.LIME).getName() + "_slime")));
+            original.call(instance, poseStack, multiBufferSource, packedLight, model, dyeColor, equipmentAssetResourceKey);
         } else {
-            original.call(instance, poseStack, multiBufferSource, p_289681_, model, p_350798_, id);
+            original.call(instance, poseStack, multiBufferSource, packedLight, model, dyeColor, id);
         }
     }
+    //?}
 }
