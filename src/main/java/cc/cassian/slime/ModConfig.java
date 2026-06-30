@@ -28,6 +28,7 @@ public class ModConfig extends WrappedConfig {
 		public boolean slimeballParticles = true;
 		@Comment("Whether to play a sound when an entity with Slime Boots bounces.")
 		public boolean slimyBounceSound = true;
+		public boolean warnedAboutModefite = false;
 	}
 
 	public Bounciness bounciness = new Bounciness();

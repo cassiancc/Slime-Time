@@ -5,6 +5,7 @@ import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
 import cc.cassian.slime.client.SlimeTimeClient;
 import cc.cassian.slime.client.particle.TintedSlimeParticle;
+import cc.cassian.slime.client.screen.WelcomeMessageScreen;
 import cc.cassian.slime.registry.SlimeDataComponents;
 import cc.cassian.slime.registry.SlimeEntityTypes;
 import cc.cassian.slime.registry.SlimeItems;
@@ -23,6 +24,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -64,5 +66,10 @@ public class NeoForgeClientEntrypoint {
 		}
 		SlimeHelpers.addDyeTooltip(event.getItemStack(), event.getContext(), event.getFlags(), event.getToolTip());
 	}
+
+ 	@SubscribeEvent
+    public static void registerWarningScreen(ScreenEvent.Init.Pre event) {
+        WelcomeMessageScreen.openWarningScreen(event.getScreen());
+    }
 }
 *///?}

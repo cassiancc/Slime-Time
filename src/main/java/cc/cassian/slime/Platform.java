@@ -23,4 +23,11 @@ public class Platform {
         //? neoforge
         //return ModList.get().isLoaded(mod);
     }
+
+	public static String loader() {
+		//? fabric
+		return "fabric";
+		//? neoforge
+		//return "neoforge";
+	}
 }

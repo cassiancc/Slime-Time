@@ -1,4 +1,10 @@
 {
+  "gui.slime_time.modefite.message": "Before proceeding, please note that Slime Time requires the Modefite mod for item models to render correctly on 1.21.1.",
+  "gui.slime_time.modefite.suggestions": "Modefite can be found on Modrinth and CurseForge. Click here to download it for this version!",
+  "gui.slime_time.modefite.title": "Please install Modefite!",
+  "gui.slime_time.modefite.turn_off": "Disable Warning",
+
+
   "slime_time.subtitles.item.bucket.fill_slime": "Slime captured",
   "slime_time.subtitles.item.bucket.fill_magma_cube": "Magma Cube captured",
   "attribute.name.bounciness": "Bounciness",
