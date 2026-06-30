@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 public class Bounciness {
 	public static void restituteMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
@@ -21,7 +20,7 @@ public class Bounciness {
 	}
 
 	public static Vec3 getMovementAfterCollisions(Entity entity, final BlockState effectState, final boolean xCollision, final boolean zCollision, final Vec3 movement) {
-		double restitution = entity.isSuppressingBounce() ? 0.0 : ((SlimeEntity) entity).slime$getEntityBounciness();
+		double restitution = entity.isSuppressingBounce() ? 0.0 : entity.slime$getEntityBounciness();
 		Vec3 currentMovement = entity.getDeltaMovement();
 		Vec3 movementAfterBounce = currentMovement;
 		if (xCollision) {
@@ -35,9 +34,9 @@ public class Bounciness {
 		boolean bounced = restitution > 0.0 && (xCollision || zCollision);
 		if (entity.verticalCollision) {
 			if (entity.verticalCollisionBelow) {
-				restitution = !(-currentMovement.y < getGravity(entity)) && !entity.isInWater() && !entity.isSuppressingBounce() && !effectState.is(SlimeBlockTags.SUPPRESSES_BOUNCE)
-						? Math.max(restitution, getBlockBounciness(entity, effectState.getBlock()))
-						: 0.0;
+				if (shouldRestituteVerticalMovement(entity, effectState, currentMovement))
+					restitution = Math.max(restitution, getBlockBounciness(entity, effectState.getBlock()));
+				else restitution = 0.0;
 			}
 
 			double gravityCompensation;
@@ -60,6 +59,14 @@ public class Bounciness {
 		}
 
 		return movementAfterBounce;
+	}
+
+	public static boolean shouldAttemptBounce(Entity entity, BlockState effectState, Vec3 currentMovement) {
+		return ((entity.slime$getEntityBounciness() > 0 && !entity.isSuppressingBounce()) || shouldRestituteVerticalMovement(entity, effectState, currentMovement)) && !effectState.is(SlimeBlockTags.SUPPRESSES_BOUNCE);
+	}
+
+	private static boolean shouldRestituteVerticalMovement(Entity entity, BlockState effectState, Vec3 currentMovement) {
+		return !(-currentMovement.y < getGravity(entity)) && !entity.isInWater() && !entity.isSuppressingBounce() && !effectState.is(SlimeBlockTags.SUPPRESSES_BOUNCE);
 	}
 
 	public static Vec3 removeMinuteBounces(Vec3 movementAfterBounce, double restitution) {

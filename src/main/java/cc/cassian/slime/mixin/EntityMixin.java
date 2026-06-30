@@ -35,7 +35,7 @@ public abstract class EntityMixin implements SlimeEntity {
 
 	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;updateEntityMovementAfterFallOn(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/entity/Entity;)V"), method = "move")
 	private void vertical(Block instance, BlockGetter level, Entity entity, Operation<Void> original, @Local(name = "effectState") BlockState effectState, @Local(name = "xCollision") boolean xCollision, @Local(name = "zCollision") boolean zCollision, @Local(name = "movement") Vec3 movement) {
-		if (CONFIG.bounciness.verticalBounciness)
+		if (CONFIG.bounciness.verticalBounciness && Bounciness.shouldAttemptBounce(entity, effectState, movement))
 			Bounciness.restituteMovementAfterCollisions(entity, effectState, xCollision, zCollision, movement);
 		else original.call(instance, level, entity);
 	}
