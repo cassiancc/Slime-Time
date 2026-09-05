@@ -7,16 +7,19 @@ import cc.cassian.slime.tags.SlimeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.CustomCraftingRecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -27,8 +30,8 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
-		return new SlimeTimeRecipeProvider(provider, output);
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, BootstrapContext<Recipe<?>> bootstrapContext, BootstrapContext<Advancement> bootstrapContext1) {
+		return new SlimeTimeRecipeProvider(bootstrapContext, bootstrapContext1);
 	}
 
 	@Override
@@ -39,9 +42,9 @@ public class SlimeRecipeProvider extends FabricRecipeProvider {
 	private static class SlimeTimeRecipeProvider extends RecipeProvider {
 		RecipeOutput output;
 
-		public SlimeTimeRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
-			super(provider, output);
-			this.output = output;
+		public SlimeTimeRecipeProvider(BootstrapContext<Recipe<?>> bootstrapContext, BootstrapContext<Advancement> bootstrapContext1) {
+			super(bootstrapContext, bootstrapContext1);
+			this.output = super.output;
 		}
 
 		@Override

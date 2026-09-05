@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "slime_time:slime_sling"
+        "recipes": "slime_time:slime_sling"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

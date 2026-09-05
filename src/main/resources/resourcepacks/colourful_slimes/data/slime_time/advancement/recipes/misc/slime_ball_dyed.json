@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "slime_time:slime_ball_dyed"
+        "recipes": "slime_time:slime_ball_dyed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

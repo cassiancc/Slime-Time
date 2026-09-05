@@ -52,7 +52,7 @@ public class SlimeSlingItem extends Item {
 					Vec3 view = player.getViewVector(0);
 					var launch = new Vec3(-view.x* multiplier.horizontalForce(), pow * multiplier.verticalForce(), -view.z * multiplier.horizontalForce());
 					player.setDeltaMovement(launch);
-					player.hurtMarked = true;
+					player.syncVelocity = true;
 				}
 				itemStack.hurtAndBreak(1, entity, entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof SlimeSlingItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
 

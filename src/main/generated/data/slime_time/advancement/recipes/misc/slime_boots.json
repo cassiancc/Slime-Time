@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "slime_time:slime_boots"
+        "recipes": "slime_time:slime_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
