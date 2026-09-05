@@ -145,7 +145,10 @@ public class SlimeBucketItem extends BucketItem {
 
 			if (entity instanceof Slime slime) {
 				tag.putInt("Size", slime.getSize());
-				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess) {
+				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess
+						//? if <26.2
+						&& !(slime instanceof MagmaCube)
+				) {
 					variatedSlimeAccess.slimeTime$getVariant().encode(tag);
 				}
 			}

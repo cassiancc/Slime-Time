@@ -13,6 +13,7 @@ public class SlimeDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider((output, registryLookupFuture) -> new SlimeItemTagProvider(output, registryLookupFuture, blockTags));
 //		pack.addProvider(SlimeModelProvider::new);
 		pack.addProvider(SlimeRecipeProvider::new);
+		pack.addProvider(SlimeLootTableProvider::new);
 	}
 }
 //?}

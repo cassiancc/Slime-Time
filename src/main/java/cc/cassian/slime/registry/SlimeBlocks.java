@@ -2,18 +2,17 @@ package cc.cassian.slime.registry;
 
 import cc.cassian.slime.SlimeTime;
 import cc.cassian.slime.api.SlimeColor;
+import cc.cassian.slime.block.DyedSlimeBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,9 +24,9 @@ import static cc.cassian.slime.registry.SlimeItems.keyOfItem;
 
 public interface SlimeBlocks {
 
-	Map<SlimeColor, SlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
+	Map<SlimeColor, DyedSlimeBlock> SLIME_BLOCKS = registerDyedBlocks(
 			"slime_block",
-			SlimeBlock::new,
+			DyedSlimeBlock::new,
 			BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK)
 	);
 
