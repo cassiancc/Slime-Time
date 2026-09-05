@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:slime_block",
     {
       "id": "slime_time:white_slime_block",
       "required": false

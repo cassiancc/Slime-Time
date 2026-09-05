@@ -11,13 +11,15 @@ import net.minecraft.world.entity.EntityType;
 //import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
 
+import static cc.cassian.slime.util.SlimeHelpers.dye;
+
 public class RrvServerEntrypoint implements ReliableRecipeViewerPlugin {
 
 	@Override
 	public void onIntegrationInitialize() {
 		ItemView.addServerReloadCallback(()->{
 			if (SlimeTime.CONFIG.colorfulSlimes.colourfulSlimes) {
-				SlimeHelpers.dye(Items.SLIME_BALL.getDefaultInstance()).stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).forEach(stack -> ItemView.addMobDrops(EntityType.SLIME, SlotContent.of(stack)));
+				ItemView.modifyMobDrops((entityType)->entityType.equals(EntityType.SLIME), (slotContent)->slotContent.contains(Items.SLIME_BALL), SlotContent.of(dye(Items.SLIME_BALL.getDefaultInstance(), true)));
 			}
 		});
 	}

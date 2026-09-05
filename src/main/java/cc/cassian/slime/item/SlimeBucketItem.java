@@ -27,6 +27,7 @@ import net.minecraft.world.entity.Mob;
 /*import net.minecraft.world.entity.monster.cubemob.AbstractCubeMob;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 *///?} else {
+import net.minecraft.world.entity.monster.MagmaCube;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.advancements.CriteriaTriggers;
 //?}
@@ -141,7 +142,10 @@ public class SlimeBucketItem extends BucketItem {
 
 			if (entity instanceof Slime slime) {
 				tag.putInt("Size", slime.getSize());
-				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess) {
+				if (slime instanceof VariatedSlimeAccess variatedSlimeAccess
+						//? if <26.2
+						&& !(slime instanceof MagmaCube)
+				) {
 					variatedSlimeAccess.slimeTime$getVariant().encode(tag);
 				}
 			}

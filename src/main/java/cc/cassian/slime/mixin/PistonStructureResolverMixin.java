@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PistonStructureResolver.class)
 public class PistonStructureResolverMixin {
+    //? fabric {
     @Inject(method = "isSticky", require = 0, at = @At(value = "HEAD"), cancellable = true)
     private static void slimeBlocksStick(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (state.is(SlimeBlockTags.SLIME_BLOCKS))
@@ -21,5 +22,6 @@ public class PistonStructureResolverMixin {
         if (state1.is(SlimeBlockTags.SLIME_BLOCKS) || state2.is(SlimeBlockTags.SLIME_BLOCKS))
             cir.setReturnValue(state1.getBlock() == state2.getBlock());
     }
+    //?}
 
 }
