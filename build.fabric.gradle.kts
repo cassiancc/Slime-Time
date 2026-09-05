@@ -233,5 +233,7 @@ publishMods {
         minecraftVersions.add(property("deps.minecraft").toString())
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        client = true
+        server = true
     }
 }
