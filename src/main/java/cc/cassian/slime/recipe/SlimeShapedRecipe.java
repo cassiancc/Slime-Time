@@ -72,7 +72,7 @@ public class SlimeShapedRecipe extends CustomRecipe {
     }
 
     public ItemStack assemble(final CraftingInput input, HolderLookup.Provider registries) {
-        var result = this.result;
+        var result = this.result.copy();
         if (input.items().stream().allMatch(s->s.has(SlimeDataComponents.DYED_COLOR))) {
             var dyedStack = input.items().stream().filter(s->s.has(SlimeDataComponents.DYED_COLOR)).findFirst().get();
             SlimeColor color = dyedStack.get(SlimeDataComponents.DYED_COLOR);
